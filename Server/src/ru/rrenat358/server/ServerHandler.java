@@ -43,12 +43,23 @@ public class ServerHandler {
         }
     }
 
-    public synchronized void sendPrivateMessge(ClientHandler sender, String recipient, String privateMessage) throws IOException {
+    public synchronized void sendPrivateMessage(ClientHandler sender, String recipient, String privateMessage) throws IOException {
         for (ClientHandler client : clientList) {
             if (client != sender && client.getUserName().equals(recipient)) {
                 client.sendCommand(Command.clientMessageCommand(sender.getUserName(), privateMessage));
             }
         }
+    }
+
+    private void notifyUserListUpdated() throws IOException {
+        List<String> users = new ArrayList<>();
+        for (ClientHandler client : clientList) {
+            users.add(client.getUserName());
+        }
+        for (ClientHandler client : clientList) {
+            client.sendCommand(Command.updateUserListCommand(users));
+        }
+
     }
 
     public synchronized boolean isUserNameBusy(String userName) throws IOException {
@@ -60,12 +71,14 @@ public class ServerHandler {
         return false;
     }
 
-    public synchronized void subscribe(ClientHandler clientHandler) {
+    public synchronized void subscribe(ClientHandler clientHandler) throws IOException {
         clientList.add(clientHandler);
+        notifyUserListUpdated();
     }
 
-    public synchronized void unsubscribe(ClientHandler clientHandler) {
+    public synchronized void unsubscribe(ClientHandler clientHandler) throws IOException {
         clientList.remove(clientHandler);
+        notifyUserListUpdated();
     }
 
     public AuthService getAuthService() {

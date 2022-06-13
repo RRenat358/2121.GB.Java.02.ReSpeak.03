@@ -107,7 +107,7 @@ public class ClientHandler {
                     PrivateMessageCommandData data = (PrivateMessageCommandData) command.getData();
                     String receiver = data.getReceiver();
                     String privateMessage = data.getMessage();
-                    serverHandler.sendPrivateMessge(this, receiver, privateMessage);
+                    serverHandler.sendPrivateMessage(this, receiver, privateMessage);
                     break;
                 case PUBLIC_MESSAGE:
                     PublicMessageCommandData data1 = (PublicMessageCommandData) command.getData();

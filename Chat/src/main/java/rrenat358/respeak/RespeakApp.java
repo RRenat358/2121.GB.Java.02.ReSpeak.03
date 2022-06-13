@@ -41,10 +41,11 @@ import java.io.IOException;
 
 // lesson08. 02:16:28 == дальше
 // lesson08. 02:16:52 == showError
-// lesson08. 02:17:40 == userList
+// lesson08. 02:17:40 == notifyUserListUpdated()
+// lesson08. 02:23:00 == notifyUserListUpdated()
 
 
-//todo lesson08. 02:17:00 == пауза
+//todo lesson08. 02:23:00 == пауза
 //Runnable
 
 
