@@ -37,8 +37,8 @@ public class Network {
     public boolean connect() {
         try {
             socketClient = new Socket(host, port);
-            inputStream = new ObjectInputStream(socketClient.getInputStream()); //"чтение" - из входящего потока
             outputStream = new ObjectOutputStream(socketClient.getOutputStream()); //"запись" - в исходящий поток
+            inputStream = new ObjectInputStream(socketClient.getInputStream()); //"чтение" - из входящего потока
 
             readMessageProcess = startReadMessageProcess();
 /*

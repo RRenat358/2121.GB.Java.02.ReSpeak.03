@@ -98,7 +98,6 @@ public class ClientHandler {
             if (command == null) {
                 continue;
             }
-
             switch (command.getType()) {
                 case PRIVATE_MESSAGE:
                     PrivateMessageCommandData data = (PrivateMessageCommandData) command.getData();
@@ -111,7 +110,6 @@ public class ClientHandler {
                     processMessage(data1.getMessage());
                     break;
             }
-
 /*
             String message = inputStream.readUTF().trim();
             System.out.println("message = " + message);
@@ -121,7 +119,6 @@ public class ClientHandler {
                 processMessage(message);
             }
 */
-
         }
     }
 

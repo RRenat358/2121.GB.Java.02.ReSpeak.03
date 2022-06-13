@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ServerHandler {
 
     private AuthService authService = AuthService.getInstance();
 
-    private final Map<String, ClientHandler> clientHandlerMap = new HashMap<>();
+//    private final Map<String, ClientHandler> clientHandlerMap = new HashMap<>();
     private final List<ClientHandler> clientList = new ArrayList<>();
 
     public void serverStart(int port) {
@@ -55,8 +56,8 @@ public class ServerHandler {
         }
     }
 
-    private void notifyUserListUpdated() throws IOException {
-        List<String> users = new ArrayList<>();
+    private /*synchronized*/ void notifyUserListUpdated() throws IOException {
+        List<String> users = new /*CopyOnWrite*/ArrayList<>();
         for (ClientHandler client : clientList) {
             users.add(client.getUserName());
         }
@@ -77,6 +78,7 @@ public class ServerHandler {
 
     public synchronized void subscribe(ClientHandler clientHandler) throws IOException {
         clientList.add(clientHandler);
+        System.out.println("New User subscribe -- " + clientHandler.getUserName());
         notifyUserListUpdated();
     }
 

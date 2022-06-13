@@ -15,10 +15,9 @@ import rrenat358.respeak.model.Network;
 
 import java.io.IOException;
 
-
+//
 //lesson08. 00:19:00 == Dialogs
 //lesson08. 00:28:00 == Dialogs --> AuthController
-
 // lesson08. 00:29:00 == isConnectedToServer
 // lesson08. 00:35:00 == window Switch
 // lesson08. 00:40:00 == обработчики
@@ -38,17 +37,15 @@ import java.io.IOException;
 // lesson08. 02:08:00 == *
 // lesson08. 02:08:50 == run App → fail
 // lesson08. 02:10:20 == run App → ok
-
 // lesson08. 02:16:28 == дальше
 // lesson08. 02:16:52 == showError
 // lesson08. 02:17:40 == notifyUserListUpdated()
 // lesson08. 02:23:00 == *
-// lesson08. 02:34:00 == HashMap
-
-
-//todo lesson08. 02:34:00 == пауза
-//Runnable
-
+// lesson08. 02:38:00 == *
+// lesson08. 02:57:00 == Runnable and OK
+// lesson08. 02:57:40 == Рефакторинг
+// Runnable
+//
 
 public class RespeakApp extends Application {
 
@@ -189,7 +186,7 @@ public class RespeakApp extends Application {
         getChatStage().setTitle(userName);
         getAuthController().close();
         getAuthStage().close();
-        getRespeakController().initializeMessageHandlerChatController();
+//        getRespeakController().initializeMessageHandlerChatController();
     }
 
     //============================================================
