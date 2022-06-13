@@ -58,17 +58,9 @@ public class Network {
         }
     }
 
-    private Command readCommand() throws IOException {
-        Command command = null;
-        try {
-            command = (Command) inputStream.readObject();
-        } catch (ClassNotFoundException e) {
-            System.err.println("Failed to read Command class");
-            e.printStackTrace();
-        }
-        return command;
+    public void sendPrivateMessage(String receiver, String message) throws IOException {
+        sendCommand(Command.privateMessageCommand(receiver, message));
     }
-
 
     public void sendCommand(Command command) throws IOException {
         try {
@@ -80,10 +72,17 @@ public class Network {
         }
     }
 
-
-    public void sendPrivateMessage(String receiver, String message) throws IOException {
-        sendCommand(Command.privateMessageCommand(receiver, message));
+    private Command readCommand() throws IOException {
+        Command command = null;
+        try {
+            command = (Command) inputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Failed to read Command class");
+            e.printStackTrace();
+        }
+        return command;
     }
+
 
     public void sendMessage(String message) throws IOException {
         sendCommand(Command.publicMessageCommand(message));

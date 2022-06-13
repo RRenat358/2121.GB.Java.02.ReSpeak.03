@@ -89,8 +89,8 @@ public class RespeakApp extends Application {
         Parent root = chatWindowLoader.load();
         chatStage.setScene(new Scene(root, 640, 480));
 
-        chatStage.setResizable(false);
-        chatStage.setTitle("reSpeak!");
+//        chatStage.setResizable(false);
+//        chatStage.setTitle("reSpeak!");
         chatStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
 //        respeakController.controllerSetting();
 
@@ -131,8 +131,8 @@ public class RespeakApp extends Application {
         authStage.initModality(Modality.WINDOW_MODAL);
         authStage.setScene(new Scene(authWindowPanel));
 
-        authStage.setResizable(false);
-        authStage.setTitle("reSpeak! --> Авторизация");
+//        authStage.setResizable(false);
+//        authStage.setTitle("reSpeak! --> Авторизация");
         authStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
 
     }
@@ -186,7 +186,6 @@ public class RespeakApp extends Application {
         getChatStage().setTitle(userName);
         getAuthController().close();
         getAuthStage().close();
-//        getRespeakController().initializeMessageHandlerChatController();
     }
 
     //============================================================

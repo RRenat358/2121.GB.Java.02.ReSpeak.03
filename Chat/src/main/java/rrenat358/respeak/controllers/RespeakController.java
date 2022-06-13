@@ -34,7 +34,6 @@ public class RespeakController {
     @FXML
     public ListView messageBoxHeader;
 
-    private String senderThis = null;
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
@@ -45,6 +44,8 @@ public class RespeakController {
             messageInputRequestFocus();
             return;
         }
+
+        String senderThis = null;
 //        this.selectedUserName = userListing.getSelectionModel().getSelectedItem().toString();
         if (!userListing.getSelectionModel().isEmpty()) {
             senderThis = userListing.getSelectionModel().getSelectedItem().toString();
