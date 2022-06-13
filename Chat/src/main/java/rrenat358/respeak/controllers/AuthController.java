@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import rrenat358.respeak.RespeakApp;
-import rrenat358.respeak.dialogs.Dialog;
+import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
 import rrenat358.respeak.model.ReadMessageListener;
 import ru.rrenat358.command.Command;
@@ -38,19 +38,19 @@ public class AuthController {
 
         if (login == null || password == null || login.isBlank() || password.isBlank()) {
 //            respeakApp.alertErrorDialog("Логин и пароль должны быть заполнены");
-            Dialog.AuthError.LOGOPASS_EMPTY.show();
+            DialogEnum.AuthError.LOGOPASS_EMPTY.show();
             return;
         }
 
         if (!isConnectedToServer()) {
-            Dialog.NetworkError.SERVER_CONNECT.show();
+            DialogEnum.NetworkError.SERVER_CONNECT.show();
         }
 
         try {
             network.sendAuthMessage(login, password);
 
         } catch (IOException e) {
-            Dialog.NetworkError.MESSAGE_SEND.show();
+            DialogEnum.NetworkError.SEND_MESSAGE.show();
 //            respeakApp.alertErrorDialog("Ошибка передачи данных по сети");
         }
     }
@@ -69,7 +69,7 @@ public class AuthController {
                     });
                 } else {
                     Platform.runLater(() -> {
-                        Dialog.AuthError.LOGOPASS_INVALID.show();
+                        DialogEnum.AuthError.LOGOPASS_INVALID.show();
                     });
                 }
             }

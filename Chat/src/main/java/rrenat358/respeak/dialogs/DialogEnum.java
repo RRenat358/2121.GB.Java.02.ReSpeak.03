@@ -4,13 +4,12 @@ import javafx.scene.control.Alert;
 import rrenat358.respeak.RespeakApp;
 
 
-public class Dialog {
+public class DialogEnum {
 
     private static RespeakApp respeakApp = RespeakApp.getInstance();
 
     public enum AuthError {
         LOGOPASS_EMPTY("Логин или пароль не могут быть пустыми"),
-        //        LOGOPASS_INVALID("Логин или пароль не верные");
         LOGOPASS_INVALID("""
                 RespeakApp:\s
                 Неверные логин/пароль.\s
@@ -34,7 +33,7 @@ public class Dialog {
 
     public enum NetworkError {
         SERVER_CONNECT("Нет соединения с сервером"),
-        MESSAGE_SEND("Сообщение не отправлено");
+        SEND_MESSAGE("Сообщение не отправлено");
 
         private static final String TITLE = "Ошибка сети";
         private static final String TYPE = TITLE;

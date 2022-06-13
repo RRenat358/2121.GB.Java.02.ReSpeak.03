@@ -3,11 +3,9 @@ package rrenat358.respeak.controllers;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import rrenat358.respeak.RespeakApp;
+import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
 import rrenat358.respeak.model.ReadMessageListener;
 import ru.rrenat358.command.Command;
@@ -48,8 +46,7 @@ public class RespeakController {
         userListing.setItems(FXCollections.observableArrayList(USER_TEST_DATA));
     }
 
-    //    private RespeakApp respeakApp = RespeakApp.getInstance();
-    private RespeakApp respeakApp;
+    private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
 
     public void sendMessage() {
@@ -73,10 +70,12 @@ public class RespeakController {
 
         } catch (IOException e) {
             System.err.println("err: RespeakController.messageSendController()");
-            respeakApp.alertErrorDialog("Ошибка передачи данных по сети");
+            DialogEnum.NetworkError.SEND_MESSAGE.show();
+//            respeakApp.alertErrorDialog("Ошибка передачи данных по сети");
         }
 
         messageSendToBox("Я", message);
+//        Уместнее здесь
 //        messageTextField.clear();
 //        messageInputRequestFocus();
     }
