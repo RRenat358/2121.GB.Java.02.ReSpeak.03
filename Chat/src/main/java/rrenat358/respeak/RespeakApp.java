@@ -65,7 +65,7 @@ public class RespeakApp extends Application {
         initViews();
         getChatStage().show();
         getAuthStage().show();
-        getAuthController().initializeMessageHandlerAuthContrller();
+        getAuthController().initializeMessageHandlerAuthController();
 
 /*
         RespeakController respeakController = createChatWindow(primaryStage);

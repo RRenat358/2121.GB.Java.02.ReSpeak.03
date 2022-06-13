@@ -60,7 +60,7 @@ public class RespeakController {
 //            message = selectedUserName + ": \n" + message;
 
         } catch (IOException e) {
-            System.err.println("err: RespeakController.messageSendController()");
+            System.err.println("err: RespeakController.sendMessage()");
             DialogEnum.NetworkError.SEND_MESSAGE.show();
 //            respeakApp.alertErrorDialog("Ошибка передачи данных по сети");
         }

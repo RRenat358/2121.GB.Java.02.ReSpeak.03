@@ -37,6 +37,7 @@ public class ClientHandler {
                 readMessage();
             } catch (IOException e) {
                 System.err.println("Error: messageRead" + "\n----------");
+                e.printStackTrace();
             } finally {
                 try {
                     closeClientConnection();
@@ -99,12 +100,12 @@ public class ClientHandler {
                 continue;
             }
             switch (command.getType()) {
-                case PRIVATE_MESSAGE:
+                case PRIVATE_MESSAGE:{
                     PrivateMessageCommandData data = (PrivateMessageCommandData) command.getData();
                     String receiver = data.getReceiver();
                     String privateMessage = data.getMessage();
                     serverHandler.sendPrivateMessage(this, receiver, privateMessage);
-                    break;
+                    break;}
                 case PUBLIC_MESSAGE:
                     PublicMessageCommandData data1 = (PublicMessageCommandData) command.getData();
                     processMessage(data1.getMessage());
@@ -122,12 +123,12 @@ public class ClientHandler {
         }
     }
 
-    public void sendCommand(Command command) throws IOException {
-        outputStream.writeObject(command);
-    }
-
     private void processMessage(String message) throws IOException {
         this.serverHandler.messagePassAll(this, message);
+    }
+
+    public void sendCommand(Command command) throws IOException {
+        outputStream.writeObject(command);
     }
 
     public void closeClientConnection() throws IOException {

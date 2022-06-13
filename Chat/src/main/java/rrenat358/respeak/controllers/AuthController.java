@@ -52,11 +52,12 @@ public class AuthController {
         } catch (IOException e) {
             DialogEnum.NetworkError.SEND_MESSAGE.show();
 //            respeakApp.alertErrorDialog("Ошибка передачи данных по сети");
+            e.printStackTrace();
         }
     }
 
 
-    public void initializeMessageHandlerAuthContrller() {
+    public void initializeMessageHandlerAuthController() {
         readMessageListener = network.addReadMessageListner(new ReadMessageListener() {
             @Override
             public void processReceivedCommand(Command command) {

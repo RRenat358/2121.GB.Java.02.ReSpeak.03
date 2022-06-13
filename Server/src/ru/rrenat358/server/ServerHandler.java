@@ -67,7 +67,7 @@ public class ServerHandler {
 
     }
 
-    public synchronized boolean isUserNameBusy(String userName) throws IOException {
+    public synchronized boolean isUserNameBusy(String userName) {
         for (ClientHandler client : clientList) {
             if (client.getUserName().equals(userName)) {
                 return true;

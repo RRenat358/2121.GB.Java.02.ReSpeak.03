@@ -16,7 +16,7 @@ public class Network {
 
     private String host;
     private int port;
-    private Socket socketClient;
+    private Socket socket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
 
@@ -36,9 +36,9 @@ public class Network {
 
     public boolean connect() {
         try {
-            socketClient = new Socket(host, port);
-            outputStream = new ObjectOutputStream(socketClient.getOutputStream()); //"запись" - в исходящий поток
-            inputStream = new ObjectInputStream(socketClient.getInputStream()); //"чтение" - из входящего потока
+            socket = new Socket(host, port);
+            outputStream = new ObjectOutputStream(socket.getOutputStream()); //"запись" - в исходящий поток
+            inputStream = new ObjectInputStream(socket.getInputStream()); //"чтение" - из входящего потока
 
             readMessageProcess = startReadMessageProcess();
 /*
@@ -133,7 +133,7 @@ public class Network {
                     } catch (IOException e) {
                         System.err.println("Сообщение не получено от сервера" + "\n----------");
                         e.printStackTrace();
-                        socketClientClose();
+                        socketClose();
                         break;
                     }
                 }
@@ -153,11 +153,11 @@ public class Network {
         this.listners.remove(listener);
     }
 
-    public void socketClientClose() {
+    public void socketClose() {
         try {
-            socketClient.close();
-            readMessageProcess.interrupt();
             connected = false;
+            socket.close();
+            readMessageProcess.interrupt();
         } catch (IOException e) {
             System.err.println("Не удалось закрыть сетевое соединение" + "\n----------");
         }
