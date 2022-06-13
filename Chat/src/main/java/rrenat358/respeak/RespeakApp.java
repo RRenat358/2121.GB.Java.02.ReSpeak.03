@@ -41,6 +41,7 @@ import java.io.IOException;
 
 
 //todo lesson08. 02:10:20 == пауза
+//Runnable
 
 
 public class RespeakApp extends Application {
