@@ -12,17 +12,14 @@ import java.net.Socket;
 
 public class ClientHandler {
 
-    public static final String AUTH_COMMAND = "/ru/rrenat358/server";
-    public static final String AUTH_COMMAND_OK = "/authOK";
-
-
     private String userName;
 
     private final Socket clientSocket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
 
-    private ServerHandler serverHandler = ServerHandler.getInstance();
+    private ServerHandler serverHandler;
+//    private ServerHandler serverHandler = ServerHandler.getInstance();
 //    private AuthService authService = AuthService.getInstance();
 
 

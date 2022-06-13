@@ -7,12 +7,16 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServerHandler {
 
-    private final List<ClientHandler> clientList = new ArrayList<>();
     private AuthService authService = AuthService.getInstance();
+
+    private final Map<String, ClientHandler> clientHandlerMap = new HashMap<>();
+    private final List<ClientHandler> clientList = new ArrayList<>();
 
     public void serverStart(int port) {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
