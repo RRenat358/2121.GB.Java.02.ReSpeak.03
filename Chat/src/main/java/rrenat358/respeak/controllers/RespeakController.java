@@ -11,6 +11,7 @@ import rrenat358.respeak.model.ReadMessageListener;
 import ru.rrenat358.command.Command;
 import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.ClientMessageCommandData;
+import ru.rrenat358.command.commands.UpdateUserListCommandData;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -34,17 +35,6 @@ public class RespeakController {
     public ListView messageBoxHeader;
 
     private String senderThis = null;
-
-    private static final List<String> USER_TEST_DATA = List.of(
-            "1",
-            "2",
-            "3"
-    );
-
-    @FXML
-    public void initialize() {
-        userListing.setItems(FXCollections.observableArrayList(USER_TEST_DATA));
-    }
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
@@ -104,10 +94,14 @@ public class RespeakController {
         network.addReadMessageListner(new ReadMessageListener() {
             @Override
             public void processReceivedCommand(Command command) {
-
                 if (command.getType() == CommandType.CLIENT_MESSAGE) {
                     ClientMessageCommandData data = (ClientMessageCommandData) command.getData();
                     messageSendToBox(data.getSender(), data.getMessage());
+                } else if (command.getType() == CommandType.UPDATE_USERS_LIST) {
+                    UpdateUserListCommandData data = (UpdateUserListCommandData) command.getData();
+                    Platform.runLater(() -> {
+                        userListing.setItems(FXCollections.observableArrayList(data.getUsers()));
+                    });
                 }
             }
         });

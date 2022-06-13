@@ -115,6 +115,7 @@ public class ClientHandler {
                     break;
             }
 
+/*
             String message = inputStream.readUTF().trim();
             System.out.println("message = " + message);
             if (message.startsWith("/end")) {
@@ -122,6 +123,8 @@ public class ClientHandler {
             } else {
                 processMessage(message);
             }
+*/
+
         }
     }
 
