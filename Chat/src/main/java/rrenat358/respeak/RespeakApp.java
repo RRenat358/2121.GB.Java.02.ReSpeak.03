@@ -39,8 +39,10 @@ import java.io.IOException;
 // lesson08. 02:08:50 == run App → fail
 // lesson08. 02:10:20 == run App → ok
 
+// lesson08. 02:16:28 == дальше
 
-//todo lesson08. 02:10:20 == пауза
+
+//todo lesson08. 02:16:28 == пауза
 //Runnable
 
 
@@ -91,7 +93,7 @@ public class RespeakApp extends Application {
         chatStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
 //        respeakController.controllerSetting();
 
-        getRespeakController().initializeMessageHandlerRespeakController();
+        getRespeakController().initializeMessageHandlerChatController();
     }
 
 /*
@@ -183,7 +185,7 @@ public class RespeakApp extends Application {
         getChatStage().setTitle(userName);
         getAuthController().close();
         getAuthStage().close();
-        getRespeakController().initializeMessageHandlerRespeakController();
+        getRespeakController().initializeMessageHandlerChatController();
     }
 
     //============================================================

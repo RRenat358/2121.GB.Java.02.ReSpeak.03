@@ -35,12 +35,12 @@ public class RespeakController {
     @FXML
     public ListView messageBoxHeader;
 
-    private String selectedUserName = null;
+    private String senderThis = null;
 
     private static final List<String> USER_TEST_DATA = List.of(
-            "User01",
-            "User02",
-            "User03"
+            "1",
+            "2",
+            "3"
     );
 
     @FXML
@@ -60,12 +60,12 @@ public class RespeakController {
         }
 //        this.selectedUserName = userListing.getSelectionModel().getSelectedItem().toString();
         if (!userListing.getSelectionModel().isEmpty()) {
-            selectedUserName = userListing.getSelectionModel().getSelectedItem().toString();
+            senderThis = userListing.getSelectionModel().getSelectedItem().toString();
         }
 
         try {
-            if (selectedUserName != null) {
-                network.sendPrivateMessage(selectedUserName, message);
+            if (senderThis != null) {
+                network.sendPrivateMessage(senderThis, message);
             } else {
                 network.sendMessage(message);
             }
@@ -101,7 +101,7 @@ public class RespeakController {
         messageTextField.clear();
     }
 
-    public void initializeMessageHandlerRespeakController() {
+    public void initializeMessageHandlerChatController() {
         network.addReadMessageListner(new ReadMessageListener() {
             @Override
             public void processReceivedCommand(Command command) {
@@ -134,14 +134,6 @@ public class RespeakController {
         Platform.runLater(() ->
                 messageTextField.requestFocus()
         );
-    }
-
-    public RespeakApp getRespeakApp() {
-        return respeakApp;
-    }
-
-    public void setRespeakApp(RespeakApp respeakApp) {
-        this.respeakApp = respeakApp;
     }
 
     private static class SingletonHelper {
