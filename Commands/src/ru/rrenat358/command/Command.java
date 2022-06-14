@@ -2,7 +2,6 @@ package ru.rrenat358.command;
 
 import ru.rrenat358.command.commands.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 

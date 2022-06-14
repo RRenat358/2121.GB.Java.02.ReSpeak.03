@@ -10,11 +10,14 @@ public class DialogEnum {
 
     public enum AuthError {
         LOGOPASS_EMPTY("Логин или пароль не могут быть пустыми"),
+/*
         LOGOPASS_INVALID("""
                 RespeakApp:\s
                 Неверные логин/пароль.\s
                 Попробуйте ещё раз."""
         );
+*/
+        LOGOPASS_INVALID("Логин и пароль заданы некорректно");
 
         private static final String TITLE = "Ошибка аутентификации";
         private static final String TYPE = TITLE;
@@ -36,7 +39,7 @@ public class DialogEnum {
         SEND_MESSAGE("Сообщение не отправлено");
 
         private static final String TITLE = "Ошибка сети";
-        private static final String TYPE = TITLE;
+        private static final String TYPE = "Ошибка передачи данных по сети";
 
         private final String message;
 
@@ -45,7 +48,7 @@ public class DialogEnum {
         }
 
         public void show() {
-            showDialog(Alert.AlertType.ERROR, TITLE, TITLE, message);
+            showDialog(Alert.AlertType.ERROR, TITLE, TYPE, message);
         }
     }
 
