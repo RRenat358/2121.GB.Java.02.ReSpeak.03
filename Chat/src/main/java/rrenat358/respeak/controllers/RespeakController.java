@@ -41,7 +41,8 @@ public class RespeakController {
     public void sendMessage() {
         String message = messageTextField.getText().trim();
         if (message.isEmpty()) {
-            messageInputRequestFocus();
+//            messageInputRequestFocus();
+            messageTextField.clear();
             return;
         }
 

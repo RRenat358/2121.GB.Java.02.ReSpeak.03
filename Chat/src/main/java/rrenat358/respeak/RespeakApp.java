@@ -189,12 +189,14 @@ public class RespeakApp extends Application {
     }
 
     //============================================================
+/*
     public void alertErrorDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Ошибка");
         alert.setContentText(message);
         alert.showAndWait();
     }
+*/
 
     public static void main(String[] args) {
         launch();
