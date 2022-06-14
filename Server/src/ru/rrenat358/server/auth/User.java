@@ -8,10 +8,6 @@ public class User {
     private final String password;
     private final String userName;
 
-    public User() {
-        this(null, null, null);
-    }
-
     public User(String login, String password) {
         this(login, password, null);
     }

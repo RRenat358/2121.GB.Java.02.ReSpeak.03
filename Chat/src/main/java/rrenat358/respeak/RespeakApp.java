@@ -56,6 +56,7 @@ public class RespeakApp extends Application {
 
     private RespeakController respeakController = RespeakController.getInstance();
     private Network network = Network.getInstance();
+    private static RespeakApp INSTANCE;
 
 
     @Override
@@ -218,6 +219,7 @@ public class RespeakApp extends Application {
         return authWindowLoader.getController();
     }
 
+/*
     private static class SingletonHelper {
         private static final RespeakApp INSTANCE = new RespeakApp();
     }
@@ -225,5 +227,16 @@ public class RespeakApp extends Application {
     public static RespeakApp getInstance() {
         return SingletonHelper.INSTANCE;
     }
+*/
+
+    @Override
+    public void init() {
+        INSTANCE = this;
+    }
+
+public static RespeakApp getInstance() {
+    return INSTANCE;
+}
+
 
 }

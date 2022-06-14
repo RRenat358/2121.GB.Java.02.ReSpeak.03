@@ -14,7 +14,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ServerHandler {
 
-    private AuthService authService = AuthService.getInstance();
+    private static AuthService authService;
+//    private AuthService authService = AuthService.getInstance();
 
 //    private final Map<String, ClientHandler> clientHandlerMap = new HashMap<>();
     private final List<ClientHandler> clientList = new ArrayList<>();
@@ -22,6 +23,7 @@ public class ServerHandler {
     public void serverStart(int port) {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server has been started");
+            authService = new AuthService();
             while (true) {
                 waitClientConnection(serverSocket);
             }

@@ -23,8 +23,6 @@ public class Network {
     private Thread readMessageProcess;
     private boolean connected;
 
-    private Network network = Network.getInstance();
-
     public Network() {
         this(SERVER_HOST, SERVER_PORT);
     }

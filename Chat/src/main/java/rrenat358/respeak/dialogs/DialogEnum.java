@@ -6,7 +6,8 @@ import rrenat358.respeak.RespeakApp;
 
 public class DialogEnum {
 
-    private static RespeakApp respeakApp = RespeakApp.getInstance();
+    private static RespeakApp respeakApp;
+//    private static RespeakApp respeakApp = RespeakApp.getInstance();
 
     public enum AuthError {
         LOGOPASS_EMPTY("Логин или пароль не могут быть пустыми"),
@@ -55,7 +56,8 @@ public class DialogEnum {
 
     private static void showDialog(Alert.AlertType dialogType, String title, String type, String message) {
         Alert alert = new Alert(dialogType);
-        alert.initOwner(respeakApp.getChatStage()); //todo 00:26
+//        alert.initOwner(respeakApp.getChatStage()); //todo 00:26
+        alert.initOwner(RespeakApp.getInstance().getChatStage()); //todo 00:26
         alert.setTitle(title);
         alert.setHeaderText(type);
 
