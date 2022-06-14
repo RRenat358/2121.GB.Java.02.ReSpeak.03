@@ -91,6 +91,12 @@ public class RespeakController {
         messageTextField.clear();
     }
 
+    void messageInputRequestFocus() {
+        Platform.runLater(() ->
+                messageTextField.requestFocus()
+        );
+    }
+
     public void initializeMessageHandlerChatController() {
         network.addReadMessageListner(new ReadMessageListener() {
             @Override
@@ -108,10 +114,8 @@ public class RespeakController {
         });
     }
 
-
     //todo -- iconUser, iconSmileToMessage
     //todo -- Menu/Exit*menu.window().close()
-
     public void controllerSetting() {
         userListing.getSelectionModel().selectFirst();
         messageBox.setWrapText(true);
@@ -124,11 +128,6 @@ public class RespeakController {
         messageInputRequestFocus();
     }
 
-    void messageInputRequestFocus() {
-        Platform.runLater(() ->
-                messageTextField.requestFocus()
-        );
-    }
 
     private static class SingletonHelper {
         private static final RespeakController INSTANCE = new RespeakController();

@@ -17,8 +17,6 @@ import java.io.IOException;
 
 
 public class AuthController {
-//    public static final String AUTH_COMMAND = "/auth";
-//    public static final String AUTH_COMMAND_OK = "/authOK";
 
     @FXML
     public PasswordField passwordField;
@@ -37,7 +35,6 @@ public class AuthController {
         String password = passwordField.getText();
 
         if (login == null || password == null || login.isBlank() || password.isBlank()) {
-//            respeakApp.alertErrorDialog("Логин и пароль должны быть заполнены");
             DialogEnum.AuthError.LOGOPASS_EMPTY.show();
             return;
         }
@@ -51,7 +48,6 @@ public class AuthController {
 
         } catch (IOException e) {
             DialogEnum.NetworkError.SEND_MESSAGE.show();
-//            respeakApp.alertErrorDialog("Ошибка передачи данных по сети");
             e.printStackTrace();
         }
     }

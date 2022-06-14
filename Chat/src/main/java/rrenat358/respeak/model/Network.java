@@ -39,16 +39,8 @@ public class Network {
             socket = new Socket(host, port);
             outputStream = new ObjectOutputStream(socket.getOutputStream()); //"запись" - в исходящий поток
             inputStream = new ObjectInputStream(socket.getInputStream()); //"чтение" - из входящего потока
-
             readMessageProcess = startReadMessageProcess();
-/*
-            messageReadProcess = startReadMessageProcess(new Consumer<String>() {
-                @Override
-                public void accept(String message) {
-                    messageSendToBox("Server", message);
-                }
-            });
-*/
+
             connected = true;
             return true;
         } catch (IOException e) {
@@ -92,30 +84,6 @@ public class Network {
         sendCommand(Command.authCommand(login, password));
     }
 
-    /*
-        public void messageRead(Consumer<String> messageHandler) {
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        try {
-                            if (Thread.currentThread().isInterrupted()) {
-                                return;
-                            }
-                            String message = socketInput.readUTF();
-                            messageHandler.accept(message);
-                        } catch (IOException e) {
-                            System.err.println("Сообщение не получено от сервера" + "\n----------");
-                            e.printStackTrace();
-                            break;
-                        }
-                    }
-                }
-            });
-            thread.setDaemon(true);
-            thread.start();
-        }
-    */
     public Thread startReadMessageProcess(/*Consumer<String> server*/) {
         Thread thread = new Thread(new Runnable() {
             @Override
