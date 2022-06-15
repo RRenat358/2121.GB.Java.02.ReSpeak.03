@@ -94,7 +94,9 @@ public class RespeakApp extends Application {
 //        chatStage.setResizable(false);
 //        chatStage.setTitle("reSpeak!");
         chatStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
+
 //        respeakController.controllerSetting(); //todo как установить настройки?
+        getRespeakController().controllerSetting();
 
         getRespeakController().initializeMessageHandlerChatController();
     }
