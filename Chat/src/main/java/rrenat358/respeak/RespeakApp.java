@@ -54,7 +54,8 @@ public class RespeakApp extends Application {
     private FXMLLoader chatWindowLoader;
     private FXMLLoader authWindowLoader;
 
-    private RespeakController respeakController = RespeakController.getInstance();
+//    private RespeakController respeakController = RespeakController.getInstance();
+    private RespeakController respeakController;
     private Network network = Network.getInstance();
     private static RespeakApp INSTANCE;
 
@@ -93,7 +94,7 @@ public class RespeakApp extends Application {
 //        chatStage.setResizable(false);
 //        chatStage.setTitle("reSpeak!");
         chatStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
-//        respeakController.controllerSetting();
+//        respeakController.controllerSetting(); //todo как установить настройки?
 
         getRespeakController().initializeMessageHandlerChatController();
     }
