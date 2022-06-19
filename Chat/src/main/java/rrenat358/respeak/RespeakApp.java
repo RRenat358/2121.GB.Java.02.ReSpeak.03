@@ -49,12 +49,14 @@ import java.io.IOException;
 
 public class RespeakApp extends Application {
 
+    private static final String nameApp = "reSpeak!";
+
     private Stage chatStage;
     private Stage authStage;
     private FXMLLoader chatWindowLoader;
     private FXMLLoader authWindowLoader;
 
-//    private RespeakController respeakController = RespeakController.getInstance();
+    //    private RespeakController respeakController = RespeakController.getInstance();
     private RespeakController respeakController;
     private Network network = Network.getInstance();
     private static RespeakApp INSTANCE;
@@ -87,73 +89,38 @@ public class RespeakApp extends Application {
     private void initChatWindow() throws IOException {
         chatWindowLoader = new FXMLLoader();
         chatWindowLoader.setLocation(RespeakApp.class.getResource("respeak-view.fxml"));
+        Parent chatWindowPanel = chatWindowLoader.load();
+        chatStage.setScene(new Scene(chatWindowPanel, 640, 480));
 
-        Parent root = chatWindowLoader.load();
-        chatStage.setScene(new Scene(root, 640, 480));
-
-//        chatStage.setResizable(false);
-//        chatStage.setTitle("reSpeak!");
+        chatStage.setResizable(false);
+        chatStage.setTitle(nameApp);
         chatStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
-
-//        respeakController.controllerSetting(); //todo как установить настройки?
         getRespeakController().controllerSetting();
 
         getRespeakController().initializeMessageHandlerChatController();
     }
-
-/*
-    private RespeakController createChatWindow(Stage stageChat) throws IOException {
-//        FXMLLoader chatFxmlLoader = new FXMLLoader();
-//        chatFxmlLoader.setLocation(RespeakApp.class.getResource("respeak-view.fxml"));
-//        Parent stageChatRoot = chatFxmlLoader.load();
-//        Scene chatScene = new Scene(stageChatRoot, 640, 480);
-
-//        this.chatStage.setResizable(false);
-//        this.chatStage.setTitle("reSpeak!");
-//        this.chatStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
-//        this.chatStage.setScene(chatScene);
-
-//        respeakController = chatFxmlLoader.getController();
-        RespeakController respeakController = chatFxmlLoader.getController();
-        //todo -- не добавлять в список того кто не авторизовался
-        respeakController.userListing.getItems().addAll("User01", "User02", "User03");
-//        respeakController.controllerSetting();
-
-        stageChat.show();
-        return respeakController;
-    }
-*/
 
     //============================================================
     private void initAuthWindow() throws IOException {
         authWindowLoader = new FXMLLoader();
         authWindowLoader.setLocation(RespeakApp.class.getResource("authorization.fxml"));
         AnchorPane authWindowPanel = authWindowLoader.load();
-
         authStage = new Stage();
-        authStage.initOwner(chatStage);
-        authStage.initModality(Modality.WINDOW_MODAL);
         authStage.setScene(new Scene(authWindowPanel));
 
-//        authStage.setResizable(false);
-//        authStage.setTitle("reSpeak! --> Авторизация");
+//        Scene sceneAuth = new Scene(authLoaderRoot, 640, 480);
+        authStage.initOwner(chatStage);
+        authStage.initModality(Modality.WINDOW_MODAL);
+
+        authStage.setResizable(false);
+        authStage.setTitle(nameApp + " --> Авторизация");
         authStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
 
     }
 
 /*
     private void createAuthWindow(Stage stageChat) throws IOException {
-//        FXMLLoader authFxmlLoader = new FXMLLoader();
-//        authFxmlLoader.setLocation(RespeakApp.class.getResource("authorization.fxml"));
-//        AnchorPane authLoaderRoot = authFxmlLoader.load();
-//        Scene sceneAuth = new Scene(authLoaderRoot, 640, 480);
 
-//        authStage = new Stage();
-//        authStage.initOwner(stageChat);
-//        authStage.initModality(Modality.WINDOW_MODAL);
-//        authStage.setResizable(false);
-//        authStage.setTitle("reSpeak! --> Авторизация");
-//        authStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
 
 //        stageAuth.setScene(sceneAuth);
 //        authStage.setScene(new Scene(authLoaderRoot));
@@ -187,7 +154,7 @@ public class RespeakApp extends Application {
 */
 
     public void switchToChatWindow(String userName) {
-        getChatStage().setTitle(userName);
+        getChatStage().setTitle(nameApp + " --> " + userName);
         getAuthController().close();
         getAuthStage().close();
     }
@@ -237,9 +204,9 @@ public class RespeakApp extends Application {
         INSTANCE = this;
     }
 
-public static RespeakApp getInstance() {
-    return INSTANCE;
-}
+    public static RespeakApp getInstance() {
+        return INSTANCE;
+    }
 
 
 }

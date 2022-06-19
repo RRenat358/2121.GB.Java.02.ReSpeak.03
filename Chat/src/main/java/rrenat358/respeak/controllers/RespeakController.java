@@ -118,13 +118,13 @@ public class RespeakController {
     //todo -- iconUser, iconSmileToMessage
     //todo -- Menu/Exit*menu.window().close()
     public void controllerSetting() {
-        userListing.getSelectionModel().selectFirst();
+        userListing.getSelectionModel().selectFirst(); //todo -- this does not work
         messageBox.setWrapText(true);
         messageBox.setEditable(false);
-        messageBox.setStyle("-fx-font-size: 10px;"
+        messageBox.setStyle("-fx-font-size: 8px;"
                 /* + "-fx-background-color: red;"*/
         );
-        messageBox.setBorder(null); //todo -- ?this does not work
+        messageBox.setBorder(null); //todo -- this does not work
         messageButtonInput.disableProperty().bind(messageTextField.textProperty().isEmpty());
         messageInputRequestFocus();
     }
