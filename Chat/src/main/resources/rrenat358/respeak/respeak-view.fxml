@@ -18,7 +18,7 @@
                           <items>
                             <MenuItem mnemonicParsing="false" text="Setting" />
                             <MenuItem mnemonicParsing="false" text="About" />
-                              <MenuItem mnemonicParsing="false" text="EXIT" />
+                              <MenuItem fx:id="menuExit" mnemonicParsing="false" text="EXIT" />
                           </items>
                            <font>
                               <Font name="Arial" size="18.0" />

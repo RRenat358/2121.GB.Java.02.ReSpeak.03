@@ -70,14 +70,6 @@ public class RespeakApp extends Application {
         getChatStage().show();
         getAuthStage().show();
         getAuthController().initializeMessageHandlerAuthController();
-
-/*
-        RespeakController respeakController = createChatWindow(primaryStage);
-        connectToServer(respeakController);
-        createAuthWindow(primaryStage);
-
-        respeakController.initializeMessageHandlerRespeakController();
-*/
     }
 
     private void initViews() throws IOException {
@@ -118,57 +110,15 @@ public class RespeakApp extends Application {
 
     }
 
-/*
-    private void createAuthWindow(Stage stageChat) throws IOException {
-
-
-//        stageAuth.setScene(sceneAuth);
-//        authStage.setScene(new Scene(authLoaderRoot));
-
-        AuthController authController = authFxmlLoader.getController();
-        authController.setRespeakApp(this);
-        authController.initializeMessageHandlerAuthContrller();
-
-        authStage.showAndWait();
-    }
-*/
-
     //============================================================
-/*
-    private void connectToServer(RespeakController respeakController) {
-        boolean resultConnectedToServer = network.connect();
-        if (!resultConnectedToServer) {
-            String errorMessage = "Нет соединения с сервером \n";
-            System.err.println(errorMessage + "\n");
-            alertErrorDialog(errorMessage);
-        }
-        respeakController.setRespeakApp(this);
-
-        chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                network.socketClientClose();
-            }
-        });
-    }
-*/
-
     public void switchToChatWindow(String userName) {
         getChatStage().setTitle(nameApp + " --> " + userName);
+        getChatStage().getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
         getAuthController().close();
         getAuthStage().close();
     }
 
     //============================================================
-/*
-    public void alertErrorDialog(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Ошибка");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-*/
-
     public static void main(String[] args) {
         launch();
     }

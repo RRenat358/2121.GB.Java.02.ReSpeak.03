@@ -61,7 +61,6 @@ public class AuthController {
                     AuthOkCommandData data = (AuthOkCommandData) command.getData();
                     String userName = data.getUserName();
                     Platform.runLater(() -> {
-//                        respeakApp.getChatStage().setTitle(respeakApp.getChatStage().getTitle() + " --> " + userName);
                         respeakApp.switchToChatWindow(userName);
                     });
                 } else {

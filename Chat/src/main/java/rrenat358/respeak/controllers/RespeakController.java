@@ -33,6 +33,8 @@ public class RespeakController {
     public ListView userListing;
     @FXML
     public ListView messageBoxHeader;
+    @FXML
+    public MenuItem menuExit;
 
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
