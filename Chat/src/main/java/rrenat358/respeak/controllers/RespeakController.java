@@ -2,8 +2,10 @@ package rrenat358.respeak.controllers;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -16,7 +18,6 @@ import ru.rrenat358.command.commands.UpdateUserListCommandData;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 
 public class RespeakController {
@@ -131,6 +132,15 @@ public class RespeakController {
         messageInputRequestFocus();
     }
 
+
+    @FXML
+    private void closeWindows(){
+        // get a handle to the stage
+//        Stage stage = (Stage) menuExit.getWindow();
+        // do what you have to do
+//        stage.close();
+        respeakApp.getChatStage().close();
+    }
 
     private static class SingletonHelper {
         private static final RespeakController INSTANCE = new RespeakController();
