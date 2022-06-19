@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import rrenat358.respeak.controllers.AuthController;
@@ -70,10 +68,8 @@ public class RespeakApp extends Application {
         this.chatStage = primaryStage;
 
         initViews();
-//        getChatStage().show();
         getAuthStage().show();
         getAuthController().initializeMessageHandlerAuthController();
-
     }
 
     private void initViews() throws IOException {
@@ -90,10 +86,17 @@ public class RespeakApp extends Application {
 
         chatStage.setResizable(false);
         chatStage.setTitle(nameApp);
-        chatStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
+        chatStage.getIcons().add(new Image("file:Chat/src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
         getRespeakController().controllerSetting();
 
         getRespeakController().initializeMessageHandlerChatController();
+
+        chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                System.out.println("Stage is closing");
+            }
+        });
+
     }
 
     //============================================================
@@ -104,20 +107,15 @@ public class RespeakApp extends Application {
         authStage = new Stage();
         authStage.setScene(new Scene(authWindowPanel));
 
-//        Scene sceneAuth = new Scene(authLoaderRoot, 640, 480);
-//        authStage.initOwner(chatStage);
-//        authStage.initModality(Modality.WINDOW_MODAL);
-
         authStage.setResizable(false);
         authStage.setTitle(nameApp + " --> Авторизация");
-        authStage.getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
+        authStage.getIcons().add(new Image("file:Chat/src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
 
         authStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 System.out.println("Stage is closing");
             }
         });
-
     }
 
     //============================================================
@@ -127,7 +125,6 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
-        getChatStage().getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
     }
 
     //============================================================

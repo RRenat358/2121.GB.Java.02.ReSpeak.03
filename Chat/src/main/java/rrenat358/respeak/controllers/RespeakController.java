@@ -2,10 +2,8 @@ package rrenat358.respeak.controllers;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -60,10 +58,8 @@ public class RespeakController {
             } else {
                 network.sendMessage(message);
             }
-//            message = selectedUserName + ": \n" + message;
-
         } catch (IOException e) {
-            System.err.println("err: RespeakController.sendMessage()");
+            System.err.println("err: ChatController.sendMessage()");
             DialogEnum.NetworkError.SEND_MESSAGE.show();
         }
 
@@ -73,9 +69,6 @@ public class RespeakController {
     }
 
     public void messageSendToBox(String selectedUserName, String message) {
-        //todo↓ -- ?this does not work
-//        this.selectedUserName = userListing.getSelectionModel().getSelectedItem().toString();
-        //todo *.getItems().addAll(userName)
         messageBox.appendText(LocalDateTime.now().format(DateTimeFormatter.ofPattern(
                 "yyyy.MM.dd-HH:mm:ss" + "   |   "
         )));
@@ -117,7 +110,7 @@ public class RespeakController {
         userListing.getSelectionModel().selectFirst(); //todo -- this does not work
         messageBox.setWrapText(true);
         messageBox.setEditable(false);
-        messageBox.setStyle("-fx-font-size: 8px;"
+        messageBox.setStyle("-fx-font-size: 10px;"
                 /* + "-fx-background-color: red;"*/
         );
         messageBox.setBorder(null); //todo -- this does not work
@@ -130,6 +123,14 @@ public class RespeakController {
     private void closeWindows() {
         respeakApp.getChatStage().close();
     }
+
+/*
+    public void close() {
+        ReadMessageListener readMessageListener;
+        network.removeReadMessageListner(readMessageListener);
+    }
+*/
+
 
     private static class SingletonHelper {
         private static final RespeakController INSTANCE = new RespeakController();

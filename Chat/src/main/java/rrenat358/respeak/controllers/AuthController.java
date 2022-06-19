@@ -30,7 +30,7 @@ public class AuthController {
     public ReadMessageListener readMessageListener;
 
     @FXML
-    public void executeAuth(/*ActionEvent actionEvent*/) {
+    public void executeAuth() {
         String login = loginField.getText();
         String password = passwordField.getText();
 
@@ -52,7 +52,6 @@ public class AuthController {
         }
     }
 
-
     public void initializeMessageHandlerAuthController() {
         readMessageListener = network.addReadMessageListner(new ReadMessageListener() {
             @Override
@@ -72,15 +71,12 @@ public class AuthController {
         });
     }
 
-
     public boolean isConnectedToServer() {
         return network.isConnected() || network.connect();
     }
 
-
     public void close() {
         network.removeReadMessageListner(readMessageListener);
     }
-
 
 }

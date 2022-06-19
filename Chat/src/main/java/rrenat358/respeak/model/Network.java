@@ -73,7 +73,6 @@ public class Network {
         return command;
     }
 
-
     public void sendMessage(String message) throws IOException {
         sendCommand(Command.publicMessageCommand(message));
     }
@@ -82,7 +81,7 @@ public class Network {
         sendCommand(Command.authCommand(login, password));
     }
 
-    public Thread startReadMessageProcess(/*Consumer<String> server*/) {
+    public Thread startReadMessageProcess() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

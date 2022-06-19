@@ -52,7 +52,6 @@ public class ClientHandler {
     private void authenticate() throws IOException {
         while (true) {
             Command command = readCommand();
-//            String message = inputStream.readUTF();
 
             if (command == null) {
                 continue;
@@ -65,11 +64,9 @@ public class ClientHandler {
                 String password = data.getPassword();
 
                 String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword(login, password);
-//                String userName = authService.getUserNameByLoginPassword(login, password); //если так -- ошибки. почему?
 
                 if (userName == null) {
                     sendCommand(Command.errorCommand("Некорректные логин/пароль"));
-//                    messageSend("Неверные логин/пароль. \n" + "Попробуйте ещё раз)");
                 } else if (serverHandler.isUserNameBusy(userName)) {
                     sendCommand(Command.errorCommand("Такой пользователь уже существует"));
                 } else {
@@ -100,26 +97,18 @@ public class ClientHandler {
                 continue;
             }
             switch (command.getType()) {
-                case PRIVATE_MESSAGE:{
+                case PRIVATE_MESSAGE: {
                     PrivateMessageCommandData data = (PrivateMessageCommandData) command.getData();
                     String receiver = data.getReceiver();
                     String privateMessage = data.getMessage();
                     serverHandler.sendPrivateMessage(this, receiver, privateMessage);
-                    break;}
+                    break;
+                }
                 case PUBLIC_MESSAGE:
                     PublicMessageCommandData data1 = (PublicMessageCommandData) command.getData();
                     processMessage(data1.getMessage());
                     break;
             }
-/*
-            String message = inputStream.readUTF().trim();
-            System.out.println("message = " + message);
-            if (message.startsWith("/end")) {
-                return;
-            } else {
-                processMessage(message);
-            }
-*/
         }
     }
 

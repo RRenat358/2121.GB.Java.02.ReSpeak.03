@@ -7,17 +7,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ServerHandler {
 
     private static AuthService authService;
 //    private AuthService authService = AuthService.getInstance();
 
-//    private final Map<String, ClientHandler> clientHandlerMap = new HashMap<>();
     private final List<ClientHandler> clientList = new ArrayList<>();
 
     public void serverStart(int port) {
@@ -36,7 +32,7 @@ public class ServerHandler {
         Socket clientSocket = serverSocket.accept();
         System.out.println("Waiting for new client connection" + "\n----------");
 
-        ClientHandler clientHandler = new ClientHandler(this, clientSocket); //this == new ServerHandler;
+        ClientHandler clientHandler = new ClientHandler(this, clientSocket);
         clientHandler.startClientHandle();
         System.out.println("Client has been connected");
     }
@@ -44,7 +40,6 @@ public class ServerHandler {
     public synchronized void messagePassAll(ClientHandler sender, String message) throws IOException {
         for (ClientHandler client : clientList) {
             if (client != sender) {
-//                client.messageSend(message);
                 client.sendCommand(Command.clientMessageCommand(sender.getUserName(), message));
             }
         }
