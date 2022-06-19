@@ -68,14 +68,15 @@ public class RespeakApp extends Application {
         this.chatStage = primaryStage;
 
         initViews();
-        getChatStage().show();
+//        getChatStage().show();
         getAuthStage().show();
         getAuthController().initializeMessageHandlerAuthController();
+
     }
 
     private void initViews() throws IOException {
-        initChatWindow();
         initAuthWindow();
+        initChatWindow();
     }
 
     //============================================================
@@ -102,8 +103,8 @@ public class RespeakApp extends Application {
         authStage.setScene(new Scene(authWindowPanel));
 
 //        Scene sceneAuth = new Scene(authLoaderRoot, 640, 480);
-        authStage.initOwner(chatStage);
-        authStage.initModality(Modality.WINDOW_MODAL);
+//        authStage.initOwner(chatStage);
+//        authStage.initModality(Modality.WINDOW_MODAL);
 
         authStage.setResizable(false);
         authStage.setTitle(nameApp + " --> Авторизация");
@@ -113,10 +114,13 @@ public class RespeakApp extends Application {
 
     //============================================================
     public void switchToChatWindow(String userName) {
+        getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
         getChatStage().getIcons().add(new Image("file:src/main/images/icons/ReSpeak-Blue-96(-xxxhdpi).png"));
+
         getAuthController().close();
         getAuthStage().close();
+
     }
 
     //============================================================

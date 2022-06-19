@@ -42,10 +42,9 @@ public class RespeakController {
     private Network network = Network.getInstance();
 
     public void sendMessage() {
-        String message = messageTextField.getText().trim();
-        if (message.isEmpty()) {
-//            messageInputRequestFocus();
-            messageTextField.clear();
+        String message = messageTextField.getText();
+        if (message.trim().isEmpty()) {
+            messageInputRequestFocus();
             return;
         }
 
@@ -66,13 +65,11 @@ public class RespeakController {
         } catch (IOException e) {
             System.err.println("err: RespeakController.sendMessage()");
             DialogEnum.NetworkError.SEND_MESSAGE.show();
-//            respeakApp.alertErrorDialog("Ошибка передачи данных по сети");
         }
 
         messageSendToBox("Я", message);
-//        Уместнее здесь
-//        messageTextField.clear();
-//        messageInputRequestFocus();
+        messageTextField.clear();
+        messageInputRequestFocus();
     }
 
     public void messageSendToBox(String selectedUserName, String message) {
@@ -90,9 +87,6 @@ public class RespeakController {
         messageBox.appendText(System.lineSeparator());
         messageBox.appendText("––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
         messageBox.appendText(System.lineSeparator());
-
-        messageInputRequestFocus();
-        messageTextField.clear();
     }
 
     void messageInputRequestFocus() {
@@ -119,7 +113,6 @@ public class RespeakController {
     }
 
     //todo -- iconUser, iconSmileToMessage
-    //todo -- Menu/Exit*menu.window().close()
     public void controllerSetting() {
         userListing.getSelectionModel().selectFirst(); //todo -- this does not work
         messageBox.setWrapText(true);
@@ -134,11 +127,7 @@ public class RespeakController {
 
 
     @FXML
-    private void closeWindows(){
-        // get a handle to the stage
-//        Stage stage = (Stage) menuExit.getWindow();
-        // do what you have to do
-//        stage.close();
+    private void closeWindows() {
         respeakApp.getChatStage().close();
     }
 

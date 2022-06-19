@@ -11,14 +11,11 @@ public class DialogEnum {
 
     public enum AuthError {
         LOGOPASS_EMPTY("Логин или пароль не могут быть пустыми"),
-/*
         LOGOPASS_INVALID("""
                 RespeakApp:\s
                 Неверные логин/пароль.\s
                 Попробуйте ещё раз."""
         );
-*/
-        LOGOPASS_INVALID("Логин и пароль заданы некорректно");
 
         private static final String TITLE = "Ошибка аутентификации";
         private static final String TYPE = TITLE;
