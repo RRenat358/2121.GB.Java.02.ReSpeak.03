@@ -47,7 +47,6 @@ public class RespeakController {
         }
 
         String senderThis = null;
-//        this.selectedUserName = userListing.getSelectionModel().getSelectedItem().toString();
         if (!userListing.getSelectionModel().isEmpty()) {
             senderThis = userListing.getSelectionModel().getSelectedItem().toString();
         }
