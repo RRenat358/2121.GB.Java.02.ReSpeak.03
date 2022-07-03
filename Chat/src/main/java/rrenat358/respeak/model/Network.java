@@ -128,6 +128,10 @@ public class Network {
         }
     }
 
+    public void readMessageProcessInterrupt() {
+        readMessageProcess.interrupt();
+    }
+
     public boolean isConnected() {
         return connected;
     }

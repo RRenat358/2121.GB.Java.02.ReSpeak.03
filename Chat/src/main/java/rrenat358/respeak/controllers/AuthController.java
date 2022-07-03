@@ -2,6 +2,7 @@ package rrenat358.respeak.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -14,6 +15,8 @@ import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.AuthOkCommandData;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class AuthController {
@@ -52,7 +55,27 @@ public class AuthController {
         }
     }
 
+    public void startConnectionAndStopTime(/*int timeStop*/RespeakApp respeakApp) {
+        Timer timer = new Timer();
+
+        System.out.println("timer Start → → → → →");
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                System.out.println("timer Stop xxxxxxxxxxxxxx");
+//                respeakApp.getAuthController().closeNetwork();
+//                network.socketClose();
+                network.readMessageProcessInterrupt();
+//                closeNetwork();
+
+            }
+        }, 3000);
+    }
+
+
+
     public void initializeMessageHandlerAuthController() {
+
         readMessageListener = network.addReadMessageListner(new ReadMessageListener() {
             @Override
             public void processReceivedCommand(Command command) {
@@ -75,7 +98,7 @@ public class AuthController {
         return network.isConnected() || network.connect();
     }
 
-    public void close() {
+    public void closeNetwork() {
         network.removeReadMessageListner(readMessageListener);
     }
 

@@ -34,6 +34,8 @@ public class RespeakApp extends Application {
         initViews();
         getAuthStage().show();
         getAuthController().initializeMessageHandlerAuthController();
+//        getAuthController().startConnectionAndStopTime();
+        getAuthController().startConnectionAndStopTime(this);
     }
 
     private void initViews() throws IOException {
@@ -81,7 +83,7 @@ public class RespeakApp extends Application {
     }
 
     public void switchToChatWindow(String userName) {
-        getAuthController().close();
+        getAuthController().closeNetwork();
         getAuthStage().close();
 
         getChatStage().show();
