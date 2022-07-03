@@ -20,11 +20,12 @@ public class AuthService {
         return null;
     }
 
-    public static AuthService getInstance() {
-        return SingletonHelper.INSTANCE;
-    }
 
     private static class SingletonHelper {
         private static final AuthService INSTANCE = new AuthService();
+    }
+
+    public static AuthService getInstance() {
+        return SingletonHelper.INSTANCE;
     }
 }

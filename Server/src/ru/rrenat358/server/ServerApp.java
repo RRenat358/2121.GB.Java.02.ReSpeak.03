@@ -6,6 +6,9 @@ public class ServerApp {
 
     public static void main(String[] args) {
         new ServerHandler().serverStart(PORT);
+
+        //todo стоит ли закрывать порт когда приложение завершает работу?
+        //например:
 //        new ClientHandler().closeConnection();
     }
 

@@ -19,12 +19,12 @@ public class ClientHandler {
     private ObjectOutputStream outputStream;
 
     private ServerHandler serverHandler;
+    //todo singleton
 //    private ServerHandler serverHandler = ServerHandler.getInstance();
-//    private AuthService authService = AuthService.getInstance();
 
 
     public ClientHandler(ServerHandler serverHandler, Socket clientSocket) {
-        this.serverHandler = serverHandler;
+        this.serverHandler = serverHandler; //todo не передовать, заиспользовать из синглтона
         this.clientSocket = clientSocket;
     }
 

@@ -41,7 +41,6 @@ public class RespeakApp extends Application {
         initChatWindow();
     }
 
-    //============================================================
     private void initChatWindow() throws IOException {
         chatWindowLoader = new FXMLLoader();
         chatWindowLoader.setLocation(RespeakApp.class.getResource("respeak-view.fxml"));
@@ -63,7 +62,6 @@ public class RespeakApp extends Application {
 
     }
 
-    //============================================================
     private void initAuthWindow() throws IOException {
         authWindowLoader = new FXMLLoader();
         authWindowLoader.setLocation(RespeakApp.class.getResource("authorization.fxml"));
@@ -82,7 +80,6 @@ public class RespeakApp extends Application {
         });
     }
 
-    //============================================================
     public void switchToChatWindow(String userName) {
         getAuthController().close();
         getAuthStage().close();
@@ -91,7 +88,6 @@ public class RespeakApp extends Application {
         getChatStage().setTitle(nameApp + " --> " + userName);
     }
 
-    //============================================================
     public static void main(String[] args) {
         launch();
     }
@@ -112,15 +108,6 @@ public class RespeakApp extends Application {
         return authWindowLoader.getController();
     }
 
-/*
-    private static class SingletonHelper {
-        private static final RespeakApp INSTANCE = new RespeakApp();
-    }
-
-    public static RespeakApp getInstance() {
-        return SingletonHelper.INSTANCE;
-    }
-*/
 
     @Override
     public void init() {
