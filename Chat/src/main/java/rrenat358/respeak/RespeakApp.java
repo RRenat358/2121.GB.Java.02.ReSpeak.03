@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import rrenat358.respeak.controllers.AuthController;
 import rrenat358.respeak.controllers.RespeakController;
-import rrenat358.respeak.model.TimerAuthNetworkConnect;
 
 import java.io.IOException;
 
@@ -27,8 +26,6 @@ public class RespeakApp extends Application {
 
     private static RespeakApp INSTANCE;
 
-    private TimerAuthNetworkConnect timerAuthNetworkConnect;
-
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -36,9 +33,7 @@ public class RespeakApp extends Application {
 
         initViews();
         getAuthStage().show();
-        timerAuthNetworkConnect.startConnectionAndStopTime(this);
         getAuthController().initializeMessageHandlerAuthController();
-//        getAuthController().startConnectionAndStopTime();
     }
 
     private void initViews() throws IOException {
@@ -86,7 +81,7 @@ public class RespeakApp extends Application {
     }
 
     public void switchToChatWindow(String userName) {
-        getAuthController().closeNetwork();
+        getAuthController().close();
         getAuthStage().close();
 
         getChatStage().show();

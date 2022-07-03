@@ -19,7 +19,7 @@ public class TimerAuthNetworkConnect {
                 System.out.println("timer Stop xxxxxxxxxxxxxx");
 //                respeakApp.getAuthController().closeNetwork();
 //                network.socketClose();
-                network.readMessageProcessInterrupt();
+//                network.readMessageProcessInterrupt();
 //                closeNetwork();
 
             }

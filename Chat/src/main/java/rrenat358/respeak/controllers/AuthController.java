@@ -14,6 +14,8 @@ import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.AuthOkCommandData;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class AuthController {
@@ -75,7 +77,7 @@ public class AuthController {
         return network.isConnected() || network.connect();
     }
 
-    public void closeNetwork() {
+    public void close() {
         network.removeReadMessageListner(readMessageListener);
     }
 
