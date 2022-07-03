@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import rrenat358.respeak.controllers.AuthController;
 import rrenat358.respeak.controllers.RespeakController;
+import rrenat358.respeak.model.TimerAuthNetworkConnect;
 
 import java.io.IOException;
 
@@ -25,6 +26,7 @@ public class RespeakApp extends Application {
     private FXMLLoader authWindowLoader;
 
     private static RespeakApp INSTANCE;
+    private TimerAuthNetworkConnect timerAuthNetworkConnect = new TimerAuthNetworkConnect();
 
 
     @Override
@@ -34,6 +36,7 @@ public class RespeakApp extends Application {
         initViews();
         getAuthStage().show();
         getAuthController().initializeMessageHandlerAuthController();
+        timerAuthNetworkConnect.authTaskCorrect();
     }
 
     private void initViews() throws IOException {
