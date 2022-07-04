@@ -54,7 +54,6 @@ public class TimerAuthNetworkConnect {
                         respeakApp.getAuthController().close();
                         respeakApp.getAuthStage().close();
 
-
                     }
                 });
             }
