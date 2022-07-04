@@ -35,8 +35,9 @@ public class RespeakApp extends Application {
 
         initViews();
         getAuthStage().show();
+//        timerAuthNetworkConnect.authTaskConnect();
         getAuthController().initializeMessageHandlerAuthController();
-        timerAuthNetworkConnect.authTaskCorrect();
+        getChatStage().close();
     }
 
     private void initViews() throws IOException {
@@ -62,7 +63,7 @@ public class RespeakApp extends Application {
                 System.out.println("Stage is closing");
             }
         });
-
+        timerAuthNetworkConnect.authTaskConnect();
     }
 
     private void initAuthWindow() throws IOException {

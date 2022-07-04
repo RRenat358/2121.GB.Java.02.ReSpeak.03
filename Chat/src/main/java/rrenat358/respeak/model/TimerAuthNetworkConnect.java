@@ -1,7 +1,11 @@
 package rrenat358.respeak.model;
 
+import javafx.application.Platform;
 import rrenat358.respeak.RespeakApp;
+import rrenat358.respeak.controllers.RespeakController;
+import rrenat358.respeak.dialogs.DialogEnum;
 
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -13,13 +17,14 @@ public class TimerAuthNetworkConnect {
     private final Timer timer = new Timer();
     Network network = Network.getInstance();
     RespeakApp respeakApp;
+    RespeakController respeakController;
 
     public void startConnectionAndStopTime(/*int timeStop*/RespeakApp respeakApp) {
 
         System.out.println("timer Start → → → → →");
-        timer.schedule(new TimerTask(){
+        timer.schedule(new TimerTask() {
             @Override
-            public void run(){
+            public void run() {
                 System.out.println("timer Stop xxxxxxxxxxxxxx");
 //                respeakApp.getAuthController().closeNetwork();
 //                network.socketClose();
@@ -30,25 +35,30 @@ public class TimerAuthNetworkConnect {
         }, 3000);
     }
 
-    public void authTaskCorrect() {
+    public void authTaskConnect() {
         System.out.println("timer Start → → → → →");
-        TimerTask timerTask = new TimerTask() {
+
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.schedule(new Runnable() {
+            @Override
             public void run() {
-                System.out.println("timer Stop xxxxxxxxxxxxxx");
-                respeakApp.getAuthController().close();
+                Platform.runLater(() -> {
+                    if (!Network.getInstance().isConnected()) {
+                        System.out.println("timer Stop xxxxxxxxxxxxxx");
+                        DialogEnum.AuthError.LOGOPASS_INVALID.show();
+//                        network.socketClose();
+//                        network.readMessageProcessinterrupt();
+//                        respeakApp.getAuthStage().close();
+//                        respeakApp.getChatStage().close();
+//                        respeakController.closeWindows();
+                        respeakApp.getAuthController().close();
+                        respeakApp.getAuthStage().close();
+
+
+                    }
+                });
             }
-        };
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-//        executor.scheduleAtFixedRate(repeatedTask, delay, period, TimeUnit.MILLISECONDS);
-        executor.scheduleAtFixedRate(timerTask, 4000, 1, TimeUnit.MILLISECONDS);
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        executor.shutdown();
+        }, 3, TimeUnit.SECONDS);
     }
-
-
 
 }
