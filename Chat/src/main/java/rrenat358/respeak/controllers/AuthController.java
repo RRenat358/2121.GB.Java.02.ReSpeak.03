@@ -14,8 +14,6 @@ import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.AuthOkCommandData;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class AuthController {
