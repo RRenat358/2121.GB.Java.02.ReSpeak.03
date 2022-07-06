@@ -19,21 +19,6 @@ public class TimerAuthNetworkConnect {
     RespeakApp respeakApp;
     RespeakController respeakController;
 
-    public void startConnectionAndStopTime(/*int timeStop*/RespeakApp respeakApp) {
-
-        System.out.println("timer Start → → → → →");
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("timer Stop xxxxxxxxxxxxxx");
-//                respeakApp.getAuthController().closeNetwork();
-//                network.socketClose();
-//                network.readMessageProcessInterrupt();
-//                closeNetwork();
-
-            }
-        }, 3000);
-    }
 
     public void authTaskConnect() {
         System.out.println("timer Start → → → → →");
@@ -59,5 +44,35 @@ public class TimerAuthNetworkConnect {
             }
         }, 3, TimeUnit.SECONDS);
     }
+
+
+
+
+
+
+
+
+
+
+/*
+
+    public void startConnectionAndStopTime(*/
+    /*int timeStop*//*
+RespeakApp respeakApp) {
+
+        System.out.println("timer Start → → → → →");
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("timer Stop xxxxxxxxxxxxxx");
+//                respeakApp.getAuthController().closeNetwork();
+//                network.socketClose();
+//                network.readMessageProcessInterrupt();
+//                closeNetwork();
+
+            }
+        }, 3000);
+    }
+*/
 
 }
