@@ -2,6 +2,7 @@ package rrenat358.respeak.model;
 
 import javafx.application.Platform;
 import rrenat358.respeak.RespeakApp;
+import rrenat358.respeak.controllers.AuthController;
 import rrenat358.respeak.controllers.RespeakController;
 import rrenat358.respeak.dialogs.DialogEnum;
 
@@ -18,9 +19,47 @@ public class TimerAuthNetworkConnect {
     Network network = Network.getInstance();
     RespeakApp respeakApp;
     RespeakController respeakController;
+    AuthController authController;
 
 
     public void authTaskConnect() {
+        System.out.println("timer Start → → → → →");
+        Thread threadTimer = new Thread();
+        threadTimer.setDaemon(true);
+
+        try {
+            threadTimer.start();
+            threadTimer.join();
+            threadTimer.sleep(3000);
+        } catch (InterruptedException e) {
+            System.out.println("authTaskConnect() -- threadTimer.sleep");
+            throw new RuntimeException(e);
+        }
+        threadTimer.interrupt();
+        System.out.println("timer Stop xxxxxxxxxxxxxx");
+        DialogEnum.AuthError.LOGOPASS_INVALID.show();
+//        respeakApp.getAuthStage().close();
+//        respeakApp.getChatStage().close();
+//        authController.close();
+        network.readMessageProcessinterrupt();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    public void authTaskConnect1() {
         System.out.println("timer Start → → → → →");
 
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
@@ -28,7 +67,7 @@ public class TimerAuthNetworkConnect {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    if (!Network.getInstance().isConnected()) {
+                    if (!network.isConnected()) {
                         System.out.println("timer Stop xxxxxxxxxxxxxx");
                         DialogEnum.AuthError.LOGOPASS_INVALID.show();
 //                        network.socketClose();
@@ -36,14 +75,17 @@ public class TimerAuthNetworkConnect {
 //                        respeakApp.getAuthStage().close();
 //                        respeakApp.getChatStage().close();
 //                        respeakController.closeWindows();
-                        respeakApp.getAuthController().close();
-                        respeakApp.getAuthStage().close();
+//                        respeakApp.getAuthController().close();
+//                        respeakApp.getAuthStage().close();
+
+                        authController.close();
 
                     }
                 });
             }
         }, 3, TimeUnit.SECONDS);
     }
+*/
 
 
 

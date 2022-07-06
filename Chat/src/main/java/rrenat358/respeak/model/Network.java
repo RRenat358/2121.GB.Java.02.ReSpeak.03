@@ -128,7 +128,7 @@ public class Network {
         }
     }
 
-    public void readMessageProcessinterrupt() {
+    public void  readMessageProcessinterrupt() {
         readMessageProcess.interrupt();
     }
 
