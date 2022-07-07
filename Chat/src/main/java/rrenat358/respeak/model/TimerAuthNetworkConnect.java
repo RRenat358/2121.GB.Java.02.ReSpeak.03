@@ -21,28 +21,29 @@ public class TimerAuthNetworkConnect {
     RespeakController respeakController;
     AuthController authController;
 
+    private boolean timeOff = false;
+    private boolean timeOffStarting = false;
 
-    public void authTaskConnect() {
-        System.out.println("timer Start → → → → →");
-        Thread threadTimer = new Thread();
-        threadTimer.setDaemon(true);
 
-        try {
-            threadTimer.start();
-            threadTimer.join();
-            threadTimer.sleep(3000);
-        } catch (InterruptedException e) {
-            System.out.println("authTaskConnect() -- threadTimer.sleep");
-            throw new RuntimeException(e);
+    public boolean authTimeOff() {
+        if (!timeOff && !timeOffStarting) {
+
+            System.out.println("timer Start → → → → →");
+            timeOffStarting = true;
+
+            Platform.runLater(() -> {
+            try {
+                Thread.sleep(7000);
+            } catch (InterruptedException e) {
+                System.out.println("===Timer.sleep===");
+                throw new RuntimeException(e);
+            }
+            });
+
+            System.out.println("timer Stop xxxxxxxxxxxxxx");
+            timeOff = true;
         }
-        threadTimer.interrupt();
-        System.out.println("timer Stop xxxxxxxxxxxxxx");
-        DialogEnum.AuthError.LOGOPASS_INVALID.show();
-//        respeakApp.getAuthStage().close();
-//        respeakApp.getChatStage().close();
-//        authController.close();
-        network.readMessageProcessinterrupt();
-
+        return timeOff;
     }
 
 
@@ -51,12 +52,31 @@ public class TimerAuthNetworkConnect {
 
 
 
+/*
+    public void authTaskConnect() {
+        System.out.println("timer Start → → → → →");
+        Thread threadTimer = new Thread();
+        threadTimer.setDaemon(true);
 
+        try {
+            threadTimer.start();
+//            threadTimer.join();
+            threadTimer.sleep(3000);
+        } catch (InterruptedException e) {
+            System.out.println("authTaskConnect() -- threadTimer.sleep");
+            throw new RuntimeException(e);
+        }
+        threadTimer.interrupt();
+        System.out.println("timer Stop xxxxxxxxxxxxxx");
+//        DialogEnum.AuthError.LOGOPASS_INVALID.show();
+//        respeakApp.getAuthStage().close();
+//        respeakApp.getChatStage().close();
+//        authController.close();
+//        network.readMessageProcessinterrupt();
+        network.socketClose();
 
-
-
-
-
+    }
+*/
 
 /*
     public void authTaskConnect1() {
