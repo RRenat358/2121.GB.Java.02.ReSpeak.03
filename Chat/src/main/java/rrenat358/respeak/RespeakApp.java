@@ -26,7 +26,7 @@ public class RespeakApp extends Application {
     private FXMLLoader authWindowLoader;
 
     private static RespeakApp INSTANCE;
-    private TimerAuthNetworkConnect timerAuthNetworkConnect = new TimerAuthNetworkConnect();
+    private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
 
 
     @Override

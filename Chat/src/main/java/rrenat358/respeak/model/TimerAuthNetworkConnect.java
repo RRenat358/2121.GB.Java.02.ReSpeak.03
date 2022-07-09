@@ -31,13 +31,19 @@ public class TimerAuthNetworkConnect {
             System.out.println("timer Start → → → → →");
             timeOffStarting = true;
 
+            Thread threadTimer = new Thread();
+            threadTimer.setDaemon(true);
+
+
             Platform.runLater(() -> {
-            try {
-                Thread.sleep(7000);
-            } catch (InterruptedException e) {
-                System.out.println("===Timer.sleep===");
-                throw new RuntimeException(e);
-            }
+                try {
+                    threadTimer.start();
+//                    threadTimer.join();
+                    threadTimer.sleep(7000);
+                } catch (InterruptedException e) {
+                    System.out.println("===Timer.sleep===");
+                    throw new RuntimeException(e);
+                }
             });
 
             System.out.println("timer Stop xxxxxxxxxxxxxx");
@@ -137,4 +143,13 @@ RespeakApp respeakApp) {
     }
 */
 
+
+
+    private static class SingletonHelper {
+        private static final TimerAuthNetworkConnect INSTANCE = new TimerAuthNetworkConnect();
+    }
+
+    public static TimerAuthNetworkConnect getInstance() {
+        return TimerAuthNetworkConnect.SingletonHelper.INSTANCE;
+    }
 }

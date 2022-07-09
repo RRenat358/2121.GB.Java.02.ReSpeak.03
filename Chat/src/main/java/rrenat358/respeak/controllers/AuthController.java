@@ -29,7 +29,7 @@ public class AuthController {
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
     public ReadMessageListener readMessageListener;
-    private TimerAuthNetworkConnect timerAuthNetworkConnect;
+    private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
 
     @FXML
     public void executeAuth() {
