@@ -38,6 +38,7 @@ public class RespeakApp extends Application {
         timerAuthNetworkConnect.authTimeOff();
         getAuthController().initializeMessageHandlerAuthController();
 //        timerAuthNetworkConnect.authTaskConnect();
+//        timerAuthNetworkConnect.authTaskConnect();
 
     }
 
