@@ -59,7 +59,6 @@ public class TimerAuthNetworkConnect {
     }
 
 
-
 /*
     public void authTaskConnect() {
         System.out.println("timer Start → → → → →");
