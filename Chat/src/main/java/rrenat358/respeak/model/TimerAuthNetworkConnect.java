@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+
 public class TimerAuthNetworkConnect {
 
     private final Timer timer = new Timer();
@@ -23,38 +24,39 @@ public class TimerAuthNetworkConnect {
 
     private boolean timeOff = false;
     private boolean timeOffStarting = false;
+    private int timeOffSeconds = 5000;
 
 
     public boolean authTimeOff() {
-        if (!timeOff && !timeOffStarting) {
-
+        if (timeOffStarting == false) {
             System.out.println("timer Start → → → → →");
             timeOffStarting = true;
-
-            Thread threadTimer = new Thread();
-            threadTimer.setDaemon(true);
-
-
-            Platform.runLater(() -> {
-                try {
-                    threadTimer.start();
-//                    threadTimer.join();
-                    threadTimer.sleep(7000);
-                } catch (InterruptedException e) {
-                    System.out.println("===Timer.sleep===");
-                    throw new RuntimeException(e);
-                }
-            });
-
-            System.out.println("timer Stop xxxxxxxxxxxxxx");
-            timeOff = true;
+            timeOffStart();
         }
+
+
+        timeOff = true;
+
+        System.out.println("timer Stop xxxxxxxxxxxxxx");
+
         return timeOff;
     }
 
+    public void timeOffStart() {
 
-
-
+        Thread threadTimer = new Thread(() -> {
+            try {
+                System.out.println("===Timer.sleep===  " + timeOffSeconds);
+                Thread.sleep(timeOffSeconds);
+                System.out.println("timer Stop xxxxxxxxxxxxxx");
+                timeOff = true;
+            } catch (InterruptedException e) {
+                System.out.println("===Timer.sleep===");
+                throw new RuntimeException(e);
+            }
+        });
+        threadTimer.start();
+    }
 
 
 
