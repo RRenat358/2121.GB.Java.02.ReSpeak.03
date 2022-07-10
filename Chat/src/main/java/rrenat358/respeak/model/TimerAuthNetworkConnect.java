@@ -28,22 +28,22 @@ public class TimerAuthNetworkConnect {
 
 
     public boolean authTimeOff() {
+        if (timeOff == true) {
+            return true;
+        }
+
         if (timeOffStarting == false) {
             System.out.println("timer Start → → → → →");
             timeOffStarting = true;
             timeOffStart();
+            return false;
         }
-
-
-        timeOff = true;
-
-        System.out.println("timer Stop xxxxxxxxxxxxxx");
 
         return timeOff;
     }
 
-    public void timeOffStart() {
 
+    public void timeOffStart() {
         Thread threadTimer = new Thread(() -> {
             try {
                 System.out.println("===Timer.sleep===  " + timeOffSeconds);
@@ -51,12 +51,15 @@ public class TimerAuthNetworkConnect {
                 System.out.println("timer Stop xxxxxxxxxxxxxx");
                 timeOff = true;
             } catch (InterruptedException e) {
-                System.out.println("===Timer.sleep===");
+                System.err.println("===timeOffStart()===");
                 throw new RuntimeException(e);
             }
         });
         threadTimer.start();
     }
+
+
+
 
 
 /*
