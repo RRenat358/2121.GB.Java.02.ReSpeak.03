@@ -18,7 +18,10 @@ import java.io.IOException;
 
 public class RespeakApp extends Application {
 
+    // Settings manual // todo вынести отдельно
     private static final String nameApp = "reSpeak!";
+    public static final int authTimeOffSeconds = 5;
+    //---
 
     private Stage chatStage;
     private Stage authStage;
@@ -37,8 +40,6 @@ public class RespeakApp extends Application {
         getAuthStage().show();
         timerAuthNetworkConnect.authTimeOff();
         getAuthController().initializeMessageHandlerAuthController();
-//        timerAuthNetworkConnect.authTaskConnect();
-//        timerAuthNetworkConnect.authTaskConnect();
 
     }
 
@@ -88,10 +89,11 @@ public class RespeakApp extends Application {
     public void switchToChatWindow(String userName) {
         getAuthController().close();
         getAuthStage().close();
+        timerAuthNetworkConnect.threadTimer.interrupt();
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
-//        timerAuthNetworkConnect.threadTimer
+
     }
 
     public static void main(String[] args) {
