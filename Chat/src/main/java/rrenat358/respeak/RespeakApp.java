@@ -11,13 +11,17 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import rrenat358.respeak.controllers.AuthController;
 import rrenat358.respeak.controllers.RespeakController;
+import rrenat358.respeak.model.TimerAuthNetworkConnect;
 
 import java.io.IOException;
 
 
 public class RespeakApp extends Application {
 
-    private static final String nameApp = "reSpeak!";
+    // Settings manual // todo вынести отдельно
+    private String nameApp = "reSpeak!";
+    private int authTimeOffSeconds = 10;
+    //---
 
     private Stage chatStage;
     private Stage authStage;
@@ -25,7 +29,8 @@ public class RespeakApp extends Application {
     private FXMLLoader authWindowLoader;
 
     private static RespeakApp INSTANCE;
-
+    private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
+    private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -33,6 +38,7 @@ public class RespeakApp extends Application {
 
         initViews();
         getAuthStage().show();
+        timerAuthNetworkConnect.timeOffStart(timeOffMilliSeconds);
         getAuthController().initializeMessageHandlerAuthController();
     }
 
@@ -75,6 +81,7 @@ public class RespeakApp extends Application {
 
         authStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
+                timerAuthNetworkConnect.getThreadTimer().interrupt();
                 System.out.println("Stage is closing");
             }
         });
@@ -83,6 +90,7 @@ public class RespeakApp extends Application {
     public void switchToChatWindow(String userName) {
         getAuthController().close();
         getAuthStage().close();
+        timerAuthNetworkConnect.getThreadTimer().interrupt();
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
