@@ -1,31 +1,17 @@
 package rrenat358.respeak.model;
 
 
-import rrenat358.respeak.RespeakApp;
-
 public class TimerAuthNetworkConnect {
 
     private boolean timeOff = false;
-    private boolean timeOffStarting = false;
-
     private Thread threadTimer;
-    private RespeakApp respeakApp = RespeakApp.getInstance();
 
-    public boolean authTimeOff() {
-        if (timeOff == true) {
-            return true;
-        }
-        if (timeOffStarting == false) {
-            authTimeOffStart(4);
-            return false;
-        }
+    public boolean timeOff() {
         return timeOff;
     }
 
-
-    public void authTimeOffStart(int timeOffMilliSeconds) {
+    public void timeOffStart(int timeOffMilliSeconds) {
         System.out.println("authTimeOffStart() START → → → " + timeOffMilliSeconds + "ms.");
-        timeOffStarting = true;
 
         threadTimer = new Thread(() -> {
             try {
@@ -41,7 +27,6 @@ public class TimerAuthNetworkConnect {
         threadTimer.start();
     }
 
-
     public Thread getThreadTimer() {
         return threadTimer;
     }
@@ -51,6 +36,6 @@ public class TimerAuthNetworkConnect {
     }
 
     public static TimerAuthNetworkConnect getInstance() {
-        return TimerAuthNetworkConnect.SingletonHelper.INSTANCE;
+        return SingletonHelper.INSTANCE;
     }
 }

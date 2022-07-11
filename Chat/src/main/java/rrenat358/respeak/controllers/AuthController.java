@@ -41,7 +41,7 @@ public class AuthController {
             return;
         }
 
-        if (timerAuthNetworkConnect.authTimeOff()) {
+        if (timerAuthNetworkConnect.timeOff()) {
             DialogEnum.NetworkError.SERVER_CONNECT.show();
             return;
         }
@@ -86,10 +86,5 @@ public class AuthController {
         network.removeReadMessageListner(readMessageListener);
     }
 
-    public void authWaitingConnect() {
-        if (!timerAuthNetworkConnect.authTimeOff() && !isConnectedToServer()) {
-
-        }
-    }
 
 }
