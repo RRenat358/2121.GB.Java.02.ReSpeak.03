@@ -20,7 +20,7 @@ public class RespeakApp extends Application {
 
     // Settings manual // todo вынести отдельно
     private String nameApp = "reSpeak!";
-    private int authTimeOffSeconds = 5;
+    private int authTimeOffSeconds = 10;
     //---
 
     private Stage chatStage;
