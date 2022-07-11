@@ -1,56 +1,50 @@
 package rrenat358.respeak.model;
 
-import javafx.application.Platform;
+
 import rrenat358.respeak.RespeakApp;
-import rrenat358.respeak.controllers.AuthController;
-import rrenat358.respeak.controllers.RespeakController;
-import rrenat358.respeak.dialogs.DialogEnum;
-
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 
 public class TimerAuthNetworkConnect {
 
-    private RespeakApp respeakApp = RespeakApp.getInstance();
-    private int timeOffMilliSeconds = respeakApp.authTimeOffSeconds * 1000;
-
     private boolean timeOff = false;
     private boolean timeOffStarting = false;
-    public static Thread threadTimer;
+
+    private Thread threadTimer;
+    private RespeakApp respeakApp = RespeakApp.getInstance();
 
     public boolean authTimeOff() {
         if (timeOff == true) {
             return true;
         }
         if (timeOffStarting == false) {
-            System.out.println("authTimeOff Start → → → " + respeakApp.authTimeOffSeconds + " sec");
-            timeOffStarting = true;
-            timeOffStart();
+            authTimeOffStart(4);
             return false;
         }
         return timeOff;
     }
 
 
-    public void timeOffStart() {
+    public void authTimeOffStart(int timeOffMilliSeconds) {
+        System.out.println("authTimeOffStart() START → → → " + timeOffMilliSeconds + "ms.");
+        timeOffStarting = true;
+
         threadTimer = new Thread(() -> {
             try {
                 Thread.sleep(timeOffMilliSeconds);
-                System.out.println("timer Stop xxxxxxxxxxxxxx");
+                System.out.println("=== TIMER STOP ✖ ===");
                 timeOff = true;
             } catch (InterruptedException e) {
-                System.err.println("===timeOffStart()===");
-                throw new RuntimeException(e);
+                System.err.println("=== timeOffStart() ===");
+                System.err.println("Thread.sleep() --> interrupt()");
+                System.err.println("All right");
             }
         });
         threadTimer.start();
     }
 
+
+    public Thread getThreadTimer() {
+        return threadTimer;
+    }
 
     private static class SingletonHelper {
         private static final TimerAuthNetworkConnect INSTANCE = new TimerAuthNetworkConnect();

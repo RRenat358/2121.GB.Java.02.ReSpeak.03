@@ -19,8 +19,8 @@ import java.io.IOException;
 public class RespeakApp extends Application {
 
     // Settings manual // todo вынести отдельно
-    private static final String nameApp = "reSpeak!";
-    public static final int authTimeOffSeconds = 5;
+    private String nameApp = "reSpeak!";
+    private int authTimeOffSeconds = 5;
     //---
 
     private Stage chatStage;
@@ -30,7 +30,7 @@ public class RespeakApp extends Application {
 
     private static RespeakApp INSTANCE;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
-
+    private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -38,7 +38,7 @@ public class RespeakApp extends Application {
 
         initViews();
         getAuthStage().show();
-        timerAuthNetworkConnect.authTimeOff();
+        timerAuthNetworkConnect.authTimeOffStart(timeOffMilliSeconds);
         getAuthController().initializeMessageHandlerAuthController();
 
     }
@@ -81,6 +81,7 @@ public class RespeakApp extends Application {
 
         authStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
+                timerAuthNetworkConnect.getThreadTimer().interrupt();
                 System.out.println("Stage is closing");
             }
         });
@@ -89,7 +90,7 @@ public class RespeakApp extends Application {
     public void switchToChatWindow(String userName) {
         getAuthController().close();
         getAuthStage().close();
-        timerAuthNetworkConnect.threadTimer.interrupt();
+        timerAuthNetworkConnect.getThreadTimer().interrupt();
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);

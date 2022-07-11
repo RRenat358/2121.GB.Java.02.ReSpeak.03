@@ -42,7 +42,7 @@ public class AuthController {
         }
 
         if (timerAuthNetworkConnect.authTimeOff()) {
-            DialogEnum.AuthError.LOGOPASS_EMPTY.show();
+            DialogEnum.NetworkError.SERVER_CONNECT.show();
             return;
         }
 
