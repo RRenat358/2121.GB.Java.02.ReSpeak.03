@@ -91,6 +91,7 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
+//        timerAuthNetworkConnect.threadTimer
     }
 
     public static void main(String[] args) {
