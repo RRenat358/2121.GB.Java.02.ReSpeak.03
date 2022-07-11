@@ -119,7 +119,7 @@ public class RespeakController {
 
 
     @FXML
-    public void closeWindows() {
+    private void closeWindows() {
         respeakApp.getChatStage().close();
     }
 
