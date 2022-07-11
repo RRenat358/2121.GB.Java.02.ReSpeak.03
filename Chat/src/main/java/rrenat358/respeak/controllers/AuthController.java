@@ -86,5 +86,4 @@ public class AuthController {
         network.removeReadMessageListner(readMessageListener);
     }
 
-
 }

@@ -40,7 +40,6 @@ public class RespeakApp extends Application {
         getAuthStage().show();
         timerAuthNetworkConnect.timeOffStart(timeOffMilliSeconds);
         getAuthController().initializeMessageHandlerAuthController();
-
     }
 
     private void initViews() throws IOException {
@@ -66,6 +65,7 @@ public class RespeakApp extends Application {
                 System.out.println("Stage is closing");
             }
         });
+
     }
 
     private void initAuthWindow() throws IOException {
@@ -94,7 +94,6 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
-
     }
 
     public static void main(String[] args) {
