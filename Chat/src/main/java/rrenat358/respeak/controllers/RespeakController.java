@@ -52,9 +52,10 @@ public class RespeakController {
         }
 
         try {
-            String recipientAlternativePrivateMessage = isAlternativePrivateMessage(message);
-            if (recipientAlternativePrivateMessage != null){
-                network.sendPrivateMessage(recipientAlternativePrivateMessage, message);
+
+            String[] alternativePrivateMessage = isAlternativePrivateMessage(message);
+            if (alternativePrivateMessage != null){
+                network.sendPrivateMessage(alternativePrivateMessage[0], alternativePrivateMessage[1]);
             } else
 
 /*
@@ -168,16 +169,35 @@ public class RespeakController {
 
 
     //==================================================
-    private String isAlternativePrivateMessage(String message) {
-        String recipient = alternativePrivateMessage(message);
+    private String[] isAlternativePrivateMessage(String message) {
+        String[] recipientAndMessage = {"", ""};
+        if (message.length() >= 6) {
+            String[] messageSplit = message.split("\\s+", 3);
+            if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
+
+                for (Object targetRecipient : userListing.getItems()) {
+                    System.out.println("-------------------------searchRecipientAlternativePrivateMessage");
+                    if (messageSplit[1].equals(targetRecipient)) {
+                        recipientAndMessage[0] = String.valueOf(messageSplit[1]);
+                        recipientAndMessage[1] = String.valueOf(messageSplit[2]);
+                        return recipientAndMessage;
+                    }
+                }
+            }
+        }
+/*
+        String[] recipient = alternativePrivateMessage(message);
 
         if (recipient != null) {
-            return searchRecipientAlternativePrivateMessage(recipient);
+            searchRecipientAlternativePrivateMessage(recipient[1]);
+            return searchRecipientAlternativePrivateMessage(recipient[1]);
         }
+*/
         return null;
     }
 
-    private String alternativePrivateMessage(String message) {
+/*
+    private String[] alternativePrivateMessage(String message) {
         if (message.length() >= 6) {
             String[] messageSplit = message.split("\\s+", 3);
             if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
@@ -196,6 +216,7 @@ public class RespeakController {
         }
         return null;
     }
+*/
 
     //==================================================
     //todo -- iconUser, iconSmileToMessage
