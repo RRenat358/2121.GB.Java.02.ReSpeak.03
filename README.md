@@ -21,6 +21,13 @@ ReSpeak
 `int authTimeOffSeconds = 10;`
 
 \
+− − − − − − − − − − − − − − −  
+`alternativePrivateMessage() {}`  
+trigger == `/*`  
+format == `"/* userName message"`  
+
+
+\
 \
 \
 -============================================================  
@@ -46,8 +53,7 @@ Resources Root
 
 \
 −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−  
--или-
-
+или  
 **Mодули**  
  `Commands`  
  `Chat`  

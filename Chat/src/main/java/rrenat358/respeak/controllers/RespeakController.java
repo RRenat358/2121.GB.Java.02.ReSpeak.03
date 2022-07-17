@@ -112,7 +112,7 @@ public class RespeakController {
 
     private String[] isAlternativePrivateMessage(String message) {
         String[] recipientAndMessage = {null, null};
-
+        //search message.length() == "/* u m" == 6 symbol
         if (message.length() >= 6) {
             String[] messageSplit = message.split("\\s+", 3);
             if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
