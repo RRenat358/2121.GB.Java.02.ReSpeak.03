@@ -40,8 +40,8 @@ public class RespeakController {
     private Network network = Network.getInstance();
 
     public void sendMessage() {
-        String message = messageTextField.getText();
-        if (message.trim().isEmpty()) {
+        String message = messageTextField.getText().trim();
+        if (message.isEmpty()) {
             messageInputRequestFocus();
             return;
         }
@@ -179,7 +179,6 @@ public class RespeakController {
 
     private String alternativePrivateMessage(String message) {
         if (message.length() >= 6) {
-//                String[] messageSlit = message.split(" ", 3);
             String[] messageSplit = message.split("\\s+", 3);
             if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
                 return String.valueOf(messageSplit[1]);
@@ -190,7 +189,7 @@ public class RespeakController {
 
     private String searchRecipientAlternativePrivateMessage(String recipient) {
         for (Object targetRecipient : userListing.getItems()) {
-            System.out.println(targetRecipient);
+            System.out.println("searchRecipientAlternativePrivateMessage");
             if (recipient.equals(targetRecipient)) {
                 return String.valueOf(targetRecipient);
             }
