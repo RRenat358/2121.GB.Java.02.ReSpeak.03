@@ -73,7 +73,7 @@ public class Network {
         return command;
     }
 
-    public void sendMessage(String message) throws IOException {
+    public void sendPublicMessage(String message) throws IOException {
         sendCommand(Command.publicMessageCommand(message));
     }
 

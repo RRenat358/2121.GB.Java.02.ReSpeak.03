@@ -16,7 +16,6 @@ import ru.rrenat358.command.commands.UpdateUserListCommandData;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.function.Consumer;
 
 
 public class RespeakController {
@@ -47,14 +46,19 @@ public class RespeakController {
             return;
         }
 
-        String senderThis = null;
+        String recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
-            senderThis = userListing.getSelectionModel().getSelectedItem().toString();
+            recipient = userListing.getSelectionModel().getSelectedItem().toString();
         }
 
         try {
+            String recipientAlternativePrivateMessage = isAlternativePrivateMessage(message);
+            if (recipientAlternativePrivateMessage != null){
+                network.sendPrivateMessage(recipientAlternativePrivateMessage, message);
+            } else
 
-
+/*
+            //==================================================
             // miniMessage == "/w u m" == 6 simbol
             if (message.length() >= 6) {
 //                String[] messageSlit = message.split(" ", 3);
@@ -68,6 +72,7 @@ public class RespeakController {
                     }
 
 
+*/
 /*
                     String us = null;
                     userListing.getItems().stream().forEach(new Consumer() {
@@ -91,7 +96,6 @@ public class RespeakController {
 */
 
 
-
 //                    if (messageSlit[1] == "я") {
 /*                    if (messageSlit[1].equals("я")) {
                         System.out.println("Command send: /w яяя");
@@ -103,15 +107,18 @@ public class RespeakController {
 //                            processMessage("data1 == /w");
 //                    break;
 
+/*
                 }
             }
+*/
 
 
-            if (senderThis != null) {
-                network.sendPrivateMessage(senderThis, message);
-            } else {
-                network.sendMessage(message);
-            }
+                //==================================================
+                if (recipient != null) {
+                    network.sendPrivateMessage(recipient, message);
+                } else {
+                    network.sendPublicMessage(message);
+                }
         } catch (IOException e) {
             System.err.println("err: ChatController.sendMessage()");
             DialogEnum.NetworkError.SEND_MESSAGE.show();
@@ -159,41 +166,39 @@ public class RespeakController {
         });
     }
 
-    private String alternativePrivateMessage(String message) {
-        String recipient = isAlternativePrivateMessage(message);
-        if (recipient != null) {
 
+    //==================================================
+    private String isAlternativePrivateMessage(String message) {
+        String recipient = alternativePrivateMessage(message);
+
+        if (recipient != null) {
+            return searchRecipientAlternativePrivateMessage(recipient);
         }
-        return recipient;
+        return null;
     }
 
-
-
-    private String isAlternativePrivateMessage(String message) {
+    private String alternativePrivateMessage(String message) {
         if (message.length() >= 6) {
 //                String[] messageSlit = message.split(" ", 3);
-            String[] messageSlit = message.split("\\s+", 3);
-            if (messageSlit.length == 3 && messageSlit[0].equals("/*")) {
-                return String.valueOf(messageSlit[1]);
+            String[] messageSplit = message.split("\\s+", 3);
+            if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
+                return String.valueOf(messageSplit[1]);
             }
         }
         return null;
     }
 
-    private String searchRecipientAlternativePrivateMessage() {
-/*        String recipient = null;
-        userListing.getItems().stream().forEach(new Consumer() {
-            @Override
-            public void accept(Object c) {
-                System.out.println(c);
-                if (c == messageSlit[1]) {
-                    recipient = String.valueOf(c);
-                }
+    private String searchRecipientAlternativePrivateMessage(String recipient) {
+        for (Object targetRecipient : userListing.getItems()) {
+            System.out.println(targetRecipient);
+            if (recipient.equals(targetRecipient)) {
+                return String.valueOf(targetRecipient);
             }
-        });*/
+        }
         return null;
     }
 
+    //==================================================
     //todo -- iconUser, iconSmileToMessage
     public void controllerSetting() {
         userListing.getSelectionModel().selectFirst(); //todo -- this does not work
