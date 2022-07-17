@@ -51,75 +51,18 @@ public class RespeakController {
             recipient = userListing.getSelectionModel().getSelectedItem().toString();
         }
 
+        String[] alternativePrivateMessage = isAlternativePrivateMessage(message);
+        if (alternativePrivateMessage != null) {
+            recipient = alternativePrivateMessage[0];
+            message = alternativePrivateMessage[1];
+        }
+
         try {
-
-            String[] alternativePrivateMessage = isAlternativePrivateMessage(message);
-            if (alternativePrivateMessage != null){
-                network.sendPrivateMessage(alternativePrivateMessage[0], alternativePrivateMessage[1]);
-            } else
-
-/*
-            //==================================================
-            // miniMessage == "/w u m" == 6 simbol
-            if (message.length() >= 6) {
-//                String[] messageSlit = message.split(" ", 3);
-                String[] messageSlit = message.split("\\s+", 3);
-                if (messageSlit.length == 3 && messageSlit[0].equals("/*")) {
-
-                    System.out.println("Command send: /*");
-
-                    for (Object messageSlit2 : userListing.getItems()) {
-                        System.out.println(messageSlit2);
-                    }
-
-
-*/
-/*
-                    String us = null;
-                    userListing.getItems().stream().forEach(new Consumer() {
-
-                        @Override
-                        public void accept(Object c) {
-                            System.out.println(c);
-                            if (c == messageSlit[1]) {
-                                us = String.valueOf(c);
-                            }
-                        }
-                    });
-                    network.sendPrivateMessage(us, message);
-*/
-
-//                    System.out.println(userListing.getItems().listIterator());
-/*
-                    while(userListing.getItems().listIterator().hasNext()) {
-                        System.out.println(userListing.getItems().listIterator().next());
-                    }
-*/
-
-
-//                    if (messageSlit[1] == "я") {
-/*                    if (messageSlit[1].equals("я")) {
-                        System.out.println("Command send: /w яяя");
-
-
-                    }*/
-
-
-//                            processMessage("data1 == /w");
-//                    break;
-
-/*
-                }
+            if (recipient != null) {
+                network.sendPrivateMessage(recipient, message);
+            } else {
+                network.sendPublicMessage(message);
             }
-*/
-
-
-                //==================================================
-                if (recipient != null) {
-                    network.sendPrivateMessage(recipient, message);
-                } else {
-                    network.sendPublicMessage(message);
-                }
         } catch (IOException e) {
             System.err.println("err: ChatController.sendMessage()");
             DialogEnum.NetworkError.SEND_MESSAGE.show();
@@ -167,58 +110,27 @@ public class RespeakController {
         });
     }
 
-
-    //==================================================
     private String[] isAlternativePrivateMessage(String message) {
-        String[] recipientAndMessage = {"", ""};
+        String[] recipientAndMessage = {null, null};
+
         if (message.length() >= 6) {
             String[] messageSplit = message.split("\\s+", 3);
             if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
 
                 for (Object targetRecipient : userListing.getItems()) {
-                    System.out.println("-------------------------searchRecipientAlternativePrivateMessage");
+
                     if (messageSplit[1].equals(targetRecipient)) {
-                        recipientAndMessage[0] = String.valueOf(messageSplit[1]);
-                        recipientAndMessage[1] = String.valueOf(messageSplit[2]);
+                        recipientAndMessage[0] = messageSplit[1];
+                        recipientAndMessage[1] = messageSplit[2];
+
                         return recipientAndMessage;
                     }
                 }
             }
         }
-/*
-        String[] recipient = alternativePrivateMessage(message);
-
-        if (recipient != null) {
-            searchRecipientAlternativePrivateMessage(recipient[1]);
-            return searchRecipientAlternativePrivateMessage(recipient[1]);
-        }
-*/
         return null;
     }
 
-/*
-    private String[] alternativePrivateMessage(String message) {
-        if (message.length() >= 6) {
-            String[] messageSplit = message.split("\\s+", 3);
-            if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
-                return String.valueOf(messageSplit[1]);
-            }
-        }
-        return null;
-    }
-
-    private String searchRecipientAlternativePrivateMessage(String recipient) {
-        for (Object targetRecipient : userListing.getItems()) {
-            System.out.println("searchRecipientAlternativePrivateMessage");
-            if (recipient.equals(targetRecipient)) {
-                return String.valueOf(targetRecipient);
-            }
-        }
-        return null;
-    }
-*/
-
-    //==================================================
     //todo -- iconUser, iconSmileToMessage
     public void controllerSetting() {
         userListing.getSelectionModel().selectFirst(); //todo -- this does not work
