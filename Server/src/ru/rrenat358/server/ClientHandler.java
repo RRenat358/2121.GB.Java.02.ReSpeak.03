@@ -108,20 +108,18 @@ public class ClientHandler {
                 }
                 case PUBLIC_MESSAGE:
                     PublicMessageCommandData data1 = (PublicMessageCommandData) command.getData();
+/*
                     String clientMessage = data1.getMessage();
 
                     // miniMessage == "/w u m" == 6 simbol
                     if (clientMessage.length() >= 6) {
                         String[] clientMessageSlit = clientMessage.split(" ");
-                        if (clientMessageSlit.length >= 3 && clientMessageSlit[0].length() == /*"/*"*/ 2) {
+                        if (clientMessageSlit.length >= 3 && clientMessageSlit[0].length() == 2) {
 
                             PrivateMessageCommandData data3 = (PrivateMessageCommandData) command.getData();
                             String receiver = data3.getReceiver();
                             String privateMessage = data3.getMessage();
                             serverHandler.sendPrivateMessage(this, receiver, privateMessage);
-
-
-
 
 
                             System.out.println("Command send: /w");
@@ -131,12 +129,15 @@ public class ClientHandler {
                         }
                     }
 
+*/
 /*                    if (data1.getMessage().equals("/w")) {
                         System.out.println("Command send: /w");
                         processMessage("data1 == /w");
                         break;
-                    }*/
+                    }*//*
 
+
+*/
 
                     processMessage(data1.getMessage());
                     break;

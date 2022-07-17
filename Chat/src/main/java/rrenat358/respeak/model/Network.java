@@ -48,8 +48,8 @@ public class Network {
         }
     }
 
-    public void sendPrivateMessage(String receiver, String message) throws IOException {
-        sendCommand(Command.privateMessageCommand(receiver, message));
+    public void sendPrivateMessage(String recipient, String message) throws IOException {
+        sendCommand(Command.privateMessageCommand(recipient, message));
     }
 
     public void sendCommand(Command command) throws IOException {

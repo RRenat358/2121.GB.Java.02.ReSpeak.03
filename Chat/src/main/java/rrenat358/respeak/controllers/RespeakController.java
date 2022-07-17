@@ -16,6 +16,7 @@ import ru.rrenat358.command.commands.UpdateUserListCommandData;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Consumer;
 
 
 public class RespeakController {
@@ -52,6 +53,60 @@ public class RespeakController {
         }
 
         try {
+
+
+            // miniMessage == "/w u m" == 6 simbol
+            if (message.length() >= 6) {
+//                String[] messageSlit = message.split(" ", 3);
+                String[] messageSlit = message.split("\\s+", 3);
+                if (messageSlit.length == 3 && messageSlit[0].equals("/*")) {
+
+                    System.out.println("Command send: /*");
+
+                    for (Object messageSlit2 : userListing.getItems()) {
+                        System.out.println(messageSlit2);
+                    }
+
+
+/*
+                    String us = null;
+                    userListing.getItems().stream().forEach(new Consumer() {
+
+                        @Override
+                        public void accept(Object c) {
+                            System.out.println(c);
+                            if (c == messageSlit[1]) {
+                                us = String.valueOf(c);
+                            }
+                        }
+                    });
+                    network.sendPrivateMessage(us, message);
+*/
+
+//                    System.out.println(userListing.getItems().listIterator());
+/*
+                    while(userListing.getItems().listIterator().hasNext()) {
+                        System.out.println(userListing.getItems().listIterator().next());
+                    }
+*/
+
+
+
+//                    if (messageSlit[1] == "я") {
+/*                    if (messageSlit[1].equals("я")) {
+                        System.out.println("Command send: /w яяя");
+
+
+                    }*/
+
+
+//                            processMessage("data1 == /w");
+//                    break;
+
+                }
+            }
+
+
             if (senderThis != null) {
                 network.sendPrivateMessage(senderThis, message);
             } else {
@@ -102,6 +157,41 @@ public class RespeakController {
                 }
             }
         });
+    }
+
+    private String alternativePrivateMessage(String message) {
+        String recipient = isAlternativePrivateMessage(message);
+        if (recipient != null) {
+
+        }
+        return recipient;
+    }
+
+
+
+    private String isAlternativePrivateMessage(String message) {
+        if (message.length() >= 6) {
+//                String[] messageSlit = message.split(" ", 3);
+            String[] messageSlit = message.split("\\s+", 3);
+            if (messageSlit.length == 3 && messageSlit[0].equals("/*")) {
+                return String.valueOf(messageSlit[1]);
+            }
+        }
+        return null;
+    }
+
+    private String searchRecipientAlternativePrivateMessage() {
+/*        String recipient = null;
+        userListing.getItems().stream().forEach(new Consumer() {
+            @Override
+            public void accept(Object c) {
+                System.out.println(c);
+                if (c == messageSlit[1]) {
+                    recipient = String.valueOf(c);
+                }
+            }
+        });*/
+        return null;
     }
 
     //todo -- iconUser, iconSmileToMessage
