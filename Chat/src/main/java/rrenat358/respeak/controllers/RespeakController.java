@@ -11,6 +11,7 @@ import rrenat358.respeak.model.ReadMessageListener;
 import ru.rrenat358.command.Command;
 import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.ClientMessageCommandData;
+import ru.rrenat358.command.commands.PrivateMessageCommandData;
 import ru.rrenat358.command.commands.UpdateUserListCommandData;
 
 import java.io.IOException;
@@ -97,9 +98,16 @@ public class RespeakController {
         network.addReadMessageListner(new ReadMessageListener() {
             @Override
             public void processReceivedCommand(Command command) {
+
+
                 if (command.getType() == CommandType.CLIENT_MESSAGE) {
                     ClientMessageCommandData data = (ClientMessageCommandData) command.getData();
                     messageSendToBox(data.getSender(), data.getMessage());
+
+                } else if (command.getType() == CommandType.PRIVATE_MESSAGE) {
+                    PrivateMessageCommandData data = (PrivateMessageCommandData) command.getData();
+                    messageSendToBox(data.getReceiver(), data.getMessage() + "\n [CommandType.PRIVATE_MESSAGE]");
+
                 } else if (command.getType() == CommandType.UPDATE_USERS_LIST) {
                     UpdateUserListCommandData data = (UpdateUserListCommandData) command.getData();
                     Platform.runLater(() -> {

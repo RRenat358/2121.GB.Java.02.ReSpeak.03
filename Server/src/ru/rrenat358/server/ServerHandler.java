@@ -45,6 +45,25 @@ public class ServerHandler {
         }
     }
 
+
+
+
+
+
+    public synchronized void sendPrivateMessage(ClientHandler sender, String recipient, String privateMessage) throws IOException {
+        for (ClientHandler client : clientList) {
+            if (client != sender && client.getUserName().equals(recipient)) {
+                client.sendCommand(Command.privateMessageCommand(sender.getUserName(), privateMessage));
+            }
+        }
+    }
+
+
+
+
+
+
+/*
     public synchronized void sendPrivateMessage(ClientHandler sender, String recipient, String privateMessage) throws IOException {
         for (ClientHandler client : clientList) {
             if (client != sender && client.getUserName().equals(recipient)) {
@@ -52,6 +71,7 @@ public class ServerHandler {
             }
         }
     }
+*/
 
     private /*synchronized*/ void notifyUserListUpdated() throws IOException {
         List<String> users = new /*CopyOnWrite*/ArrayList<>();
