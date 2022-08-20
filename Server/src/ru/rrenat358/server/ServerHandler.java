@@ -48,7 +48,7 @@ public class ServerHandler {
     public synchronized void sendPrivateMessage(ClientHandler sender, String recipient, String privateMessage) throws IOException {
         for (ClientHandler client : clientList) {
             if (client != sender && client.getUserName().equals(recipient)) {
-                client.sendCommand(Command.clientMessageCommand(sender.getUserName(), privateMessage));
+                client.sendCommand(Command.privateMessageCommand(sender.getUserName(), privateMessage));
             }
         }
     }
