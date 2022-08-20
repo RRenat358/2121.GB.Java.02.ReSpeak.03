@@ -9,6 +9,7 @@ import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
 import rrenat358.respeak.model.ReadMessageListener;
+import rrenat358.respeak.model.TimerAuthNetworkConnect;
 import ru.rrenat358.command.Command;
 import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.AuthOkCommandData;
@@ -28,6 +29,7 @@ public class AuthController {
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
     public ReadMessageListener readMessageListener;
+    private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
 
     @FXML
     public void executeAuth() {
@@ -36,6 +38,11 @@ public class AuthController {
 
         if (login == null || password == null || login.isBlank() || password.isBlank()) {
             DialogEnum.AuthError.LOGOPASS_EMPTY.show();
+            return;
+        }
+
+        if (timerAuthNetworkConnect.timeOff()) {
+            DialogEnum.NetworkError.SERVER_CONNECT.show();
             return;
         }
 

@@ -11,6 +11,7 @@ import rrenat358.respeak.model.ReadMessageListener;
 import ru.rrenat358.command.Command;
 import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.ClientMessageCommandData;
+import ru.rrenat358.command.commands.PrivateMessageCommandData;
 import ru.rrenat358.command.commands.UpdateUserListCommandData;
 
 import java.io.IOException;
@@ -40,22 +41,28 @@ public class RespeakController {
     private Network network = Network.getInstance();
 
     public void sendMessage() {
-        String message = messageTextField.getText();
-        if (message.trim().isEmpty()) {
+        String message = messageTextField.getText().trim();
+        if (message.isEmpty()) {
             messageInputRequestFocus();
             return;
         }
 
-        String senderThis = null;
+        String recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
-            senderThis = userListing.getSelectionModel().getSelectedItem().toString();
+            recipient = userListing.getSelectionModel().getSelectedItem().toString();
+        }
+
+        String[] alternativePrivateMessage = isAlternativePrivateMessage(message);
+        if (alternativePrivateMessage != null) {
+            recipient = alternativePrivateMessage[0];
+            message = alternativePrivateMessage[1];
         }
 
         try {
-            if (senderThis != null) {
-                network.sendPrivateMessage(senderThis, message);
+            if (recipient != null) {
+                network.sendPrivateMessage(recipient, message);
             } else {
-                network.sendMessage(message);
+                network.sendPublicMessage(message);
             }
         } catch (IOException e) {
             System.err.println("err: ChatController.sendMessage()");
@@ -91,9 +98,16 @@ public class RespeakController {
         network.addReadMessageListner(new ReadMessageListener() {
             @Override
             public void processReceivedCommand(Command command) {
+
+
                 if (command.getType() == CommandType.CLIENT_MESSAGE) {
                     ClientMessageCommandData data = (ClientMessageCommandData) command.getData();
                     messageSendToBox(data.getSender(), data.getMessage());
+
+                } else if (command.getType() == CommandType.PRIVATE_MESSAGE) {
+                    PrivateMessageCommandData data = (PrivateMessageCommandData) command.getData();
+                    messageSendToBox(data.getReceiver(), data.getMessage() + "\n [CommandType.PRIVATE_MESSAGE]");
+
                 } else if (command.getType() == CommandType.UPDATE_USERS_LIST) {
                     UpdateUserListCommandData data = (UpdateUserListCommandData) command.getData();
                     Platform.runLater(() -> {
@@ -102,6 +116,27 @@ public class RespeakController {
                 }
             }
         });
+    }
+
+    private String[] isAlternativePrivateMessage(String message) {
+        String[] recipientAndMessage = {null, null};
+        //search message.length() == "/* u m" == 6 symbol
+        if (message.length() >= 6) {
+            String[] messageSplit = message.split("\\s+", 3);
+            if (messageSplit.length == 3 && messageSplit[0].equals("/*")) {
+
+                for (Object targetRecipient : userListing.getItems()) {
+
+                    if (messageSplit[1].equals(targetRecipient)) {
+                        recipientAndMessage[0] = messageSplit[1];
+                        recipientAndMessage[1] = messageSplit[2];
+
+                        return recipientAndMessage;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     //todo -- iconUser, iconSmileToMessage
