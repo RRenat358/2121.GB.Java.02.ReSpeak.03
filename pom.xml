@@ -13,5 +13,20 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+
+    <build>
+        <sourceDirectory>Chat/src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>Chat/src/main/resources</directory>
+            </resource>
+        </resources>
+
+<!--        <sourceDirectory>Commands/src</sourceDirectory>-->
+<!--        <sourceDirectory>Server/src</sourceDirectory>-->
+
+    </build>
+
+
 </project>
+
