@@ -1,12 +1,14 @@
 package ru.rrenat358.dbconnect;
 
 import java.sql.*;
+import java.util.Objects;
 
 public class DBConnect {
 
     private static Connection connection;
     private static Statement statement;
 
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     public void connect() throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:ChatDB.sqlite");
         statement = connection.createStatement();
@@ -29,7 +31,7 @@ public class DBConnect {
         }
     }
 
-
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     public void createTable() throws SQLException {
         statement.executeUpdate("CREATE TABLE IF NOT exists User \n" +
                 "(\n" +
@@ -41,7 +43,7 @@ public class DBConnect {
                 ")");
     }
 
-
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     public void clearTable() throws SQLException {
         statement.executeUpdate("DELETE FROM main.User");
         statement.executeUpdate("DELETE FROM sqlite_sequence WHERE name='User'");
@@ -51,12 +53,12 @@ public class DBConnect {
         statement.executeUpdate("DROP TABLE main.User");
     }
 
-
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     public void insertUser(String login, String password) {
         try (PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO main.User (login, password)\n" +
                         "VALUES (?, ?)")) {
-            ps.setString(1,login);
+            ps.setString(1, login);
             ps.setString(2, password);
             ps.execute();
         } catch (SQLException ex) {
@@ -68,7 +70,7 @@ public class DBConnect {
         try (PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO main.User (login, password, name)\n" +
                         "VALUES (?, ?, ?)")) {
-            ps.setString(1,login);
+            ps.setString(1, login);
             ps.setString(2, password);
             ps.setString(3, name);
             ps.execute();
@@ -94,7 +96,7 @@ public class DBConnect {
         }
     }
 
-
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     public void readDB() {
         try (ResultSet rs = statement.executeQuery("SELECT * FROM User")) {
             while (rs.next()) {
@@ -111,6 +113,43 @@ public class DBConnect {
         }
     }
 
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    String login;
+    String password;
+
+    public boolean isLoginPass(String isLogin, String isPassword) {
+        this.login = null;
+        this.password = null;
+
+        try (ResultSet rs = statement.executeQuery(
+                "select login, password \n" +
+                        "from User \n" +
+                        "where login = '" + isLogin + "' " +
+                        "and password = '" + isPassword + "'"))
+        {
+            while (rs.next()) {
+                this.login = rs.getString(1);
+                this.password = rs.getString(2);
+            }
+
+            if (this.login == null) {
+                return false;
+            }
+            System.out.println(this.login + " " + this.password);
+
+            if (Objects.equals(this.login, isLogin) && Objects.equals(this.password, isPassword)) {
+                return true;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
+
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
 }

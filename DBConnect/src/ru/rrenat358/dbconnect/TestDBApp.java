@@ -11,16 +11,23 @@ public class TestDBApp {
 //            DBConnect.clearTable();      // !!!
 //            DBConnect.dropTable();     // !!!
 
-            DBConnect.createTable();
-            DBConnect.clearTable();
+//            DBConnect.createTable();
+//            DBConnect.clearTable();
 
+            /*
             DBConnect.insertUser("Martin", "mmm");
             DBConnect.insertUser("Tom", "ttt");
             DBConnect.insertUser("Den", "ddd", "Denis");
 
             DBConnect.insertUserN();     // fori = 5
+            */
 
-            DBConnect.readDB();
+//            DBConnect.readDB();
+
+            DBConnect.isLoginPass("aaa","bbb");
+            DBConnect.isLoginPass("zzz","xxx");
+            DBConnect.isLoginPass("Den","ddd");
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
