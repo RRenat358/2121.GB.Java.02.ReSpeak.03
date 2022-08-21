@@ -18,7 +18,7 @@ ReSpeak
 
 \
 − − − − − − − − − − − − − − −  
-`int authTimeOffSeconds = 10;`
+`int authTimeOffSeconds = 100;`
 
 \
 − − − − − − − − − − − − − − −  
@@ -66,16 +66,32 @@ Resources Root
 −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−  
 Зависимости  
 Все модули от  `Commands`  
+
+\
+−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−  
+Maven  
+в импорте присутствует `pom.xml`
+
 \
 \
 \
 -============================================================  
     **Подключение JavaFX**  
--============================================================
+-============================================================  
+В настройках проекта в разделе `lib` путь к JavaFX.lib  
+пример  
+`C:\MyWorkSpace.Lib\javafx-sdk\lib`  
 
-Getting Started with JavaFX  
-https://openjfx.io/openjfx-docs
 
+\
+−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−  
+В настройках IDEA глобальный путь к JavaFX.lib  
+`PATH_TO_FX`  
+
+\
+Для запуска "ChatApp" для VM указать путь  
+
+Getting Started with JavaFX  →  https://openjfx.io/openjfx-docs  
 `
 --module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
 `
