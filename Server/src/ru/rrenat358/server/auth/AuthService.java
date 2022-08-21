@@ -1,6 +1,8 @@
 package ru.rrenat358.server.auth;
 
 import ru.rrenat358.dbconnect.DBConnect;
+
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -25,12 +27,10 @@ public class AuthService {
 
     private DBConnect dbConnect;
 
-    public String getUserNameByLoginPassword2(String login, String password) {
-        User userRequired = new User(login, password);
-        for (User user : USERS) {
-            if (userRequired.equals(user)) {
-                return user.getUserName();
-            }
+    public synchronized String getUserNameByLoginPassword2(String login, String password) {
+        if (dbConnect.isLoginPass(login, password)) {
+            Object o = "login";
+            return (String) o;
         }
         return null;
     }

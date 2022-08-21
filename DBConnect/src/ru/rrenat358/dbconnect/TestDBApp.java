@@ -13,14 +13,18 @@ public class TestDBApp {
 
 //            DBConnect.createTable();
 //            DBConnect.clearTable();
+//
+//            DBConnect.insertUser("Martin", "mmm");
+//            DBConnect.insertUser("Tom", "ttt");
+//            DBConnect.insertUser("Den", "ddd", "Denis");
+//
+//            DBConnect.insertUser("1", "1", "User01");
+//            DBConnect.insertUser("2", "2", "User02");
+//            DBConnect.insertUser("3", "3", "User03");
+//
+//
+//            DBConnect.insertUserN();     // fori = 5
 
-            /*
-            DBConnect.insertUser("Martin", "mmm");
-            DBConnect.insertUser("Tom", "ttt");
-            DBConnect.insertUser("Den", "ddd", "Denis");
-
-            DBConnect.insertUserN();     // fori = 5
-            */
 
 //            DBConnect.readDB();
 
