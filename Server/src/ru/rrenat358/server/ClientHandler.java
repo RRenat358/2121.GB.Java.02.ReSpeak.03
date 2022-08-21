@@ -67,7 +67,10 @@ public class ClientHandler {
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword2(login, password);
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword3(login, password);
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword4(login, password);
-                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword5(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword5(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword6(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword7(login, password);
+                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword8(login, password);
 
                 if (userName == null) {
                     sendCommand(Command.errorCommand("Некорректные логин/пароль"));
