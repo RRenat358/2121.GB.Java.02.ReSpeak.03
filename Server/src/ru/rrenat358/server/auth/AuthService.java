@@ -1,5 +1,10 @@
 package ru.rrenat358.server.auth;
 
+//import org.sqlite.JDBC;
+
+
+import org.sqlite.JDBC;
+
 import java.util.Set;
 
 public class AuthService {
@@ -19,6 +24,14 @@ public class AuthService {
         }
         return null;
     }
+
+    JDBC jdbc = new JDBC();
+
+
+
+
+
+
 
 
     private static class SingletonHelper {

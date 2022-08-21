@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class Jdbc {
+public class DBConnect {
 
     private static Connection connection;
     private static Statement statement;
