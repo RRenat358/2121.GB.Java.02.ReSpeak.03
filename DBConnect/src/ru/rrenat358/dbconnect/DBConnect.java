@@ -1,3 +1,5 @@
+package ru.rrenat358.dbconnect;
+
 import java.sql.*;
 
 public class DBConnect {

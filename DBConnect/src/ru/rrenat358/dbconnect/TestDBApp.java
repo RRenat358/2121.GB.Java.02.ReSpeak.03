@@ -1,4 +1,4 @@
-
+package ru.rrenat358.dbconnect;
 
 public class TestDBApp {
 
