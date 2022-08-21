@@ -104,7 +104,7 @@ public class Network {
                 }
             }
         });
-        thread.setDaemon(true);
+//        thread.setDaemon(true);
         thread.start();
         return thread;
     }

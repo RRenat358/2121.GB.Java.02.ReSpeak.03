@@ -1,5 +1,6 @@
 package ru.rrenat358.server.auth;
 
+import rrenat358.respeak.model.Network;
 import ru.rrenat358.dbconnect.DBConnect;
 
 import java.util.Objects;
@@ -33,10 +34,14 @@ public class AuthService {
     private String[] userName4;
     private String[] userNameDB5;
     private User userName5;
+
     private String[] userNameDB6;
     private User userName6;
+
     private String[] userNameDB7;
     private User userName7;
+    private String[] userNameDB8;
+    private User userName8;
 
     public String getUserNameByLoginPassword2(String login, String password) {
         userName = dbConnect.isLoginPass2(login, password);
@@ -49,12 +54,9 @@ public class AuthService {
     public String getUserNameByLoginPassword3(String login, String password) {
         User userRequired = new User(login, password);
         userName3 = this.dbConnect.isLoginPass3(login, password);
-//        for (User user : User userName2) {
-//        User[] user = userName2;
             if (userRequired.equals(userName3)) {
                 return userName3[2];
             }
-//        }
         return null;
     }
 
@@ -84,6 +86,7 @@ public class AuthService {
         return null;
     }
 
+    //Точно такой же метод, только данные о юзере не из Листа, а из БД
     public String getUserNameByLoginPassword6(String login, String password) {
         User userRequired = new User(login, password);
 
@@ -109,7 +112,7 @@ public class AuthService {
 
     public synchronized String getUserNameByLoginPassword7(String login, String password) {
         Thread thread2 = new Thread(() -> {
-            userNameDB5 = dbConnect.isLoginPass3(login, password);
+            userNameDB7 = dbConnect.isLoginPass3(login, password);
         });
         try {
             thread2.start();
@@ -119,32 +122,38 @@ public class AuthService {
         }
 
         User userRequired = new User(login, password);
-        userName5 = new User(userNameDB5[0],userNameDB5[1],userNameDB5[3]);
+        userName7 = new User(userNameDB7[0],userNameDB7[1],userNameDB7[3]);
 
-        if (userRequired.equals(userName5)) {
-            return userName5.getUserName();
+        if (userRequired.equals(userName7)) {
+            return userName7.getUserName();
         }
         return null;
     }
 
+
+
     public synchronized String getUserNameByLoginPassword8(String login, String password) {
+        Network network = new Network();
+        network.startReadMessageProcess().setDaemon(false);
+
         Thread thread2 = new Thread(() -> {
-            userNameDB5 = dbConnect.isLoginPass3(login, password);
+            userNameDB7 = dbConnect.isLoginPass3(login, password);
+            System.out.println(userNameDB7[0]+userNameDB7[1]+userNameDB7[3]);
         });
         try {
+
             thread2.start();
             thread2.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println(userNameDB5[0]+userNameDB5[1]+userNameDB5[3]);
-
         User userRequired = new User(login, password);
-        userName5 = new User(userNameDB5[0],userNameDB5[1],userNameDB5[3]);
+        System.out.println(userRequired);
+        userName7 = new User(userNameDB7[0],userNameDB7[1],userNameDB7[3]);
 
-        if (userRequired.equals(userName5)) {
-            return userName5.getUserName();
+        if (userRequired.equals(userName7)) {
+            return userName7.getUserName();
         }
         return null;
     }
