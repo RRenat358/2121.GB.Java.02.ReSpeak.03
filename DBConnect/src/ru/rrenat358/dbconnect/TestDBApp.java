@@ -32,6 +32,9 @@ public class TestDBApp {
             DBConnect.isLoginPass("zzz","xxx");
             DBConnect.isLoginPass("Den","ddd");
 
+            System.out.println(DBConnect.isLoginPass2("1", "1"));
+            System.out.println(DBConnect.isLoginPass2("3", "3"));
+
 
         } catch (Exception ex) {
             ex.printStackTrace();

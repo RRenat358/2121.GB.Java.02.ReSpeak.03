@@ -26,11 +26,12 @@ public class AuthService {
     }
 
     private DBConnect dbConnect;
+    private String userName;
 
     public synchronized String getUserNameByLoginPassword2(String login, String password) {
-        if (dbConnect.isLoginPass(login, password)) {
-            Object o = "login";
-            return (String) o;
+        userName = dbConnect.isLoginPass2(login, password);
+        if (userName != null) {
+            return userName;
         }
         return null;
     }

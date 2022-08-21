@@ -116,6 +116,8 @@ public class DBConnect {
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     String login;
     String password;
+    String name;
+
 
     public boolean isLoginPass(String isLogin, String isPassword) {
         this.login = null;
@@ -149,6 +151,43 @@ public class DBConnect {
     }
 
 
+
+    public String isLoginPass2(String isLogin, String isPassword) {
+        this.login = null;
+        this.password = null;
+        this.name = null;
+
+        try (ResultSet rs = statement.executeQuery(
+                "select login, password, name \n" +
+                        "from User \n" +
+                        "where login = '" + isLogin + "' " +
+                        "and password = '" + isPassword + "'"))
+        {
+            while (rs.next()) {
+                this.login = rs.getString(1);
+                this.password = rs.getString(2);
+                this.name = rs.getString(3);
+            }
+
+            if (this.login == null) {
+                return this.name;
+            }
+
+
+            if (Objects.equals(this.login, isLogin) && Objects.equals(this.password, isPassword)) {
+                if (this.name == null) {
+                    this.name = "nameNull";
+                }
+                System.out.println(this.login + " " + this.password + " " + this.name);
+                return this.name;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return this.name = null;
+        }
+        return this.name;
+    }
 
 
 
