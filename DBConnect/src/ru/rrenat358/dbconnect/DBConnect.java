@@ -31,14 +31,16 @@ public class DBConnect {
 
 
     public void createTable() throws SQLException {
-        statement.executeUpdate("CREATE TABLE IF NOT exists User\n" +
+        statement.executeUpdate("CREATE TABLE IF NOT exists User \n" +
                 "(\n" +
-                "    id integer primary key autoincrement not null,\n" +
-                "    name text not null ,\n" +
+                "    id integer primary key autoincrement not null ,\n" +
+                "    login text not null ,\n" +
                 "    password text not null ,\n" +
+                "    name text ,\n" +
                 "    age integer\n" +
                 ")");
     }
+
 
     public void clearTable() throws SQLException {
         statement.executeUpdate("DELETE FROM main.User");
@@ -49,12 +51,26 @@ public class DBConnect {
         statement.executeUpdate("DROP TABLE main.User");
     }
 
-    public void insertUser(String name, String password) {
+
+    public void insertUser(String login, String password) {
         try (PreparedStatement ps = connection.prepareStatement(
-                "INSERT INTO User (name, password)\n" +
+                "INSERT INTO main.User (login, password)\n" +
                         "VALUES (?, ?)")) {
-            ps.setString(1,name);
+            ps.setString(1,login);
             ps.setString(2, password);
+            ps.execute();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void insertUser(String login, String password, String name) {
+        try (PreparedStatement ps = connection.prepareStatement(
+                "INSERT INTO main.User (login, password, name)\n" +
+                        "VALUES (?, ?, ?)")) {
+            ps.setString(1,login);
+            ps.setString(2, password);
+            ps.setString(3, name);
             ps.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -64,11 +80,12 @@ public class DBConnect {
 
     public void insertUserN() throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement(
-                "INSERT INTO User (name, password)\n" +
-                        "VALUES (?, ?)")) {
+                "INSERT INTO User (login, password, name)\n" +
+                        "VALUES (?, ?, ?)")) {
             for (int i = 1; i <= 5; i++) {
-                ps.setString(1, "User_" + i);
-                ps.setString(2, i + "");
+                ps.setString(1, "u" + i);
+                ps.setString(2, "p" + i);
+                ps.setString(3, "User0" + i);
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -77,6 +94,7 @@ public class DBConnect {
         }
     }
 
+
     public void readDB() {
         try (ResultSet rs = statement.executeQuery("SELECT * FROM User")) {
             while (rs.next()) {
@@ -84,7 +102,8 @@ public class DBConnect {
                         rs.getInt(1) + " " +
                                 rs.getString(2) + " " +
                                 rs.getString(3) + " " +
-                                rs.getInt(4)
+                                rs.getString(4) + " " +
+                                rs.getInt(5)
                 );
             }
         } catch (Exception ex) {

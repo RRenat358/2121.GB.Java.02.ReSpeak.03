@@ -25,6 +25,16 @@ public class AuthService {
 
     private DBConnect dbConnect;
 
+    public String getUserNameByLoginPassword2(String login, String password) {
+        User userRequired = new User(login, password);
+        for (User user : USERS) {
+            if (userRequired.equals(user)) {
+                return user.getUserName();
+            }
+        }
+        return null;
+    }
+
 
 
 

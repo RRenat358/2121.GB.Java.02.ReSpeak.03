@@ -8,12 +8,15 @@ public class TestDBApp {
         try {
             DBConnect.connect();
 
-//            DBConnect.createTable();
 //            DBConnect.clearTable();      // !!!
 //            DBConnect.dropTable();     // !!!
 
+            DBConnect.createTable();
+            DBConnect.clearTable();
+
             DBConnect.insertUser("Martin", "mmm");
             DBConnect.insertUser("Tom", "ttt");
+            DBConnect.insertUser("Den", "ddd", "Denis");
 
             DBConnect.insertUserN();     // fori = 5
 
