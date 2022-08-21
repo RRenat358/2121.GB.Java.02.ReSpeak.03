@@ -117,6 +117,7 @@ public class DBConnect {
     String login;
     String password;
     String name;
+    String[] isLoginPass;
 
 
     public boolean isLoginPass(String isLogin, String isPassword) {
@@ -189,6 +190,47 @@ public class DBConnect {
         return this.name;
     }
 
+    public String[] isLoginPass3(String isLogin, String isPassword) {
+        isLoginPass[0] = null;
+        isLoginPass[1] = null;
+        isLoginPass[2] = null;
+
+        try (ResultSet rs = statement.executeQuery(
+                "select login, password, name \n" +
+                        "from User \n" +
+                        "where login = '" + isLogin + "' " +
+                        "and password = '" + isPassword + "'"))
+        {
+            while (rs.next()) {
+                isLoginPass[0] = rs.getString(1);
+                isLoginPass[1] = rs.getString(2);
+                isLoginPass[2] = rs.getString(3);
+            }
+            return isLoginPass;
+
+
+            /*
+            if (this.login == null) {
+                return this.name;
+            }
+
+
+            if (Objects.equals(this.login, isLogin) && Objects.equals(this.password, isPassword)) {
+                if (this.name == null) {
+                    this.name = "nameNull";
+                }
+                System.out.println(this.login + " " + this.password + " " + this.name);
+                return this.name;
+            }
+             */
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return isLoginPass;
+        }
+//        return isLoginPass;
+
+
+    }
 
 
 
