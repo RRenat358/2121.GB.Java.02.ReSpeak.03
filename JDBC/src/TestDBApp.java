@@ -8,22 +8,21 @@ public class TestDBApp {
         try {
             jdbc.connect();
 
-            jdbc.createTable();
-//            jdbc.clearTable();
-
-            jdbc.insertUserN();
-//            jdbc.insertUser5Batch();
-//            jdbc.insertUser5Transaction();
+//            jdbc.createTable();
+//            jdbc.clearTable();      // !!!
+//            jdbc.dropTable();     // !!!
 
             jdbc.insertUser("Martin", "mmm");
-//            jdbc.insertUserPrepared("Tom", "ttt");
+            jdbc.insertUser("Tom", "ttt");
+
+            jdbc.insertUserN();     // fori = 5
 
             jdbc.readDB();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-//            jdbc.disconnect();
+            jdbc.disconnect();
         }
     }
 

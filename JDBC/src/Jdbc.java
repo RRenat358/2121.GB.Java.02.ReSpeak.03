@@ -5,15 +5,30 @@ public class Jdbc {
     private static Connection connection;
     private static Statement statement;
 
-    public static void connect() throws SQLException {
+    public void connect() throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:ChatDB.sqlite");
         statement = connection.createStatement();
+    }
 
-
+    public void disconnect() {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 
-    public static void createTable() throws SQLException {
+    public void createTable() throws SQLException {
         statement.executeUpdate("CREATE TABLE IF NOT exists User\n" +
                 "(\n" +
                 "    id integer primary key autoincrement not null,\n" +
@@ -21,6 +36,15 @@ public class Jdbc {
                 "    password text not null ,\n" +
                 "    age integer\n" +
                 ")");
+    }
+
+    public void clearTable() throws SQLException {
+        statement.executeUpdate("DELETE FROM main.User");
+        statement.executeUpdate("DELETE FROM sqlite_sequence WHERE name='User'");
+    }
+
+    public void dropTable() throws SQLException {
+        statement.executeUpdate("DROP TABLE main.User");
     }
 
     public void insertUser(String name, String password) {
@@ -36,14 +60,22 @@ public class Jdbc {
     }
 
 
-    public static void insertUserN() throws SQLException {
-        for (int i = 1; i <= 5; i++) {
-            statement.executeUpdate("INSERT INTO User (name, password)\n" +
-                    "VALUES ('User_" + i + "', '" + i + "')");
+    public void insertUserN() throws SQLException {
+        try (PreparedStatement ps = connection.prepareStatement(
+                "INSERT INTO User (name, password)\n" +
+                        "VALUES (?, ?)")) {
+            for (int i = 1; i <= 5; i++) {
+                ps.setString(1, "User_" + i);
+                ps.setString(2, i + "");
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
-    public static void readDB() {
+    public void readDB() {
         try (ResultSet rs = statement.executeQuery("SELECT * FROM User")) {
             while (rs.next()) {
                 System.out.println(
@@ -57,5 +89,7 @@ public class Jdbc {
             ex.printStackTrace();
         }
     }
+
+
 
 }
