@@ -28,6 +28,7 @@ public class ClientHandler {
         this.clientSocket = clientSocket;
     }
 
+    //synchronized
     public synchronized void startClientHandle() throws IOException {
         inputStream = new ObjectInputStream(clientSocket.getInputStream());
         outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
