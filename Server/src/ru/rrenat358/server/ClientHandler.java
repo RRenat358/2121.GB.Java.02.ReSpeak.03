@@ -28,7 +28,7 @@ public class ClientHandler {
         this.clientSocket = clientSocket;
     }
 
-    public void startClientHandle() throws IOException {
+    public synchronized void startClientHandle() throws IOException {
         inputStream = new ObjectInputStream(clientSocket.getInputStream());
         outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
         new Thread(() -> {
@@ -100,7 +100,8 @@ public class ClientHandler {
         return command;
     }
 
-    private void readMessage() throws IOException {
+    //synchronized
+    private synchronized void readMessage() throws IOException {
         while (true) {
             Command command = readCommand();
             if (command == null) {

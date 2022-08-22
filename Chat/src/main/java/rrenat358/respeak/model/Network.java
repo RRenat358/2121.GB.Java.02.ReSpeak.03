@@ -62,7 +62,8 @@ public class Network {
         }
     }
 
-    private Command readCommand() throws IOException {
+    //synchronized
+    private synchronized Command readCommand() throws IOException {
         Command command = null;
         try {
             command = (Command) inputStream.readObject();
@@ -81,7 +82,8 @@ public class Network {
         sendCommand(Command.authCommand(login, password));
     }
 
-    public Thread startReadMessageProcess() {
+    //synchronized
+    public synchronized Thread startReadMessageProcess() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

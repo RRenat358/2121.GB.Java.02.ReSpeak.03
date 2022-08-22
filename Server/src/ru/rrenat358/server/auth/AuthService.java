@@ -163,8 +163,8 @@ public class AuthService {
 
     //Точно такой же метод, только данные о юзере не из Листа, а из БД
     private ArrayList<String> userDBLogPassName = new ArrayList<>();
-
-    public String getUserNameByLoginPassword9(String login, String password) {
+    //synchronized
+    public synchronized String getUserNameByLoginPassword9(String login, String password) {
         User userRequired = new User(login, password);
         userDBLogPassName = dbConnect.isLoginPass4(login, password);
 
