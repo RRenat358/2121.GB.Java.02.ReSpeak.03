@@ -28,7 +28,8 @@ public class ClientHandler {
         this.clientSocket = clientSocket;
     }
 
-    public void startClientHandle() throws IOException {
+    //synchronized
+    public synchronized void startClientHandle() throws IOException {
         inputStream = new ObjectInputStream(clientSocket.getInputStream());
         outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
         new Thread(() -> {
@@ -48,8 +49,8 @@ public class ClientHandler {
             }
         }).start();
     }
-
-    private void authenticate() throws IOException {
+    //synchronized
+    private synchronized void authenticate() throws IOException {
         while (true) {
             Command command = readCommand();
 
@@ -63,7 +64,17 @@ public class ClientHandler {
                 String login = data.getLogin();
                 String password = data.getPassword();
 
-                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword2(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword3(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword4(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword5(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword6(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword7(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword8(login, password);
+                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword9(login, password);
+
+
 
                 if (userName == null) {
                     sendCommand(Command.errorCommand("Некорректные логин/пароль"));
@@ -78,8 +89,8 @@ public class ClientHandler {
             }
         }
     }
-
-    private Command readCommand() throws IOException {
+    //synchronized
+    private synchronized Command readCommand() throws IOException {
         Command command = null;
         try {
             command = (Command) inputStream.readObject();
@@ -90,7 +101,8 @@ public class ClientHandler {
         return command;
     }
 
-    private void readMessage() throws IOException {
+    //synchronized
+    private synchronized void readMessage() throws IOException {
         while (true) {
             Command command = readCommand();
             if (command == null) {

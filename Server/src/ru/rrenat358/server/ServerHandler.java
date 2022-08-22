@@ -53,7 +53,7 @@ public class ServerHandler {
         }
     }
 
-    private /*synchronized*/ void notifyUserListUpdated() throws IOException {
+    private synchronized void notifyUserListUpdated() throws IOException {
         List<String> users = new /*CopyOnWrite*/ArrayList<>();
         for (ClientHandler client : clientList) {
             users.add(client.getUserName());
@@ -83,8 +83,8 @@ public class ServerHandler {
         clientList.remove(clientHandler);
         notifyUserListUpdated();
     }
-
-    public AuthService getAuthService() {
+    //synchronized
+    public synchronized AuthService getAuthService() {
         return authService;
     }
 
