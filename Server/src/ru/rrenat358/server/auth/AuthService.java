@@ -4,7 +4,6 @@ import rrenat358.respeak.model.Network;
 import ru.rrenat358.dbconnect.DBConnect;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -162,14 +161,15 @@ public class AuthService {
     }
 
 
-
-    private ArrayList<String> userNameDB9 = new ArrayList<>();
+    //Точно такой же метод, только данные о юзере не из Листа, а из БД
+    private ArrayList<String> userDBLogPassName = new ArrayList<>();
 
     public String getUserNameByLoginPassword9(String login, String password) {
         User userRequired = new User(login, password);
-        userNameDB9 = dbConnect.isLoginPass4(login, password);
+        userDBLogPassName = dbConnect.isLoginPass4(login, password);
 
-        Set<User> USERS9 = Set.of(new User(userNameDB9.get(0),userNameDB9.get(1), userNameDB9.get(2)));
+        Set<User> USERS9 = Set.of(
+                new User(userDBLogPassName.get(0), userDBLogPassName.get(1), userDBLogPassName.get(2)));
 
         for (User user : USERS9) {
             if (userRequired.equals(user)) {

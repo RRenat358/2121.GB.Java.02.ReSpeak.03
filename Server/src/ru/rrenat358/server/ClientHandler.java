@@ -48,8 +48,8 @@ public class ClientHandler {
             }
         }).start();
     }
-
-    private void authenticate() throws IOException {
+    //synchronized
+    private synchronized void authenticate() throws IOException {
         while (true) {
             Command command = readCommand();
 
@@ -88,8 +88,8 @@ public class ClientHandler {
             }
         }
     }
-
-    private Command readCommand() throws IOException {
+    //synchronized
+    private synchronized Command readCommand() throws IOException {
         Command command = null;
         try {
             command = (Command) inputStream.readObject();
