@@ -3,6 +3,7 @@ package ru.rrenat358.server.auth;
 import rrenat358.respeak.model.Network;
 import ru.rrenat358.dbconnect.DBConnect;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -28,7 +29,8 @@ public class AuthService {
     }
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    private DBConnect dbConnect;
+    private DBConnect dbConnect =  new DBConnect();
+
 
 
 
@@ -166,6 +168,14 @@ public class AuthService {
     //synchronized
     public synchronized String getUserNameByLoginPassword9(String login, String password) {
         User userRequired = new User(login, password);
+
+
+        try {
+            dbConnect.connect();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         userDBLogPassName = dbConnect.isLoginPass4(login, password);
 
         Set<User> USERS9 = Set.of(

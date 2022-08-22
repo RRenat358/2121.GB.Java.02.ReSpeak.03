@@ -13,7 +13,10 @@ from User
 where login = 'Den' and password = 'ddd'
 ;
 
-
+select login, password, name
+from User
+where login = 'Den' and password = 'ddd'
+;
 
 
 

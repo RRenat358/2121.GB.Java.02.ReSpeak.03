@@ -245,7 +245,7 @@ public class DBConnect {
                 "select login, password, name \n" +
                         "from User \n" +
                         "where login = '" + isLogin + "' " +
-                        "and password = '" + isPassword + "'"))
+                        "and password = '" + isPassword + "';"))
         {
             while (rs.next()) {
                 arrayList.add(rs.getString(1));
