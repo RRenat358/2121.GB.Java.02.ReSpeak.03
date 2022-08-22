@@ -1,6 +1,9 @@
 package ru.rrenat358.dbconnect;
 
+import ru.rrenat358.server.auth.User;
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class DBConnect {
@@ -232,6 +235,34 @@ public class DBConnect {
 
     }
 
+    public ArrayList<String> isLoginPass4(String isLogin, String isPassword) {
+//        isLoginPass[0] = null;
+//        isLoginPass[1] = null;
+//        isLoginPass[2] = null;
+        ArrayList<String> arrayList =  new ArrayList<>();
+
+        try (ResultSet rs = statement.executeQuery(
+                "select login, password, name \n" +
+                        "from User \n" +
+                        "where login = '" + isLogin + "' " +
+                        "and password = '" + isPassword + "'"))
+        {
+            while (rs.next()) {
+                arrayList.add(rs.getString(1));
+                arrayList.add(rs.getString(2));
+                arrayList.add(rs.getString(3));
+
+            }
+            return arrayList;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return arrayList;
+        }
+//        return isLoginPass;
+
+
+    }
 
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

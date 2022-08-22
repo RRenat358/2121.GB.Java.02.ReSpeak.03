@@ -1,5 +1,6 @@
 package ru.rrenat358.server.auth;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
@@ -16,6 +17,13 @@ public class User {
         this.login = login;
         this.password = password;
         this.userName = userName;
+    }
+
+    public User(ArrayList<String> userNameDB9) {
+        this.login = userNameDB9.get(0);
+        this.password = userNameDB9.get(1);
+        this.userName =userNameDB9.get(2);
+
     }
 
     public String getLogin() {

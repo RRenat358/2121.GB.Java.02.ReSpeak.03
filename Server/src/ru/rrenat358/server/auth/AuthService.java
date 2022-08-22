@@ -3,6 +3,7 @@ package ru.rrenat358.server.auth;
 import rrenat358.respeak.model.Network;
 import ru.rrenat358.dbconnect.DBConnect;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 
@@ -29,20 +30,12 @@ public class AuthService {
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     private DBConnect dbConnect;
+
+
+
+
+
     private String userName;
-    private String[] userName3;
-    private String[] userName4;
-    private String[] userNameDB5;
-    private User userName5;
-
-    private String[] userNameDB6;
-    private User userName6;
-
-    private String[] userNameDB7;
-    private User userName7;
-    private String[] userNameDB8;
-    private User userName8;
-
     public String getUserNameByLoginPassword2(String login, String password) {
         userName = dbConnect.isLoginPass2(login, password);
         if (userName != null) {
@@ -51,6 +44,8 @@ public class AuthService {
         return null;
     }
 
+
+    private String[] userName3;
     public String getUserNameByLoginPassword3(String login, String password) {
         User userRequired = new User(login, password);
         userName3 = this.dbConnect.isLoginPass3(login, password);
@@ -60,7 +55,7 @@ public class AuthService {
         return null;
     }
 
-
+    private String[] userName4;
     public String getUserNameByLoginPassword4(String login, String password) {
         User userRequired = new User(login, password);
 
@@ -74,6 +69,8 @@ public class AuthService {
     }
 
 
+    private String[] userNameDB5;
+    private User userName5;
     public String getUserNameByLoginPassword5(String login, String password) {
         User userRequired = new User(login, password);
 
@@ -86,7 +83,10 @@ public class AuthService {
         return null;
     }
 
+
     //Точно такой же метод, только данные о юзере не из Листа, а из БД
+    private String[] userNameDB6;
+    private User userName6;
     public String getUserNameByLoginPassword6(String login, String password) {
         User userRequired = new User(login, password);
 
@@ -110,6 +110,8 @@ public class AuthService {
 
 
 
+    private String[] userNameDB7;
+    private User userName7;
     public synchronized String getUserNameByLoginPassword7(String login, String password) {
         Thread thread2 = new Thread(() -> {
             userNameDB7 = dbConnect.isLoginPass3(login, password);
@@ -131,14 +133,15 @@ public class AuthService {
     }
 
 
-
+    private String[] userNameDB8;
+    private User userName8;
     public synchronized String getUserNameByLoginPassword8(String login, String password) {
         Network network = new Network();
         network.startReadMessageProcess().setDaemon(false);
 
         Thread thread2 = new Thread(() -> {
-            userNameDB7 = dbConnect.isLoginPass3(login, password);
-            System.out.println(userNameDB7[0]+userNameDB7[1]+userNameDB7[3]);
+            userNameDB8 = dbConnect.isLoginPass3(login, password);
+            System.out.println(userNameDB8[0]+userNameDB8[1]+userNameDB8[3]);
         });
         try {
 
@@ -150,13 +153,33 @@ public class AuthService {
 
         User userRequired = new User(login, password);
         System.out.println(userRequired);
-        userName7 = new User(userNameDB7[0],userNameDB7[1],userNameDB7[3]);
+        userName8 = new User(userNameDB8[0],userNameDB8[1],userNameDB8[3]);
 
-        if (userRequired.equals(userName7)) {
-            return userName7.getUserName();
+        if (userRequired.equals(userName8)) {
+            return userName8.getUserName();
         }
         return null;
     }
+
+
+
+    private ArrayList<String> userNameDB9 = new ArrayList<>();
+
+    public String getUserNameByLoginPassword9(String login, String password) {
+        User userRequired = new User(login, password);
+        userNameDB9 = dbConnect.isLoginPass4(login, password);
+
+        Set<User> USERS9 = Set.of(new User(userNameDB9.get(0),userNameDB9.get(1), userNameDB9.get(2)));
+
+        for (User user : USERS9) {
+            if (userRequired.equals(user)) {
+                return user.getUserName();
+            }
+        }
+        return null;
+    }
+
+
 
 
 
