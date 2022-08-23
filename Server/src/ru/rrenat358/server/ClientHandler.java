@@ -36,12 +36,11 @@ public class ClientHandler {
                 authenticate();
                 readMessage();
             } catch (IOException e) {
-                System.err.println("Error: messageRead" + "\n----------");
-                e.printStackTrace();
+                System.err.println("Error: Thread.readMessage()");
             } finally {
                 try {
                     closeClientConnection();
-                    System.err.println("closeClientConnection()" + "\n----------");
+                    System.err.println("Error: Thread.closeClientConnection()" + "\n----------");
                 } catch (IOException e) {
                     System.err.println("Error: clientSocket.close" + "\n----------");
                 }
@@ -63,6 +62,7 @@ public class ClientHandler {
                 String login = data.getLogin();
                 String password = data.getPassword();
 
+                //todo Выбрать метод. Сократить проверки после выболорки из DB
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword(login, password);
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword2(login, password);
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword3(login, password);
@@ -71,6 +71,7 @@ public class ClientHandler {
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword6(login, password);
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword7(login, password);
 //                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword8(login, password);
+
                 String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword9(login, password);
 
 

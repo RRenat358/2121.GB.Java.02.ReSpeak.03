@@ -6,15 +6,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class DBConnect {
+public class DBConnect implements AutoCloseable{
 
     private static Connection connection;
     private static Statement statement;
+    String DBType = "sqlite";
+    String DBName = "ChatDB.sqlite";
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    public void connect() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:sqlite:ChatDB.sqlite");
-        statement = connection.createStatement();
+    public void connect() {
+        try {
+            connection = DriverManager.getConnection("jdbc:" + DBType + ":" + DBName);
+            statement = connection.createStatement();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.err.println("Connect to DB == " + DBType + " : " + DBName + "\n--------------------");
+        }
+        System.out.println("Connect to DB == " + DBType + " : " + DBName + "\n--------------------");
     }
 
     public void disconnect() {
@@ -22,16 +30,18 @@ public class DBConnect {
             if (statement != null) {
                 statement.close();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        try {
             if (connection != null) {
                 connection.close();
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void close() {
+        disconnect();
+        System.out.println("DB disconnected");
     }
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -251,7 +261,6 @@ public class DBConnect {
                 arrayList.add(rs.getString(1));
                 arrayList.add(rs.getString(2));
                 arrayList.add(rs.getString(3));
-
             }
             return arrayList;
 
@@ -259,10 +268,9 @@ public class DBConnect {
             ex.printStackTrace();
             return arrayList;
         }
-//        return isLoginPass;
-
-
     }
+
+
 
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

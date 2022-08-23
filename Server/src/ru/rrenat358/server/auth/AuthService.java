@@ -129,21 +129,13 @@ public class AuthService {
     }
 
 
-    //Точно такой же метод, только данные о юзере не из Листа, а из БД
+    //todo переписать на сравнение в методе с запросом на стороне DB, т.к. там уже булево ок/неок
     private ArrayList<String> userDBLogPassName = new ArrayList<>();
 
     public String getUserNameByLoginPassword9(String login, String password) {
+        userDBLogPassName.clear();
         User userRequired = new User(login, password);
-
-
-        try {
-            dbConnect.connect();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
         userDBLogPassName = dbConnect.isLoginPass4(login, password);
-
         Set<User> USERS9 = Set.of(
                 new User(userDBLogPassName.get(0), userDBLogPassName.get(1), userDBLogPassName.get(2)));
 
