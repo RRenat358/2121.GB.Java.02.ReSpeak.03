@@ -55,19 +55,13 @@ public class ClientHandler {
             if (command == null) {
                 continue;
             }
-
             if (command.getType() == CommandType.AUTH) {
                 AuthCommandData data = (AuthCommandData) command.getData();
 
                 String login = data.getLogin();
                 String password = data.getPassword();
 
-                //todo Выбрать метод. Сократить проверки после выболорки из DB
-//                String userName = this.serverHandler.getAuthService().getUserNameByLogPass1(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLogPass2(login, password);
                 String userName = this.serverHandler.getAuthService().getUserNameByLogPass3(login, password);
-
-
 
                 if (userName == null) {
                     sendCommand(Command.errorCommand("Некорректные логин/пароль"));

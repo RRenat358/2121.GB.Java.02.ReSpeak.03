@@ -3,6 +3,7 @@ package ru.rrenat358.server.auth;
 import java.util.ArrayList;
 import java.util.Objects;
 
+//todo delete
 public class User {
 
     private final String login;

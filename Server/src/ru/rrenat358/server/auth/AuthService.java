@@ -1,17 +1,41 @@
 package ru.rrenat358.server.auth;
 
-import rrenat358.respeak.model.Network;
 import ru.rrenat358.dbconnect.DBConnect;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Set;
-
 
 
 public class AuthService {
 
+    private DBConnect dbConnect =  new DBConnect();
+    private ArrayList<String> userDBLogPassName = new ArrayList<>();
+
+    public String getUserNameByLogPass3(String login, String password) {
+        userDBLogPassName.clear();
+        userDBLogPassName = dbConnect.isLogPass(login, password);
+        if (userDBLogPassName.isEmpty()) {
+            return null;
+        }
+        if (userDBLogPassName.get(0) == null || userDBLogPassName.get(1) == null) {
+            return null;
+        }
+        if (userDBLogPassName.get(2) == null) {
+            return userDBLogPassName.get(0);
+        }
+        return userDBLogPassName.get(2);
+    }
+
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    private static class SingletonHelper {
+        private static final AuthService INSTANCE = new AuthService();
+    }
+
+    public static AuthService getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
+
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    //todo delete
+/*
     private static Set<User> USERS = Set.of(
             new User("1", "1", "userName1"),
             new User("2", "2", "userName2"),
@@ -28,14 +52,11 @@ public class AuthService {
         }
         return null;
     }
+*/
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    private DBConnect dbConnect =  new DBConnect();
 
-
-    //todo переписать на сравнение в методе с запросом на стороне DB, т.к. там уже булево ок/неок
-    private ArrayList<String> userDBLogPassName = new ArrayList<>();
-
+/*
     public String getUserNameByLogPass2(String login, String password) {
         userDBLogPassName.clear();
         User userRequired = new User(login, password);
@@ -50,30 +71,6 @@ public class AuthService {
         }
         return null;
     }
+*/
 
-    public String getUserNameByLogPass3(String login, String password) {
-        userDBLogPassName.clear();
-        userDBLogPassName = dbConnect.isLogPass(login, password);
-        if (userDBLogPassName.isEmpty()) {
-            return null;
-        }
-        if (userDBLogPassName.get(0) == null || userDBLogPassName.get(1) == null) {
-            return null;
-        }
-        if (userDBLogPassName.get(2) == null) {
-            return "UserNoName";
-        }
-        return userDBLogPassName.get(2);
-    }
-
-
-
-    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    private static class SingletonHelper {
-        private static final AuthService INSTANCE = new AuthService();
-    }
-
-    public static AuthService getInstance() {
-        return SingletonHelper.INSTANCE;
-    }
 }

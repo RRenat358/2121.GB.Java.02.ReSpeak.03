@@ -135,9 +135,9 @@ public class DBConnect implements AutoCloseable {
                         "where login = '" + isLogin + "' " +
                         "and password = '" + isPassword + "'")) {
             while (rs.next()) {
-                arrLoginPass.add(rs.getString(1));
-                arrLoginPass.add(rs.getString(2));
-                arrLoginPass.add(rs.getString(3));
+                arrLoginPass.add(rs.getString(1)); //login
+                arrLoginPass.add(rs.getString(2)); //password
+                arrLoginPass.add(rs.getString(3)); //name
             }
             return arrLoginPass;
         } catch (Exception ex) {
