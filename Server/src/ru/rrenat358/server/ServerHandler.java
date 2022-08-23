@@ -83,8 +83,8 @@ public class ServerHandler {
         clientList.remove(clientHandler);
         notifyUserListUpdated();
     }
-    //synchronized
-    public synchronized AuthService getAuthService() {
+
+    public AuthService getAuthService() {
         return authService;
     }
 

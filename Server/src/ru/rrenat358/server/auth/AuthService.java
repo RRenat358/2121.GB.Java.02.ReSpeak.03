@@ -32,10 +32,6 @@ public class AuthService {
     private DBConnect dbConnect =  new DBConnect();
 
 
-
-
-
-
     private String userName;
     public String getUserNameByLoginPassword2(String login, String password) {
         userName = dbConnect.isLoginPass2(login, password);
@@ -93,42 +89,12 @@ public class AuthService {
 
         userNameDB6 = dbConnect.isLoginPass3(login, password);
         userName6 = new User(userNameDB6[0],userNameDB6[1],userNameDB6[3]);
-/*
-        for (User user : userName5) {
-            if (userRequired.equals(user)) {
-                return user.getUserName();
-            }
-        }
-*/
+
         User user = null;
         if (user == userName6) {
             if (userRequired.equals(user)) {
                 return user.getUserName();
             }
-        }
-        return null;
-    }
-
-
-
-    private String[] userNameDB7;
-    private User userName7;
-    public synchronized String getUserNameByLoginPassword7(String login, String password) {
-        Thread thread2 = new Thread(() -> {
-            userNameDB7 = dbConnect.isLoginPass3(login, password);
-        });
-        try {
-            thread2.start();
-            thread2.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        User userRequired = new User(login, password);
-        userName7 = new User(userNameDB7[0],userNameDB7[1],userNameDB7[3]);
-
-        if (userRequired.equals(userName7)) {
-            return userName7.getUserName();
         }
         return null;
     }
@@ -165,8 +131,8 @@ public class AuthService {
 
     //Точно такой же метод, только данные о юзере не из Листа, а из БД
     private ArrayList<String> userDBLogPassName = new ArrayList<>();
-    //synchronized
-    public synchronized String getUserNameByLoginPassword9(String login, String password) {
+
+    public String getUserNameByLoginPassword9(String login, String password) {
         User userRequired = new User(login, password);
 
 
