@@ -63,16 +63,9 @@ public class ClientHandler {
                 String password = data.getPassword();
 
                 //todo Выбрать метод. Сократить проверки после выболорки из DB
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword2(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword3(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword4(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword5(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword6(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword7(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword8(login, password);
-
-                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword9(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLogPass1(login, password);
+//                String userName = this.serverHandler.getAuthService().getUserNameByLogPass2(login, password);
+                String userName = this.serverHandler.getAuthService().getUserNameByLogPass3(login, password);
 
 
 

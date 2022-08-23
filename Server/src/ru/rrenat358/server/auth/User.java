@@ -22,7 +22,7 @@ public class User {
     public User(ArrayList<String> userNameDB9) {
         this.login = userNameDB9.get(0);
         this.password = userNameDB9.get(1);
-        this.userName =userNameDB9.get(2);
+        this.userName = userNameDB9.get(2);
 
     }
 
