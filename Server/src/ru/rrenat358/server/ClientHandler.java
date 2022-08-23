@@ -28,8 +28,7 @@ public class ClientHandler {
         this.clientSocket = clientSocket;
     }
 
-    //synchronized
-    public synchronized void startClientHandle() throws IOException {
+    public void startClientHandle() throws IOException {
         inputStream = new ObjectInputStream(clientSocket.getInputStream());
         outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
         new Thread(() -> {
@@ -37,44 +36,32 @@ public class ClientHandler {
                 authenticate();
                 readMessage();
             } catch (IOException e) {
-                System.err.println("Error: messageRead" + "\n----------");
-                e.printStackTrace();
+                System.err.println("Error: Thread.readMessage()");
             } finally {
                 try {
                     closeClientConnection();
-                    System.err.println("closeClientConnection()" + "\n----------");
+                    System.err.println("Error: Thread.closeClientConnection()" + "\n----------");
                 } catch (IOException e) {
                     System.err.println("Error: clientSocket.close" + "\n----------");
                 }
             }
         }).start();
     }
-    //synchronized
-    private synchronized void authenticate() throws IOException {
+
+    private void authenticate() throws IOException {
         while (true) {
             Command command = readCommand();
 
             if (command == null) {
                 continue;
             }
-
             if (command.getType() == CommandType.AUTH) {
                 AuthCommandData data = (AuthCommandData) command.getData();
 
                 String login = data.getLogin();
                 String password = data.getPassword();
 
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword2(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword3(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword4(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword5(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword6(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword7(login, password);
-//                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword8(login, password);
-                String userName = this.serverHandler.getAuthService().getUserNameByLoginPassword9(login, password);
-
-
+                String userName = this.serverHandler.getAuthService().getUserNameByLogPass3(login, password);
 
                 if (userName == null) {
                     sendCommand(Command.errorCommand("Некорректные логин/пароль"));
@@ -89,8 +76,8 @@ public class ClientHandler {
             }
         }
     }
-    //synchronized
-    private synchronized Command readCommand() throws IOException {
+
+    private Command readCommand() throws IOException {
         Command command = null;
         try {
             command = (Command) inputStream.readObject();
@@ -101,8 +88,7 @@ public class ClientHandler {
         return command;
     }
 
-    //synchronized
-    private synchronized void readMessage() throws IOException {
+    private void readMessage() throws IOException {
         while (true) {
             Command command = readCommand();
             if (command == null) {

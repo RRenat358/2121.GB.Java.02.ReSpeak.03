@@ -1,7 +1,7 @@
 package ru.rrenat358.server;
 
 import ru.rrenat358.command.Command;
-import ru.rrenat358.server.auth.AuthService;
+import ru.rrenat358.dbconnect.DBConnect;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -17,14 +17,21 @@ public class ServerHandler {
     private final List<ClientHandler> clientList = new ArrayList<>();
 
     public void serverStart(int port) {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Server has been started");
+        try (ServerSocket serverSocket = new ServerSocket(port);
+             DBConnect dbConnect =  new DBConnect())
+        {
             authService = new AuthService();
+            System.out.println("Server has been started");
+
+            dbConnect.connect();
+            System.out.println("Server connection to DB");
+
             while (true) {
                 waitClientConnection(serverSocket);
             }
-        } catch (IOException e) {
+        } catch (IOException ex) {
             System.err.println("Server NO started. PORT: " + port + "\n----------");
+            ex.printStackTrace();
         }
     }
 
@@ -75,7 +82,7 @@ public class ServerHandler {
 
     public synchronized void subscribe(ClientHandler clientHandler) throws IOException {
         clientList.add(clientHandler);
-        System.out.println("New User subscribe -- " + clientHandler.getUserName());
+        System.out.println("New User subscribe -- " + clientHandler.getUserName() + "\n--------------------");
         notifyUserListUpdated();
     }
 
@@ -83,8 +90,8 @@ public class ServerHandler {
         clientList.remove(clientHandler);
         notifyUserListUpdated();
     }
-    //synchronized
-    public synchronized AuthService getAuthService() {
+
+    public AuthService getAuthService() {
         return authService;
     }
 

@@ -28,15 +28,15 @@ public class TestDBApp {
 
 //            DBConnect.readDB();
 
-//            DBConnect.isLoginPass("aaa","bbb");
-//            DBConnect.isLoginPass("zzz","xxx");
-//            DBConnect.isLoginPass("Den","ddd");
+//            DBConnect.isLogPass("aaa","bbb");
+//            DBConnect.isLogPass("zzz","xxx");
+//            DBConnect.isLogPass("Den","ddd");
 
-//            System.out.println(DBConnect.isLoginPass2("1", "1"));
-//            System.out.println(DBConnect.isLoginPass2("3", "3"));
+//            System.out.println(DBConnect.isLogPass("1", "1"));
+//            System.out.println(DBConnect.isLogPass("3", "3"));
 
-            System.out.println(DBConnect.isLoginPass4("1", "1"));
-            System.out.println(DBConnect.isLoginPass4("3", "3"));
+            System.out.println(DBConnect.isLogPass("1", "1"));
+            System.out.println(DBConnect.isLogPass("3", "3"));
 
 
         } catch (Exception ex) {
