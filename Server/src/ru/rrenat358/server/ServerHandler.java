@@ -2,12 +2,10 @@ package ru.rrenat358.server;
 
 import ru.rrenat358.command.Command;
 import ru.rrenat358.dbconnect.DBConnect;
-import ru.rrenat358.server.auth.AuthService;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
