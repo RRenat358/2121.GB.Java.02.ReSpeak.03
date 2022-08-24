@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import rrenat358.respeak.FilesApp.MkdirUser;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -13,7 +14,6 @@ import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.ClientMessageCommandData;
 import ru.rrenat358.command.commands.PrivateMessageCommandData;
 import ru.rrenat358.command.commands.UpdateUserListCommandData;
-import ru.rrenat358.user.LogMessage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -41,6 +41,8 @@ public class RespeakController {
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
 
+    String recipient = null;
+
     public void sendMessage() {
         String message = messageTextField.getText().trim();
         if (message.isEmpty()) {
@@ -49,9 +51,10 @@ public class RespeakController {
         }
 
         //todo ↓
-        LogMessage.fileWrite(message);
+//        LogMessage.fileWrite(message);
+//        mkdirUser.MkdirUser();
 
-        String recipient = null;
+        recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
             recipient = userListing.getSelectionModel().getSelectedItem().toString();
         }

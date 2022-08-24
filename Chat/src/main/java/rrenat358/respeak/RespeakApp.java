@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import rrenat358.respeak.FilesApp.MkdirUser;
 import rrenat358.respeak.controllers.AuthController;
 import rrenat358.respeak.controllers.RespeakController;
 import rrenat358.respeak.model.TimerAuthNetworkConnect;
@@ -31,6 +32,7 @@ public class RespeakApp extends Application {
     private static RespeakApp INSTANCE;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
+    private MkdirUser mkdirUser;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -94,6 +96,7 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
+        mkdirUser.MkdirUser(userName);
     }
 
     public static void main(String[] args) {
