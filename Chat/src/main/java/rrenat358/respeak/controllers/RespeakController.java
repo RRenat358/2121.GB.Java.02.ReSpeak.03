@@ -13,6 +13,7 @@ import ru.rrenat358.command.CommandType;
 import ru.rrenat358.command.commands.ClientMessageCommandData;
 import ru.rrenat358.command.commands.PrivateMessageCommandData;
 import ru.rrenat358.command.commands.UpdateUserListCommandData;
+import ru.rrenat358.user.LogMessage;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -47,6 +48,9 @@ public class RespeakController {
             return;
         }
 
+        //todo ↓
+        LogMessage.fileWrite(message);
+
         String recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
             recipient = userListing.getSelectionModel().getSelectedItem().toString();
@@ -73,6 +77,7 @@ public class RespeakController {
         messageTextField.clear();
         messageInputRequestFocus();
     }
+
 
     public void messageSendToBox(String selectedUserName, String message) {
         messageBox.appendText(LocalDateTime.now().format(DateTimeFormatter.ofPattern(
