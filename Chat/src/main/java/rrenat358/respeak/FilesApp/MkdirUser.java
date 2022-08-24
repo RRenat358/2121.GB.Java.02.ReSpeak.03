@@ -8,12 +8,13 @@ import java.io.IOException;
 public class MkdirUser {
 
     private static String pathToDir = "Chat/src/main/Files/Users/";
-    private static String messDir = "Messages";
+    private static String messDir = "/Messages/";
+    private static String messFile = "Messages.txt";
 //        String userDir = userLogin;
 
 
     public static void MkdirUser(String userLogin) {
-        File userDir = new File(pathToDir + userLogin);
+        File userDir = new File(pathToDir + userLogin + messDir);
 
         if (!userDir.exists()) {
             userDir.mkdirs();
@@ -22,13 +23,12 @@ public class MkdirUser {
 
 
     public static void createFileMessageHistory(String userLogin) {
-        File messHystory = new File(pathToDir + userLogin + messDir, messDir + ".txt");
+        File messHistory= new File(pathToDir + userLogin + messDir,
+                messFile);
 
-
-
-        if (!messHystory.exists()) {
+        if (!messHistory.exists()) {
             try {
-                messHystory.createNewFile();
+                messHistory.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Файл MessageHistory не создан");
