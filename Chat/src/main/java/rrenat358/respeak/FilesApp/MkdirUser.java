@@ -10,7 +10,6 @@ public class MkdirUser {
     private static String pathToDir = "Chat/src/main/Files/Users/";
     private static String messDir = "/Messages/";
     private static String messFile = "Messages.txt";
-//        String userDir = userLogin;
 
 
     public static void MkdirUser(String userLogin) {
