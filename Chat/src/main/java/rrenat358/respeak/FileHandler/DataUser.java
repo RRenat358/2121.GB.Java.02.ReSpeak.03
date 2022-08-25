@@ -1,8 +1,9 @@
 package rrenat358.respeak.FileHandler;
 
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class DataUser {
@@ -18,7 +19,7 @@ public class DataUser {
     private String logFileName = logDir + ".txt";
 
 
-    public  void createDataUser(String nameUser) {
+    public void createDataUser(String nameUser) {
         if (pathToDataDir == "") {
             String pathToNameUserDir = String.format("%s/%s/%s", pathToDataDir, dataUserDir, nameUser);
         }
@@ -30,7 +31,7 @@ public class DataUser {
 
 
     public void createDirs(String pathToNameUserDir) {
-        File userDir = new File( pathToNameUserDir);
+        File userDir = new File(pathToNameUserDir);
         if (!userDir.exists()) {
             userDir.mkdirs();
         }
@@ -48,6 +49,8 @@ public class DataUser {
                 System.out.printf("Файл %s не создан", messFileName);
             }
         }
+        writeStartDataUser(messFile);
+
 
         File logFile = new File(String.format("%s/%s/", pathToNameUserDir, logDir, logFileName));
         if (!logFile.exists()) {
@@ -58,9 +61,22 @@ public class DataUser {
                 System.out.printf("Файл %s не создан", logFileName);
             }
         }
+        writeStartDataUser(logFile);
 
     }
 
+
+    public void writeStartDataUser(File file) {
+        String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(
+                "yyyy.MM.dd-HH:mm:ss" + "   |   "));
+
+        try(Writer writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write("=== Start DataUser ==============================");
+            writer.write(localDateTime + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
