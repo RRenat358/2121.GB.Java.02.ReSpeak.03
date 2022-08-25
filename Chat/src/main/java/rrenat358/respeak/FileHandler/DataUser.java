@@ -24,10 +24,10 @@ public class DataUser {
         }
         String pathToNameUserDir = String.format("%s/%s", dataUserDir, nameUser);
 
-
         createDirs(pathToNameUserDir);
         createFiles(pathToNameUserDir);
     }
+
 
     public void createDirs(String pathToNameUserDir) {
         File userDir = new File( pathToNameUserDir);
@@ -35,6 +35,7 @@ public class DataUser {
             userDir.mkdirs();
         }
     }
+
 
     public void createFiles(String pathToNameUserDir) {
 
@@ -57,8 +58,6 @@ public class DataUser {
                 System.out.printf("Файл %s не создан", logFileName);
             }
         }
-
-
 
     }
 
