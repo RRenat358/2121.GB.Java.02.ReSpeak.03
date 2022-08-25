@@ -19,6 +19,19 @@ public class DataUser {
     private String logFileName = logDir + ".txt";
 
 
+    public DataUser() {
+    }
+
+    public DataUser(String pathToDataDir, String dataUserDir, String messDir, String messFileName, String logDir, String logFileName) {
+        this.pathToDataDir = pathToDataDir;
+        this.dataUserDir = dataUserDir;
+        this.messDir = messDir;
+        this.messFileName = messFileName;
+        this.logDir = logDir;
+        this.logFileName = logFileName;
+    }
+
+
     public void createDataUser(String nameUser) {
         if (pathToDataDir == "") {
             String pathToNameUserDir = String.format("%s/%s/%s", pathToDataDir, dataUserDir, nameUser);
@@ -72,7 +85,7 @@ public class DataUser {
         String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(
                 "yyyy.MM.dd. HHmmss"));
 
-        try(Writer writer = new BufferedWriter(new FileWriter(file, true))) {
+        try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write("\n=== Start DataUser ==============================\n");
             writer.write(localDateTime + "\n");
 
@@ -81,5 +94,64 @@ public class DataUser {
         }
     }
 
+
+    public String getPathToDataDir() {
+        return pathToDataDir;
+    }
+
+    public void setPathToDataDir(String pathToDataDir) {
+        this.pathToDataDir = pathToDataDir;
+    }
+
+    public String getDataUserDir() {
+        return dataUserDir;
+    }
+
+    public void setDataUserDir(String dataUserDir) {
+        this.dataUserDir = dataUserDir;
+    }
+
+    public String getMessDir() {
+        return messDir;
+    }
+
+    public void setMessDir(String messDir) {
+        this.messDir = messDir;
+    }
+
+    public String getMessFileName() {
+        return messFileName;
+    }
+
+    public void setMessFileName(String messFileName) {
+        this.messFileName = messFileName;
+    }
+
+    public String getLogDir() {
+        return logDir;
+    }
+
+    public void setLogDir(String logDir) {
+        this.logDir = logDir;
+    }
+
+    public String getLogFileName() {
+        return logFileName;
+    }
+
+    public void setLogFileName(String logFileName) {
+        this.logFileName = logFileName;
+    }
+
+
+
+
+    private static class SingletonHelper {
+        private static final DataUser INSTANCE = new DataUser();
+    }
+
+    public static DataUser getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
 
 }

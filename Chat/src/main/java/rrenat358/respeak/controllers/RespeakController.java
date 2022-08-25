@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import rrenat358.respeak.FileHandler.DataUser;
 import rrenat358.respeak.FileHandler.FileIO;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
@@ -43,6 +44,7 @@ public class RespeakController {
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
+    private DataUser dataUser = DataUser.getInstance();
     private FileIO fileIO = FileIO.getInstance();
 
 
@@ -56,7 +58,12 @@ public class RespeakController {
         }
 
         //todo переписать сборку пути до файла ↓
-        pathFileMessage = String.format("%s/%s/%s", "DataUser", "User03", "Messages/Messages.txt");
+//        pathFileMessage = String.format("%s/%s/%s", "DataUser", "User03", "Messages/Messages.txt");
+        pathFileMessage = String.format(
+                "%s/%s/%s/%s",
+                dataUser.getDataUserDir(), "User03",
+                dataUser.getMessDir(), dataUser.getMessFileName()
+        );
         fileIO.writeNewLineToFile(pathFileMessage, message);
 
 
