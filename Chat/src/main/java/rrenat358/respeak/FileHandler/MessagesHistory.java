@@ -1,8 +1,4 @@
-package rrenat358.respeak.FilesApp;
-
-
-import java.io.File;
-
+package rrenat358.respeak.FileHandler;
 
 
 public class MessagesHistory {

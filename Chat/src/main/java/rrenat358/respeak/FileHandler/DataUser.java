@@ -1,4 +1,4 @@
-package rrenat358.respeak.FilesApp;
+package rrenat358.respeak.FileHandler;
 
 
 import java.io.File;
@@ -63,11 +63,5 @@ public class DataUser {
     }
 
 
-    //for Tasting
-    public static void main(String[] args) {
-        DataUser dataUser = new DataUser();
-
-        dataUser.createDataUser("555");
-    }
 
 }

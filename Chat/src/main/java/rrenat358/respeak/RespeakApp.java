@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import rrenat358.respeak.FilesApp.DataUser;
+import rrenat358.respeak.FileHandler.DataUser;
 import rrenat358.respeak.controllers.AuthController;
 import rrenat358.respeak.controllers.RespeakController;
 import rrenat358.respeak.model.TimerAuthNetworkConnect;
