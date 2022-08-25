@@ -4,8 +4,8 @@ package rrenat358.respeak.FileHandler;
 import java.io.*;
 
 public class FileIO {
-    String string = "65418468543";
-    String file = "DataUser/demo.txt";
+//    String string = "65418468543";
+//    String file = "DataUser/demo.txt";
 
     public void writeNewLineToFile(String file, String string) {
         try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {
@@ -27,6 +27,14 @@ public class FileIO {
 
 
 
+
+    private static class SingletonHelper {
+        private static final FileIO INSTANCE = new FileIO();
+    }
+
+    public static FileIO getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
 
 
 }

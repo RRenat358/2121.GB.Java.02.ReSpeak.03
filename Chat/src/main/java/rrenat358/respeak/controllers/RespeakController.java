@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import rrenat358.respeak.FileHandler.FileIO;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -36,11 +37,16 @@ public class RespeakController {
     @FXML
     public MenuItem menuExit;
 
+    String recipient = null;
+    String pachFileMessage = "";
+
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
+    private FileIO fileIO = FileIO.getInstance();
 
-    String recipient = null;
+
+
 
     public void sendMessage() {
         String message = messageTextField.getText().trim();
@@ -49,9 +55,10 @@ public class RespeakController {
             return;
         }
 
-        //todo ↓
-//        LogMessage.fileWrite(message);
-//        mkdirUser.MkdirUser();
+        //todo переписать сборку пути до файла ↓
+        pachFileMessage = String.format("%s/%s/%s", "DataUser", "User03", "Messages/Messages.txt");
+        fileIO.writeNewLineToFile(pachFileMessage, message);
+
 
         recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
@@ -94,6 +101,7 @@ public class RespeakController {
         messageBox.appendText("––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
         messageBox.appendText(System.lineSeparator());
     }
+
 
     void messageInputRequestFocus() {
         Platform.runLater(() ->

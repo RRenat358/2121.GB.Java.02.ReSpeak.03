@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 
 public class FileHandlerTestApp {
 
+    private static FileIO fileIO = FileIO.getInstance();
+
     public static void main(String[] args) {
 
         String string = "65418468543";
@@ -19,7 +21,7 @@ public class FileHandlerTestApp {
 
 
         DataUser dataUser = new DataUser();
-        FileIO fileIO = new FileIO();
+//        FileIO fileIO = new FileIO();
 
 
 
@@ -31,13 +33,6 @@ public class FileHandlerTestApp {
 
         fileIO.writeNewLineToFile(file, localDateTime);
         fileIO.writeContinueLineToFile(file, " ", localDateTime);
-
-
-
-
-    }
-
-    public FileHandlerTestApp() {
 
 
 
