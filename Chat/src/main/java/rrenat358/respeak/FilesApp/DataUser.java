@@ -10,21 +10,33 @@ public class DataUser {
     private static String pathToDataDir = "";
     private static String dataUserDir = "DataUser";
 
+    private static String pathToDataUserDir = String.format("%s/%s", pathToDataDir, dataUserDir);
+
     private static String messDir = "Messages";
     private static String messFile = messDir + ".txt";
 
+    private static String logDir = "Logs";
+    private static String logFile = logDir + ".txt";
 
-    public static void MkdirUser(String userLogin) {
-        File userDir = new File( String.format("%s/%s", pathToDataDir, dataUserDir));
+
+    public static void createDataUser(String nameUser) {
+
+        File userDir = new File( pathToDataUserDir);
 
         if (!userDir.exists()) {
             userDir.mkdirs();
         }
+
+
+
+
+
+        
     }
 
 
-    public static void createFileMessageHistory(String userLogin) {
-        File messHistory = new File(pathToDir + userLogin + messDir,
+    public static void createFileMessageHistory(String nameUser) {
+        File messHistory = new File(pathToDir + nameUser + messDir,
                 messFile);
 
         if (!messHistory.exists()) {
@@ -42,7 +54,7 @@ public class DataUser {
 
     //for Tasting
     public static void main(String[] args) {
-        MkdirUser("555");
+        createDataUser("555");
     }
 
 }
