@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import rrenat358.respeak.FileHandler.DataUser;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -36,6 +37,7 @@ public class AuthController {
     private Network network = Network.getInstance();
     public ReadMessageListener readMessageListener;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
+    private DataUser dataUser = DataUser.getInstance();
 
     public AuthController() {
     }
@@ -82,9 +84,15 @@ public class AuthController {
             public void processReceivedCommand(Command command) {
                 if (command.getType() == CommandType.AUTH_OK) {
                     AuthOkCommandData data = (AuthOkCommandData) command.getData();
-                    String userName = data.getUserName();
+                    userName = data.getUserName();
                     Platform.runLater(() -> {
                         respeakApp.switchToChatWindow(userName);
+                        dataUser.createDataUser(login);
+
+                        respeakApp.getAuthDataUser().clear();
+                        respeakApp.getAuthDataUser().add(login);
+                        respeakApp.getAuthDataUser().add(password);
+                        respeakApp.getAuthDataUser().add(userName);
                     });
                 } else {
                     Platform.runLater(() -> {
@@ -102,31 +110,6 @@ public class AuthController {
 
     public void close() {
         network.removeReadMessageListner(readMessageListener);
-    }
-
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
 

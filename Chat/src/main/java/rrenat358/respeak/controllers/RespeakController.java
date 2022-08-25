@@ -58,11 +58,9 @@ public class RespeakController {
             return;
         }
 
-        //todo переписать сборку пути до файла ↓
-//        pathFileMessage = String.format("%s/%s/%s", "DataUser", "User03", "Messages/Messages.txt");
         pathFileMessage = String.format(
                 "%s/%s/%s/%s",
-                dataUser.getDataUserDir(), /*"User03",*/ authController.getLogin(),
+                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
         fileIO.writeNewLineToFile(pathFileMessage, message);

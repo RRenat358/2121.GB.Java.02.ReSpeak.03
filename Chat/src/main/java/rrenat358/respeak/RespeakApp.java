@@ -9,12 +9,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import rrenat358.respeak.FileHandler.DataUser;
 import rrenat358.respeak.controllers.AuthController;
 import rrenat358.respeak.controllers.RespeakController;
 import rrenat358.respeak.model.TimerAuthNetworkConnect;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class RespeakApp extends Application {
@@ -24,15 +24,18 @@ public class RespeakApp extends Application {
     private int authTimeOffSeconds = 10000;
     //---
 
+    public ArrayList<String> authDataUser = new ArrayList<>();
+
     private Stage chatStage;
     private Stage authStage;
     private FXMLLoader chatWindowLoader;
     private FXMLLoader authWindowLoader;
 
     private static RespeakApp INSTANCE;
+
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
-    private DataUser dataUser = new DataUser();
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -96,9 +99,9 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
-        dataUser.createDataUser(userName);
-
     }
+
+
 
     public static void main(String[] args) {
         launch();
@@ -110,6 +113,15 @@ public class RespeakApp extends Application {
 
     public Stage getAuthStage() {
         return authStage;
+    }
+
+
+    public ArrayList<String> getAuthDataUser() {
+        return authDataUser;
+    }
+
+    public void setAuthDataUser(ArrayList<String> authDataUser) {
+        this.authDataUser = authDataUser;
     }
 
     public RespeakController getRespeakController() {

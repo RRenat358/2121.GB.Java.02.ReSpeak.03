@@ -19,19 +19,6 @@ public class DataUser {
     private String logFileName = logDir + ".txt";
 
 
-    public DataUser() {
-    }
-
-    public DataUser(String pathToDataDir, String dataUserDir, String messDir, String messFileName, String logDir, String logFileName) {
-        this.pathToDataDir = pathToDataDir;
-        this.dataUserDir = dataUserDir;
-        this.messDir = messDir;
-        this.messFileName = messFileName;
-        this.logDir = logDir;
-        this.logFileName = logFileName;
-    }
-
-
     public void createDataUser(String nameUser) {
         if (pathToDataDir == "") {
             String pathToNameUserDir = String.format("%s/%s/%s", pathToDataDir, dataUserDir, nameUser);
