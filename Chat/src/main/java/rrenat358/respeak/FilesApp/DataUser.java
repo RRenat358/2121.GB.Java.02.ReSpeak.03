@@ -7,46 +7,57 @@ import java.io.IOException;
 
 public class DataUser {
 
-    private static String pathToDataDir = "";
-    private static String dataUserDir = "DataUser";
+    //todo задавать пути и имена из -- ??
+    private String pathToDataDir = "";
+    private String dataUserDir = "DataUser";
 
-    private static String pathToDataUserDir = String.format("%s/%s", pathToDataDir, dataUserDir);
+    private String messDir = "Messages";
+    private String messFileName = messDir + ".txt";
 
-    private static String messDir = "Messages";
-    private static String messFile = messDir + ".txt";
-
-    private static String logDir = "Logs";
-    private static String logFile = logDir + ".txt";
+    private String logDir = "Logs";
+    private String logFileName = logDir + ".txt";
 
 
-    public static void createDataUser(String nameUser) {
+    public  void createDataUser(String nameUser) {
+        if (pathToDataDir == "") {
+            String pathToNameUserDir = String.format("%s/%s/%s", pathToDataDir, dataUserDir, nameUser);
+        }
+        String pathToNameUserDir = String.format("%s/%s", dataUserDir, nameUser);
 
-        File userDir = new File( pathToDataUserDir);
 
+        createDirs(pathToNameUserDir);
+        createFiles(pathToNameUserDir);
+    }
+
+    public void createDirs(String pathToNameUserDir) {
+        File userDir = new File( pathToNameUserDir);
         if (!userDir.exists()) {
             userDir.mkdirs();
         }
-
-
-
-
-
-        
     }
 
+    public void createFiles(String pathToNameUserDir) {
 
-    public static void createFileMessageHistory(String nameUser) {
-        File messHistory = new File(pathToDir + nameUser + messDir,
-                messFile);
-
-        if (!messHistory.exists()) {
+        File messFile = new File(String.format("%s/%s/", pathToNameUserDir, messDir, messFileName));
+        if (!messFile.exists()) {
             try {
-                messHistory.createNewFile();
+                messFile.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Файл MessageHistory не создан");
+                System.out.printf("Файл %s не создан", messFileName);
             }
         }
+
+        File logFile = new File(String.format("%s/%s/", pathToNameUserDir, logDir, logFileName));
+        if (!logFile.exists()) {
+            try {
+                logFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.printf("Файл %s не создан", logFileName);
+            }
+        }
+
 
 
     }
@@ -54,7 +65,9 @@ public class DataUser {
 
     //for Tasting
     public static void main(String[] args) {
-        createDataUser("555");
+        DataUser dataUser = new DataUser();
+
+        dataUser.createDataUser("555");
     }
 
 }

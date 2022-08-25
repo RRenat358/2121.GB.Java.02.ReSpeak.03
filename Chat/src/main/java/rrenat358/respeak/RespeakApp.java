@@ -96,8 +96,8 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
-        dataUser.createDataUser(userName);
-        dataUser.createFileMessageHistory(userName);
+//        dataUser.createDataUser(userName);
+//        dataUser.createFileMessageHistory(userName);
     }
 
     public static void main(String[] args) {
