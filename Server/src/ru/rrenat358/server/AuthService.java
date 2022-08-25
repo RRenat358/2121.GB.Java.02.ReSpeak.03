@@ -10,7 +10,7 @@ public class AuthService {
     private DBConnect dbConnect = new DBConnect();
     private ArrayList<String> userDBLogPassName = new ArrayList<>();
 
-    public String getUserNameByLogPass3(String login, String password) {
+    public String getUserNameByLogPass(String login, String password) {
         userDBLogPassName.clear();
         userDBLogPassName = dbConnect.isLogPass(login, password);
         if (userDBLogPassName.isEmpty()) {

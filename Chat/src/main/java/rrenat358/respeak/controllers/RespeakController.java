@@ -43,10 +43,11 @@ public class RespeakController {
 
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
+    private AuthController authController = AuthController.getInstance();
+
     private Network network = Network.getInstance();
     private DataUser dataUser = DataUser.getInstance();
     private FileIO fileIO = FileIO.getInstance();
-
 
 
 
@@ -61,7 +62,7 @@ public class RespeakController {
 //        pathFileMessage = String.format("%s/%s/%s", "DataUser", "User03", "Messages/Messages.txt");
         pathFileMessage = String.format(
                 "%s/%s/%s/%s",
-                dataUser.getDataUserDir(), "User03",
+                dataUser.getDataUserDir(), /*"User03",*/ authController.getLogin(),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
         fileIO.writeNewLineToFile(pathFileMessage, message);

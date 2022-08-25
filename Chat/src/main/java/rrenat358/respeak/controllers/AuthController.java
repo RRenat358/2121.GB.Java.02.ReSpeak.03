@@ -26,15 +26,31 @@ public class AuthController {
     @FXML
     public TextField loginField;
 
+    private String login;
+    private String password;
+    private String userName;
+
+
+
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
     public ReadMessageListener readMessageListener;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
 
+    public AuthController() {
+    }
+
+    public AuthController(String login, String password, String userName) {
+        this.login = login;
+        this.password = password;
+        this.userName = userName;
+    }
+
+
     @FXML
     public void executeAuth() {
-        String login = loginField.getText();
-        String password = passwordField.getText();
+        this.login = loginField.getText();
+        this.password = passwordField.getText();
 
         if (login == null || password == null || login.isBlank() || password.isBlank()) {
             DialogEnum.AuthError.LOGOPASS_EMPTY.show();
@@ -59,6 +75,7 @@ public class AuthController {
         }
     }
 
+
     public void initializeMessageHandlerAuthController() {
         readMessageListener = network.addReadMessageListner(new ReadMessageListener() {
             @Override
@@ -78,6 +95,7 @@ public class AuthController {
         });
     }
 
+
     public boolean isConnectedToServer() {
         return network.isConnected() || network.connect();
     }
@@ -85,5 +103,40 @@ public class AuthController {
     public void close() {
         network.removeReadMessageListner(readMessageListener);
     }
+
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
+    private static class SingletonHelper {
+        private static final AuthController INSTANCE = new AuthController();
+    }
+
+    public static AuthController getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
+
 
 }
