@@ -26,6 +26,9 @@ public class DataUser {
         String pathToNameUserDir = String.format("%s/%s", dataUserDir, nameUser);
 
         createDirs(pathToNameUserDir);
+        createDirs(String.format("%s/%s", pathToNameUserDir, messDir));
+        createDirs(String.format("%s/%s", pathToNameUserDir, logDir));
+
         createFiles(pathToNameUserDir);
     }
 
@@ -40,7 +43,8 @@ public class DataUser {
 
     public void createFiles(String pathToNameUserDir) {
 
-        File messFile = new File(String.format("%s/%s/", pathToNameUserDir, messDir, messFileName));
+//        File messFile = new File(String.format("%s/%s/", pathToNameUserDir, messDir, messFileName));
+        File messFile = new File(String.format("%s/%s/%s", pathToNameUserDir, messDir, messFileName));
         if (!messFile.exists()) {
             try {
                 messFile.createNewFile();
@@ -52,7 +56,7 @@ public class DataUser {
         writeStartDataUser(messFile);
 
 
-        File logFile = new File(String.format("%s/%s/", pathToNameUserDir, logDir, logFileName));
+        File logFile = new File(String.format("%s/%s/%s", pathToNameUserDir, logDir, logFileName));
         if (!logFile.exists()) {
             try {
                 logFile.createNewFile();
@@ -68,11 +72,13 @@ public class DataUser {
 
     public void writeStartDataUser(File file) {
         String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(
-                "yyyy.MM.dd-HH:mm:ss" + "   |   "));
+                "yyyy.MM.dd-HHmmss"));
 
         try(Writer writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write("=== Start DataUser ==============================");
-            writer.write(localDateTime + "\n");
+//            writer.write("=== Start DataUser ==============================\n");
+//            writer.write(localDateTime + "\n");
+            writer.append("=== Start DataUser ==============================\n");
+            writer.append(localDateTime + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
