@@ -1,5 +1,8 @@
 package rrenat358.respeak.FileHandler;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * for Tasting
  */
@@ -8,9 +11,30 @@ package rrenat358.respeak.FileHandler;
 public class FileHandlerTestApp {
 
     public static void main(String[] args) {
-        DataUser dataUser = new DataUser();
 
-        dataUser.createDataUser("1447");
+        String string = "65418468543";
+        String file = "DataUser/FileHandlerTestApp.txt";
+        String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(
+                "yyyy.MM.dd. HHmmss"));
+
+
+        DataUser dataUser = new DataUser();
+        FileIO fileIO = new FileIO();
+
+
+
+
+
+//        dataUser.createDataUser("1447");
+
+
+
+        fileIO.writeNewLineToFile(file, localDateTime);
+        fileIO.writeContinueLineToFile(file, " ", localDateTime);
+
+
+
+
     }
 
     public FileHandlerTestApp() {
