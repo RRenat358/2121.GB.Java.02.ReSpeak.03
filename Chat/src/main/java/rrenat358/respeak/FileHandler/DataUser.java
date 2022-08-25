@@ -25,7 +25,6 @@ public class DataUser {
         }
         String pathToNameUserDir = String.format("%s/%s", dataUserDir, nameUser);
 
-        createDirs(pathToNameUserDir);
         createDirs(String.format("%s/%s", pathToNameUserDir, messDir));
         createDirs(String.format("%s/%s", pathToNameUserDir, logDir));
 
@@ -43,7 +42,6 @@ public class DataUser {
 
     public void createFiles(String pathToNameUserDir) {
 
-//        File messFile = new File(String.format("%s/%s/", pathToNameUserDir, messDir, messFileName));
         File messFile = new File(String.format("%s/%s/%s", pathToNameUserDir, messDir, messFileName));
         if (!messFile.exists()) {
             try {
@@ -72,13 +70,12 @@ public class DataUser {
 
     public void writeStartDataUser(File file) {
         String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern(
-                "yyyy.MM.dd-HHmmss"));
+                "yyyy.MM.dd. HHmmss"));
 
-        try(Writer writer = new BufferedWriter(new FileWriter(file))) {
-//            writer.write("=== Start DataUser ==============================\n");
-//            writer.write(localDateTime + "\n");
-            writer.append("=== Start DataUser ==============================\n");
-            writer.append(localDateTime + "\n");
+        try(Writer writer = new BufferedWriter(new FileWriter(file, true))) {
+            writer.write("\n=== Start DataUser ==============================\n");
+            writer.write(localDateTime + "\n");
+
         } catch (IOException e) {
             e.printStackTrace();
         }

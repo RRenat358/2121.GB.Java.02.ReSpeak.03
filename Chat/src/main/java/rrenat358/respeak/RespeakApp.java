@@ -32,7 +32,7 @@ public class RespeakApp extends Application {
     private static RespeakApp INSTANCE;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
-    private DataUser dataUser;
+    private DataUser dataUser = new DataUser();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -96,8 +96,8 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
-//        dataUser.createDataUser(userName);
-//        dataUser.createFileMessageHistory(userName);
+        dataUser.createDataUser(userName);
+
     }
 
     public static void main(String[] args) {
