@@ -38,7 +38,7 @@ public class RespeakController {
     public MenuItem menuExit;
 
     String recipient = null;
-    String pachFileMessage = "";
+    String pathFileMessage = "";
 
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
@@ -56,8 +56,8 @@ public class RespeakController {
         }
 
         //todo переписать сборку пути до файла ↓
-        pachFileMessage = String.format("%s/%s/%s", "DataUser", "User03", "Messages/Messages.txt");
-        fileIO.writeNewLineToFile(pachFileMessage, message);
+        pathFileMessage = String.format("%s/%s/%s", "DataUser", "User03", "Messages/Messages.txt");
+        fileIO.writeNewLineToFile(pathFileMessage, message);
 
 
         recipient = null;

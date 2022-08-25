@@ -4,8 +4,6 @@ package rrenat358.respeak.FileHandler;
 import java.io.*;
 
 public class FileIO {
-//    String string = "65418468543";
-//    String file = "DataUser/demo.txt";
 
     public void writeNewLineToFile(String file, String string) {
         try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {
