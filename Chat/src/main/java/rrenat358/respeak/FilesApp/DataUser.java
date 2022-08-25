@@ -5,15 +5,17 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class MkdirUser {
+public class DataUser {
 
-    private static String pathToDir = "Chat/src/main/Files/Users/";
-    private static String messDir = "/Messages/";
-    private static String messFile = "Messages.txt";
+    private static String pathToDataDir = "";
+    private static String dataUserDir = "DataUser";
+
+    private static String messDir = "Messages";
+    private static String messFile = messDir + ".txt";
 
 
     public static void MkdirUser(String userLogin) {
-        File userDir = new File(pathToDir + userLogin + messDir);
+        File userDir = new File( String.format("%s/%s", pathToDataDir, dataUserDir));
 
         if (!userDir.exists()) {
             userDir.mkdirs();
@@ -22,7 +24,7 @@ public class MkdirUser {
 
 
     public static void createFileMessageHistory(String userLogin) {
-        File messHistory= new File(pathToDir + userLogin + messDir,
+        File messHistory = new File(pathToDir + userLogin + messDir,
                 messFile);
 
         if (!messHistory.exists()) {
@@ -35,12 +37,7 @@ public class MkdirUser {
         }
 
 
-
-
     }
-
-
-
 
 
     //for Tasting

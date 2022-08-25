@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import rrenat358.respeak.FilesApp.MkdirUser;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
