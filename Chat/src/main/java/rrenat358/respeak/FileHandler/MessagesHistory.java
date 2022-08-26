@@ -11,6 +11,10 @@ public class MessagesHistory {
     }
 
 
+    public void messLogReadLast20(String path) {
+
+
+    }
 
 
 }
