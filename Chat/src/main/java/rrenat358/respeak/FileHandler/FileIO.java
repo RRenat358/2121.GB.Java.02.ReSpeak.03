@@ -2,6 +2,11 @@ package rrenat358.respeak.FileHandler;
 
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import org.apache.commons.io.input.ReversedLinesFileReader;
+import java.util.Collections;
+
 
 public class FileIO {
 
@@ -22,6 +27,29 @@ public class FileIO {
             System.err.printf("Запись в файл %s не создана", file);
         }
     }
+
+
+
+    //======================================================================
+    public static ArrayList<String> fileReadLastLines(String pathFile, int nLast) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        try (ReversedLinesFileReader readLastLine = new ReversedLinesFileReader(
+                new File(pathFile), StandardCharsets.UTF_8)) {
+
+            String lastLine;
+            int countLine = 0;
+
+            while (countLine < nLast && (lastLine = readLastLine.readLine()) != null) {
+                arrayList.add(lastLine);
+                countLine++;
+            }
+            Collections.reverse(arrayList);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return arrayList;
+    }
+
 
 
 
