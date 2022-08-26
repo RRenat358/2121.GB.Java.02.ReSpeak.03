@@ -38,8 +38,8 @@ public class RespeakController {
     @FXML
     public MenuItem menuExit;
 
-    String recipient = null;
-    String pathFileMessage = "";
+    private String recipient = null;
+    private String pathFileMessage = "";
 
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
