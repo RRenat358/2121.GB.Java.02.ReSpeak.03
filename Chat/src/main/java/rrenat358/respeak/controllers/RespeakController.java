@@ -19,6 +19,7 @@ import ru.rrenat358.command.commands.UpdateUserListCommandData;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 public class RespeakController {
@@ -42,6 +43,7 @@ public class RespeakController {
     private String pathFileMessage = "";
 
 
+
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private AuthController authController = AuthController.getInstance();
 
@@ -49,7 +51,13 @@ public class RespeakController {
     private DataUser dataUser = DataUser.getInstance();
     private FileIO fileIO = FileIO.getInstance();
 
-
+/*
+    private String pathFileMessage2 = String.format(
+            "%s/%s/%s/%s",
+            dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
+            dataUser.getMessDir(), dataUser.getMessFileName()
+    );
+*/
 
     public void sendMessage() {
         String message = messageTextField.getText().trim();
@@ -171,6 +179,19 @@ public class RespeakController {
         messageBox.setBorder(null); //todo -- this does not work
         messageButtonInput.disableProperty().bind(messageTextField.textProperty().isEmpty());
         messageInputRequestFocus();
+    }
+
+    public void messageHistory() {
+/*
+        String pathFileMessage3 = String.format(
+                "%s/%s/%s/%s",
+                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
+                dataUser.getMessDir(), dataUser.getMessFileName()
+        );
+*/
+
+        for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
+            messageBox.appendText(s);
     }
 
 

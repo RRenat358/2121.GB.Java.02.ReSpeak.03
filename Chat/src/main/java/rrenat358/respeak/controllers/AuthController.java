@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import rrenat358.respeak.FileHandler.DataUser;
+import rrenat358.respeak.FileHandler.FileIO;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -38,6 +39,9 @@ public class AuthController {
     public ReadMessageListener readMessageListener;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private DataUser dataUser = DataUser.getInstance();
+    private FileIO fileIO = FileIO.getInstance();
+    private RespeakController respeakController = RespeakController.getInstance();
+
 
     public AuthController() {
     }
@@ -101,6 +105,19 @@ public class AuthController {
                 }
             }
         });
+    }
+
+    public void messageHistory() {
+
+        String pathFileMessage = String.format(
+                "%s/%s/%s/%s",
+                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
+                dataUser.getMessDir(), dataUser.getMessFileName()
+        );
+
+
+        for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
+            respeakController.messageBox.appendText(s);
     }
 
 

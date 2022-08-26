@@ -64,6 +64,7 @@ public class RespeakApp extends Application {
         getRespeakController().controllerSetting();
 
         getRespeakController().initializeMessageHandlerChatController();
+        getRespeakController().messageHistory();
 
         chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
