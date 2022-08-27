@@ -32,6 +32,8 @@ public class RespeakApp extends Application {
     private FXMLLoader authWindowLoader;
 
     private static RespeakApp INSTANCE;
+    private RespeakController respeakController = RespeakController.getInstance();
+    private AuthController authController = AuthController.getInstance();
 
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
@@ -64,7 +66,14 @@ public class RespeakApp extends Application {
         getRespeakController().controllerSetting();
 
         getRespeakController().initializeMessageHandlerChatController();
-        getRespeakController().messageHistory();
+
+
+//        getRespeakController().messageHistory();
+//        respeakController.messageHistory();
+
+
+        authController.messageHistory();
+
 
         chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {

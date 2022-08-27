@@ -182,13 +182,12 @@ public class RespeakController {
     }
 
     public void messageHistory() {
-/*
-        String pathFileMessage3 = String.format(
+
+        String pathFileMessage = String.format(
                 "%s/%s/%s/%s",
                 dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
-*/
 
         for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
             messageBox.appendText(s);
