@@ -69,10 +69,8 @@ public class RespeakApp extends Application {
 
 
 //        getRespeakController().messageHistory();
-//        respeakController.messageHistory();
-
-
-        authController.messageHistory();
+        respeakController.messageHistory();
+//        authController.messageHistory();
 
 
         chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

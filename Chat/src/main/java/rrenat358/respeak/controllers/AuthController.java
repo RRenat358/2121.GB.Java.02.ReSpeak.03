@@ -107,18 +107,17 @@ public class AuthController {
         });
     }
 
+/*
     public void messageHistory() {
-
         String pathFileMessage = String.format(
                 "%s/%s/%s/%s",
                 dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
-
-
         for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
             respeakController.messageBox.appendText(s);
     }
+*/
 
 
     public boolean isConnectedToServer() {
