@@ -69,8 +69,9 @@ public class RespeakApp extends Application {
 
 
 //        getRespeakController().messageHistory();
-        respeakController.messageHistory();
 //        authController.messageHistory();
+//        respeakController.messageHistory();
+//        respeakController.messageHistory2();
 
 
         chatStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -107,6 +108,7 @@ public class RespeakApp extends Application {
 
         getChatStage().show();
         getChatStage().setTitle(nameApp + " --> " + userName);
+//        respeakController.messageHistory2();
     }
 
 

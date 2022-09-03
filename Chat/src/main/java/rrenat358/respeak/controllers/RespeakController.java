@@ -43,7 +43,6 @@ public class RespeakController {
     private String pathFileMessage = "";
 
 
-
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private AuthController authController = AuthController.getInstance();
 
@@ -73,6 +72,7 @@ public class RespeakController {
         );
         fileIO.writeNewLineToFile(pathFileMessage, message);
 
+        messageHistory();
 
         recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
@@ -189,6 +189,24 @@ public class RespeakController {
         );
         for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
             messageBox.appendText(s);
+    }
+
+    public void messageHistory2() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            String pathFileMessage = String.format(
+                    "%s/%s/%s/%s",
+                    dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
+                    dataUser.getMessDir(), dataUser.getMessFileName()
+            );
+            for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
+                messageBox.appendText(s);
+        }).start();
     }
 
 
