@@ -112,7 +112,6 @@ public class RespeakApp extends Application {
     }
 
 
-
     public static void main(String[] args) {
         launch();
     }
