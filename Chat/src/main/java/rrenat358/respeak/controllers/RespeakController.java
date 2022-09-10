@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import rrenat358.respeak.FileHandler.DataUser;
+import rrenat358.respeak.FileHandler.FileIO;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -36,9 +38,19 @@ public class RespeakController {
     @FXML
     public MenuItem menuExit;
 
+    private String recipient = null;
+    private String pathFileMessage = "";
+
+    boolean isReadMessageHistory = false;
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
+    private AuthController authController = AuthController.getInstance();
+
     private Network network = Network.getInstance();
+    private DataUser dataUser = DataUser.getInstance();
+    private FileIO fileIO = FileIO.getInstance();
+
+
 
     public void sendMessage() {
         String message = messageTextField.getText().trim();
@@ -47,7 +59,20 @@ public class RespeakController {
             return;
         }
 
-        String recipient = null;
+        if (!isReadMessageHistory) {
+            readMessageHistory(respeakApp.nLineForReadMessageHistory);
+            isReadMessageHistory = true;
+        }
+
+        pathFileMessage = String.format(
+                "%s/%s/%s/%s",
+                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
+                dataUser.getMessDir(), dataUser.getMessFileName()
+        );
+        fileIO.writeNewLineToFile(pathFileMessage, message);
+
+
+        recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
             recipient = userListing.getSelectionModel().getSelectedItem().toString();
         }
@@ -74,6 +99,7 @@ public class RespeakController {
         messageInputRequestFocus();
     }
 
+
     public void messageSendToBox(String selectedUserName, String message) {
         messageBox.appendText(LocalDateTime.now().format(DateTimeFormatter.ofPattern(
                 "yyyy.MM.dd-HH:mm:ss" + "   |   "
@@ -87,6 +113,7 @@ public class RespeakController {
         messageBox.appendText("––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
         messageBox.appendText(System.lineSeparator());
     }
+
 
     void messageInputRequestFocus() {
         Platform.runLater(() ->
@@ -152,6 +179,17 @@ public class RespeakController {
         messageInputRequestFocus();
     }
 
+    public void readMessageHistory(int nLastMessage) {
+        String pathFileMessage = String.format(
+                "%s/%s/%s/%s",
+                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
+                dataUser.getMessDir(), dataUser.getMessFileName()
+        );
+        for (String s : fileIO.fileReadLastLines(pathFileMessage, nLastMessage)) {
+            messageBox.appendText(s);
+        }
+        messageBox.appendText("\n\n––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––\n");
+    }
 
     @FXML
     private void closeWindows() {

@@ -14,6 +14,7 @@ import rrenat358.respeak.controllers.RespeakController;
 import rrenat358.respeak.model.TimerAuthNetworkConnect;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class RespeakApp extends Application {
@@ -21,7 +22,10 @@ public class RespeakApp extends Application {
     // Settings manual // todo вынести отдельно
     private String nameApp = "reSpeak!";
     private int authTimeOffSeconds = 10000;
+    public int nLineForReadMessageHistory = 100;
     //---
+
+    public ArrayList<String> authDataUser = new ArrayList<>();
 
     private Stage chatStage;
     private Stage authStage;
@@ -29,8 +33,12 @@ public class RespeakApp extends Application {
     private FXMLLoader authWindowLoader;
 
     private static RespeakApp INSTANCE;
+    private RespeakController respeakController = RespeakController.getInstance();
+    private AuthController authController = AuthController.getInstance();
+
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -96,6 +104,8 @@ public class RespeakApp extends Application {
         getChatStage().setTitle(nameApp + " --> " + userName);
     }
 
+
+
     public static void main(String[] args) {
         launch();
     }
@@ -106,6 +116,15 @@ public class RespeakApp extends Application {
 
     public Stage getAuthStage() {
         return authStage;
+    }
+
+
+    public ArrayList<String> getAuthDataUser() {
+        return authDataUser;
+    }
+
+    public void setAuthDataUser(ArrayList<String> authDataUser) {
+        this.authDataUser = authDataUser;
     }
 
     public RespeakController getRespeakController() {

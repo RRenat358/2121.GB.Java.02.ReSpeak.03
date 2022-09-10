@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import rrenat358.respeak.FileHandler.DataUser;
 import rrenat358.respeak.RespeakApp;
 import rrenat358.respeak.dialogs.DialogEnum;
 import rrenat358.respeak.model.Network;
@@ -26,15 +27,32 @@ public class AuthController {
     @FXML
     public TextField loginField;
 
+    private String login;
+    private String password;
+    private String userName;
+
+
+
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
     public ReadMessageListener readMessageListener;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
+    private DataUser dataUser = DataUser.getInstance();
+
+    public AuthController() {
+    }
+
+    public AuthController(String login, String password, String userName) {
+        this.login = login;
+        this.password = password;
+        this.userName = userName;
+    }
+
 
     @FXML
     public void executeAuth() {
-        String login = loginField.getText();
-        String password = passwordField.getText();
+        this.login = loginField.getText();
+        this.password = passwordField.getText();
 
         if (login == null || password == null || login.isBlank() || password.isBlank()) {
             DialogEnum.AuthError.LOGOPASS_EMPTY.show();
@@ -59,15 +77,22 @@ public class AuthController {
         }
     }
 
+
     public void initializeMessageHandlerAuthController() {
         readMessageListener = network.addReadMessageListner(new ReadMessageListener() {
             @Override
             public void processReceivedCommand(Command command) {
                 if (command.getType() == CommandType.AUTH_OK) {
                     AuthOkCommandData data = (AuthOkCommandData) command.getData();
-                    String userName = data.getUserName();
+                    userName = data.getUserName();
                     Platform.runLater(() -> {
                         respeakApp.switchToChatWindow(userName);
+                        dataUser.createDataUser(login);
+
+                        respeakApp.getAuthDataUser().clear();
+                        respeakApp.getAuthDataUser().add(login);
+                        respeakApp.getAuthDataUser().add(password);
+                        respeakApp.getAuthDataUser().add(userName);
                     });
                 } else {
                     Platform.runLater(() -> {
@@ -78,6 +103,7 @@ public class AuthController {
         });
     }
 
+
     public boolean isConnectedToServer() {
         return network.isConnected() || network.connect();
     }
@@ -85,5 +111,15 @@ public class AuthController {
     public void close() {
         network.removeReadMessageListner(readMessageListener);
     }
+
+
+    private static class SingletonHelper {
+        private static final AuthController INSTANCE = new AuthController();
+    }
+
+    public static AuthController getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
+
 
 }

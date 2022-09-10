@@ -61,7 +61,7 @@ public class ClientHandler {
                 String login = data.getLogin();
                 String password = data.getPassword();
 
-                String userName = this.serverHandler.getAuthService().getUserNameByLogPass3(login, password);
+                String userName = this.serverHandler.getAuthService().getUserNameByLogPass(login, password);
 
                 if (userName == null) {
                     sendCommand(Command.errorCommand("Некорректные логин/пароль"));
