@@ -41,6 +41,7 @@ public class RespeakController {
     private String recipient = null;
     private String pathFileMessage = "";
 
+    boolean isReadMessageHistory = false;
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private AuthController authController = AuthController.getInstance();
@@ -56,6 +57,11 @@ public class RespeakController {
         if (message.isEmpty()) {
             messageInputRequestFocus();
             return;
+        }
+
+        if (!isReadMessageHistory) {
+            readMessageHistory(respeakApp.nLineForReadMessageHistory);
+            isReadMessageHistory = true;
         }
 
         pathFileMessage = String.format(
@@ -173,6 +179,17 @@ public class RespeakController {
         messageInputRequestFocus();
     }
 
+    public void readMessageHistory(int nLastMessage) {
+        String pathFileMessage = String.format(
+                "%s/%s/%s/%s",
+                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
+                dataUser.getMessDir(), dataUser.getMessFileName()
+        );
+        for (String s : fileIO.fileReadLastLines(pathFileMessage, nLastMessage)) {
+            messageBox.appendText(s);
+        }
+        messageBox.appendText("\n\n––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––\n");
+    }
 
     @FXML
     private void closeWindows() {

@@ -22,6 +22,7 @@ public class RespeakApp extends Application {
     // Settings manual // todo вынести отдельно
     private String nameApp = "reSpeak!";
     private int authTimeOffSeconds = 10000;
+    public int nLineForReadMessageHistory = 100;
     //---
 
     public ArrayList<String> authDataUser = new ArrayList<>();
@@ -32,6 +33,8 @@ public class RespeakApp extends Application {
     private FXMLLoader authWindowLoader;
 
     private static RespeakApp INSTANCE;
+    private RespeakController respeakController = RespeakController.getInstance();
+    private AuthController authController = AuthController.getInstance();
 
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private int timeOffMilliSeconds = authTimeOffSeconds * 1000;
