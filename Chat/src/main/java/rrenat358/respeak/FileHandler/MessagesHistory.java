@@ -12,20 +12,11 @@ public class MessagesHistory {
     private FileIO fileIO = FileIO.getInstance();
 
 
-
-
     public void messageHistoryPartElement(String pathFile, int partElement) {
-/*
-        String pathFileMessage = String.format(
-                "%s/%s/%s/%s",
-                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
-                dataUser.getMessDir(), dataUser.getMessFileName()
-        );
-*/
-
         for (String s : fileIO.fileReadLastLines(pathFile, partElement))
             respeakController.messageBox.appendText(s);
     }
+
 
 
 

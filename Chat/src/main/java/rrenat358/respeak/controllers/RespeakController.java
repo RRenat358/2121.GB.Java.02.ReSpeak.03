@@ -19,7 +19,6 @@ import ru.rrenat358.command.commands.UpdateUserListCommandData;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 
 public class RespeakController {
@@ -52,6 +51,7 @@ public class RespeakController {
     private FileIO fileIO = FileIO.getInstance();
 
 
+
     public void sendMessage() {
         String message = messageTextField.getText().trim();
         if (message.isEmpty()) {
@@ -70,6 +70,7 @@ public class RespeakController {
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
         fileIO.writeNewLineToFile(pathFileMessage, message);
+
 
         recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
