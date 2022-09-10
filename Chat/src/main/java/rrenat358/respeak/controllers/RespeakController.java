@@ -60,7 +60,7 @@ public class RespeakController {
         }
 
         if (!isReadMessageHistory) {
-            messageHistory();
+            readMessageHistory(respeakApp.nLineForReadMessageHistory);
             isReadMessageHistory = true;
         }
 
@@ -179,13 +179,13 @@ public class RespeakController {
         messageInputRequestFocus();
     }
 
-    public void messageHistory() {
+    public void readMessageHistory(int nLastMessage) {
         String pathFileMessage = String.format(
                 "%s/%s/%s/%s",
                 dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
-        for (String s : fileIO.fileReadLastLines(pathFileMessage, 100))
+        for (String s : fileIO.fileReadLastLines(pathFileMessage, nLastMessage))
             messageBox.appendText(s);
     }
 

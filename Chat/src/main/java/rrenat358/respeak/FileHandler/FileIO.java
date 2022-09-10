@@ -45,7 +45,7 @@ public class FileIO {
                 countLine++;
             }
             Collections.reverse(arrayList);
-            arrayList.add("\n––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––\n");
+            arrayList.add("\n\n––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––\n");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

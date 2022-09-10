@@ -22,6 +22,7 @@ public class RespeakApp extends Application {
     // Settings manual // todo вынести отдельно
     private String nameApp = "reSpeak!";
     private int authTimeOffSeconds = 10000;
+    public int nLineForReadMessageHistory = 100;
     //---
 
     public ArrayList<String> authDataUser = new ArrayList<>();
