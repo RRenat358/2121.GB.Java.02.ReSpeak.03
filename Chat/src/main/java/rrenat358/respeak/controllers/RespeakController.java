@@ -185,8 +185,10 @@ public class RespeakController {
                 dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
-        for (String s : fileIO.fileReadLastLines(pathFileMessage, nLastMessage))
+        for (String s : fileIO.fileReadLastLines(pathFileMessage, nLastMessage)) {
             messageBox.appendText(s);
+        }
+        messageBox.appendText("\n\n––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––\n");
     }
 
     @FXML
