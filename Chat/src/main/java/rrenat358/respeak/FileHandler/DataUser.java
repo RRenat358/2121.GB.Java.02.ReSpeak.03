@@ -73,7 +73,7 @@ public class DataUser {
                 "yyyy.MM.dd. HHmmss"));
 
         try (Writer writer = new BufferedWriter(new FileWriter(file, true))) {
-            writer.write("\n=== Start DataUser ==============================\n");
+            writer.write("\n\n=== Start App & DataUser ==============================\n");
             writer.write(localDateTime + "\n");
 
         } catch (IOException e) {
