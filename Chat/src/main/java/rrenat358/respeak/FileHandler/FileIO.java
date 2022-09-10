@@ -41,6 +41,7 @@ public class FileIO {
 
             while (countLine < nLast && (lastLine = readLastLine.readLine()) != null) {
                 arrayList.add(lastLine);
+                arrayList.add("\n");
                 countLine++;
             }
             Collections.reverse(arrayList);

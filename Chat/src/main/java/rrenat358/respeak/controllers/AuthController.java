@@ -33,13 +33,12 @@ public class AuthController {
     private String userName;
 
 
-
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private Network network = Network.getInstance();
     public ReadMessageListener readMessageListener;
     private TimerAuthNetworkConnect timerAuthNetworkConnect = TimerAuthNetworkConnect.getInstance();
     private DataUser dataUser = DataUser.getInstance();
-    private FileIO fileIO = FileIO.getInstance();
+
     private RespeakController respeakController = RespeakController.getInstance();
 
 
@@ -106,19 +105,6 @@ public class AuthController {
             }
         });
     }
-
-/*
-    public void messageHistory() {
-        String pathFileMessage = String.format(
-                "%s/%s/%s/%s",
-                dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
-                dataUser.getMessDir(), dataUser.getMessFileName()
-        );
-        for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
-            respeakController.messageBox.appendText(s);
-    }
-*/
-
 
     public boolean isConnectedToServer() {
         return network.isConnected() || network.connect();

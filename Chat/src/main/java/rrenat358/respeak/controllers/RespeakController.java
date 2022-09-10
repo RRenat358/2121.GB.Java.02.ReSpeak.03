@@ -42,6 +42,7 @@ public class RespeakController {
     private String recipient = null;
     private String pathFileMessage = "";
 
+    boolean isReadMessageHistory = false;
 
     private RespeakApp respeakApp = RespeakApp.getInstance();
     private AuthController authController = AuthController.getInstance();
@@ -50,13 +51,6 @@ public class RespeakController {
     private DataUser dataUser = DataUser.getInstance();
     private FileIO fileIO = FileIO.getInstance();
 
-/*
-    private String pathFileMessage2 = String.format(
-            "%s/%s/%s/%s",
-            dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
-            dataUser.getMessDir(), dataUser.getMessFileName()
-    );
-*/
 
     public void sendMessage() {
         String message = messageTextField.getText().trim();
@@ -65,14 +59,17 @@ public class RespeakController {
             return;
         }
 
+        if (!isReadMessageHistory) {
+            messageHistory();
+            isReadMessageHistory = true;
+        }
+
         pathFileMessage = String.format(
                 "%s/%s/%s/%s",
                 dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
         fileIO.writeNewLineToFile(pathFileMessage, message);
-
-        messageHistory();
 
         recipient = null;
         if (!userListing.getSelectionModel().isEmpty()) {
@@ -187,28 +184,9 @@ public class RespeakController {
                 dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
                 dataUser.getMessDir(), dataUser.getMessFileName()
         );
-        for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
+        for (String s : fileIO.fileReadLastLines(pathFileMessage, 100))
             messageBox.appendText(s);
     }
-
-    public void messageHistory2() {
-        new Thread(() -> {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            String pathFileMessage = String.format(
-                    "%s/%s/%s/%s",
-                    dataUser.getDataUserDir(), respeakApp.authDataUser.get(0),
-                    dataUser.getMessDir(), dataUser.getMessFileName()
-            );
-            for (String s : fileIO.fileReadLastLines(pathFileMessage, 10))
-                messageBox.appendText(s);
-        }).start();
-    }
-
 
     @FXML
     private void closeWindows() {
