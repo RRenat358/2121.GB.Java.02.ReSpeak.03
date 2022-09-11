@@ -89,7 +89,8 @@ public class ClientHandler {
         try {
             command = (Command) inputStream.readObject();
         } catch (ClassNotFoundException e) {
-            logger.error("Failed to read Command class");e.printStackTrace();
+            logger.error("Failed to read Command class");
+            e.printStackTrace();
         }
         return command;
     }
