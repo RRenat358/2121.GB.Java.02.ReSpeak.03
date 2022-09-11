@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ServerHandler {
 
@@ -25,18 +26,15 @@ public class ServerHandler {
         {
             authService = new AuthService();
             logger.info("Server has been started");
-            System.out.println("Server has been started");
 
             dbConnect.connect();
             logger.info("Server connection to DB");
-            System.out.println("Server connection to DB");
 
             while (true) {
                 waitClientConnection(serverSocket);
             }
         } catch (IOException ex) {
             logger.error("Server NO started. PORT: {} \n----------",port);
-            System.err.println("Server NO started. PORT: " + port + "\n----------");
             ex.printStackTrace();
         }
     }
@@ -44,12 +42,10 @@ public class ServerHandler {
     private void waitClientConnection(ServerSocket serverSocket) throws IOException {
         Socket clientSocket = serverSocket.accept();
         logger.info("Waiting for new client connection \n----------");
-        System.out.println("Waiting for new client connection \n----------");
 
         ClientHandler clientHandler = new ClientHandler(this, clientSocket);
         clientHandler.startClientHandle();
         logger.info("Client has been connected = {} clientSocket", clientSocket);
-        System.out.println("Client has been connected =");
     }
 
     public synchronized void messagePassAll(ClientHandler sender, String message) throws IOException {
@@ -69,7 +65,7 @@ public class ServerHandler {
     }
 
     private synchronized void notifyUserListUpdated() throws IOException {
-        List<String> users = new /*CopyOnWrite*/ArrayList<>();
+        List<String> users = new CopyOnWriteArrayList<>();
         for (ClientHandler client : clientList) {
             users.add(client.getUserName());
         }
@@ -82,7 +78,7 @@ public class ServerHandler {
     public synchronized boolean isUserNameBusy(String userName) {
         for (ClientHandler client : clientList) {
             if (client.getUserName().equals(userName)) {
-                logger.error("isUserNameBusy() = true");
+                logger.warn("isUserNameBusy() = true");
                 return true;
             }
         }
@@ -91,8 +87,7 @@ public class ServerHandler {
 
     public synchronized void subscribe(ClientHandler clientHandler) throws IOException {
         clientList.add(clientHandler);
-        logger.info("New User subscribe = {} \n--------------------", clientHandler.getUserName());
-        System.out.println("New User subscribe = " + clientHandler.getUserName() + "\n--------------------");
+        logger.info("New User subscribe = {}", clientHandler.getUserName());
         notifyUserListUpdated();
     }
 

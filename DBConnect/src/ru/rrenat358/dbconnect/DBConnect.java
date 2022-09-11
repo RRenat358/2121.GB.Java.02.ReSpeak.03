@@ -1,8 +1,10 @@
 package ru.rrenat358.dbconnect;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class DBConnect implements AutoCloseable {
 
@@ -11,6 +13,8 @@ public class DBConnect implements AutoCloseable {
     String DBType = "sqlite";
     String DBName = "ChatDB.sqlite";
 
+    private static final Logger logger = LogManager.getLogger(DBConnect.class);
+
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     public void connect() {
         try {
@@ -18,9 +22,9 @@ public class DBConnect implements AutoCloseable {
             statement = connection.createStatement();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.err.println("Connect to DB == " + DBType + " : " + DBName + "\n--------------------");
+            logger.error("Connect to DB == {}:{} ", DBType, DBName);
         }
-        System.out.println("Connect to DB == " + DBType + " : " + DBName + "\n--------------------");
+        logger.info("Connect to DB == {}:{} ", DBType, DBName);
     }
 
     public void disconnect() {
@@ -39,7 +43,7 @@ public class DBConnect implements AutoCloseable {
     @Override
     public void close() {
         disconnect();
-        System.out.println("DB disconnected");
+        logger.info("DB disconnected");
     }
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
