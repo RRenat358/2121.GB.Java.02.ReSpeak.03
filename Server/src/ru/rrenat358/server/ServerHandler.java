@@ -1,5 +1,7 @@
 package ru.rrenat358.server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.rrenat358.command.Command;
 import ru.rrenat358.dbconnect.DBConnect;
 
@@ -8,12 +10,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ServerHandler {
 
     private static AuthService authService;
 //    private AuthService authService = AuthService.getInstance();
 
+    private static final Logger logger = LogManager.getLogger(AuthService.class);
     private final List<ClientHandler> clientList = new ArrayList<>();
 
     public void serverStart(int port) {
@@ -21,27 +25,27 @@ public class ServerHandler {
              DBConnect dbConnect =  new DBConnect())
         {
             authService = new AuthService();
-            System.out.println("Server has been started");
+            logger.info("Server has been started");
 
             dbConnect.connect();
-            System.out.println("Server connection to DB");
+            logger.info("Server connection to DB");
 
             while (true) {
                 waitClientConnection(serverSocket);
             }
         } catch (IOException ex) {
-            System.err.println("Server NO started. PORT: " + port + "\n----------");
+            logger.error("Server NO started. PORT: {} \n----------",port);
             ex.printStackTrace();
         }
     }
 
     private void waitClientConnection(ServerSocket serverSocket) throws IOException {
         Socket clientSocket = serverSocket.accept();
-        System.out.println("Waiting for new client connection" + "\n----------");
+        logger.info("Waiting for new client connection \n----------");
 
         ClientHandler clientHandler = new ClientHandler(this, clientSocket);
         clientHandler.startClientHandle();
-        System.out.println("Client has been connected");
+        logger.info("Client has been connected = {} clientSocket", clientSocket);
     }
 
     public synchronized void messagePassAll(ClientHandler sender, String message) throws IOException {
@@ -61,7 +65,7 @@ public class ServerHandler {
     }
 
     private synchronized void notifyUserListUpdated() throws IOException {
-        List<String> users = new /*CopyOnWrite*/ArrayList<>();
+        List<String> users = new CopyOnWriteArrayList<>();
         for (ClientHandler client : clientList) {
             users.add(client.getUserName());
         }
@@ -74,6 +78,7 @@ public class ServerHandler {
     public synchronized boolean isUserNameBusy(String userName) {
         for (ClientHandler client : clientList) {
             if (client.getUserName().equals(userName)) {
+                logger.warn("isUserNameBusy() = true");
                 return true;
             }
         }
@@ -82,7 +87,7 @@ public class ServerHandler {
 
     public synchronized void subscribe(ClientHandler clientHandler) throws IOException {
         clientList.add(clientHandler);
-        System.out.println("New User subscribe -- " + clientHandler.getUserName() + "\n--------------------");
+        logger.info("New User subscribe = {}", clientHandler.getUserName());
         notifyUserListUpdated();
     }
 
